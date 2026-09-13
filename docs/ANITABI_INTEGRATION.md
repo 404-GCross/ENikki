@@ -43,6 +43,26 @@ Anitabi 网站还包含附近点位、签到、投稿、审核、照片上传、
 默认屏蔽 R 限内容等能力。这些是网站产品行为，部分内部接口没有开放文档，
 ENikki 不应直接依赖。
 
+### 2.1 Anitabi 自己的作品搜索与 Bangumi
+
+Anitabi 前端实际分为两层搜索：
+
+1. 地图首页先搜索 Anitabi 已加载的作品与点位索引，只覆盖站内已有巡礼数据的作品。
+2. 首页没有结果时，引导用户进入 Anitabi 作品搜索。
+
+Anitabi 作品搜索页面通过 Anitabi 后端调用以 `bgm/search` 和
+`bgm/subject/{id}` 命名的接口，并提供 Bangumi 作品 URL 导入入口。
+这表明 Anitabi 的作品元数据、作品详情和 `subjectID` 体系建立在 Bangumi
+之上，Anitabi 自己主要维护巡礼点位、截图及其索引关系。
+
+需要注意：
+
+- 这些 `bgm/*` 接口是 Anitabi 内部接口，没有出现在其公开 API 文档中。
+- ENikki 不应调用这些内部接口，也不应把其地址当作稳定接口。
+- ENikki 应使用 Bangumi 官方接口搜索作品，再把 `subjectID` 传给 Anitabi
+  官方公开的 `/bangumi/{subjectID}/lite` 和 `/points/detail`。
+- 如果作品没有 Bangumi 条目，Anitabi 通常也无法提供可靠的关联 ID。
+
 ## 3. 官方 API
 
 ### 3.1 基础域名
