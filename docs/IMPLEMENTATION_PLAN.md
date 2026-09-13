@@ -330,12 +330,38 @@ API 使用 OpenAPI 生成文档，所有响应带版本和来源信息。需要�
 3. Linux/Windows/macOS：在 MapLibre 桌面插件成熟前，完成 WebView 和栅格地图两组技术验证。
 4. HarmonyOS：先验证地图、定位、文件缓存和手势插件，再决定是否发布。
 
-地图底图优先考虑：
+### 8.1 地图能力与数据来源
 
-- 允许自托管或许可明确的 MapLibre 样式；
-- OpenStreetMap 数据及其合法瓦片服务；
-- 商业地图服务作为特定地区的可替换适配器；
-- 不使用未经许可的离线批量瓦片下载。
+地图不是一个单一来源，至少分为以下六类：
+
+| 能力 | 推荐主来源 | 说明 |
+| --- | --- | --- |
+| 底图数据 | OpenStreetMap | 遵循 ODbL，保留 OpenStreetMap 署名 |
+| 底图托管 | OpenFreeMap；生产可选用 Protomaps/PMTiles | 开发期优先 OpenFreeMap，离线验证使用 PMTiles |
+| 地图渲染 | MapLibre Native / MapLibre GL JS | 只负责渲染，不提供点位、地址或路线数据 |
+| 地理编码 | 自托管 Photon 或 Nominatim | 不在客户端直接重压公共 Nominatim 服务 |
+| 普通地点 | OSM POI 数据 | 营业时间等信息不完整时必须显示来源和时间 |
+| 巡礼点位 | ENikki 数据、Anitabi 等社区来源 | 点位截图和元数据必须单独确认授权 |
+| 步行/骑行/驾车 | OSRM 或 Valhalla | 基于 OSM 数据，自托管或使用合规供应商 |
+| 公交路线 | OpenTripPlanner + 地区 GTFS | 只对已取得合法 GTFS 数据的地区启用 |
+| 实时导航 | 系统地图或第三方地图深链接 | 实时路况、到站和现场导航不自行模拟 |
+
+### 8.2 分阶段选择
+
+- P0 技术验证：MapLibre + OpenFreeMap，验证 Android、Windows 和 HarmonyOS 的渲染与交互。
+- P1 离线闭环：使用 Protomaps/PMTiles 或允许离线保存的自托管数据，禁止预下载开放式 OSM 瓦片。
+- P2 正式服务：自托管 OpenFreeMap/MapLibre 样式、Photon/Nominatim、OSRM/Valhalla；按地区接入商业地图适配器。
+- 公交覆盖：先在日本及其他有合法 GTFS 数据的地区试点，其余地区跳转 Google Maps、Apple Maps 或本地导航应用。
+
+### 8.3 使用限制
+
+- `tile.openstreetmap.org` 是社区公共服务，不保证 SLA，并明确禁止批量下载、预取和离线打包；
+  ENikki 不应把它作为正式生产或离线地图源。
+- 如果使用 MapTiler、Mapbox、高德、腾讯、百度等商业服务，需要分别遵守其
+  离线缓存、署名、坐标体系和区域授权要求。
+- 中国地图服务可能使用 GCJ-02 或 BD-09 坐标；内部统一使用 WGS84，
+  进入平台适配层前再转换，禁止混用坐标系。
+- 离线底图必须在服务条款允许的前提下由 ENikki 或用户自行构建，并保留数据署名。
 
 导航仍然交给系统地图或第三方地图应用。ENikki 负责规划、解释和跳转，不负责重建全球实时导航。
 
