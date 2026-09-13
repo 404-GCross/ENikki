@@ -289,6 +289,7 @@ ENikki 的源代码采用 [GNU Affero General Public License v3.0](LICENSE)（AG
 ENikki 的产品调研和文档设计参考了以下开放项目与社区。它们与 ENikki 不存在隶属或背书关系，实际是否会成为依赖或数据源，将在合规评估后决定：
 
 - [MiriaGo](https://github.com/BilyHurington/MiriaGo)：跨平台巡礼计划、地图、拍摄参考与记录整理；
+  项目流程与取舍分析见 [`docs/MIRIAGO_RESEARCH.md`](docs/MIRIAGO_RESEARCH.md)；
 - [Anitabi](https://anitabi.cn/)：[项目文档](https://github.com/anitabi/anitabi.cn-document)
   与[开源 iOS 客户端](https://github.com/anitabi/anitabi-swift-app)：巡礼点位与社区共建；
 - [Bangumi 番组计划](https://bgm.tv/)：作品资料与条目体系；

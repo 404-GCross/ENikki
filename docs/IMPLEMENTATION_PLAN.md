@@ -201,6 +201,9 @@ lib/
 不能把 Bangumi ID 当作核心主键。具体接入流程见
 [`BANGUMI_INTEGRATION.md`](BANGUMI_INTEGRATION.md)。
 
+MiriaGo 的用户流程研究和取舍见
+[`MIRIAGO_RESEARCH.md`](MIRIAGO_RESEARCH.md)。
+
 地图点位按视口和缩放级别查询，不能一次性把全球点位加载到内存。低缩放级别使用聚合点，高缩放级别才加载点位详情。
 
 #### 6.1.1 软件内地图查看与选点
