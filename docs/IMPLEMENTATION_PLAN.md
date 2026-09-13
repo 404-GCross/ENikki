@@ -71,7 +71,7 @@ flowchart TB
         OBJ[(S3 兼容对象存储)]
     end
 
-    EXT1[Bangumi / Anitabi 等数据源]
+    EXT1[Bangumi / Anitabi]
     EXT2[MapLibre / 地图与路径服务]
     EXT3[交通/住宿预订页面]
 
@@ -197,9 +197,9 @@ lib/
 4. 客户端保存规范化数据、来源信息和过期时间。
 5. 用户手动修改时写入 `user_override`，同步更新只更新未被覆盖的字段。
 
-作品搜索采用多源聚合，内部使用独立 Work ID，不能直接依赖 provider ID。
-具体来源、匹配规则和 Anitabi 关联流程见
-[`WORK_SEARCH_SOURCES.md`](WORK_SEARCH_SOURCES.md)。
+第一阶段作品搜索和元数据只使用 Bangumi，内部仍使用独立 Work ID，
+不能把 Bangumi ID 当作核心主键。具体接入流程见
+[`BANGUMI_INTEGRATION.md`](BANGUMI_INTEGRATION.md)。
 
 地图点位按视口和缩放级别查询，不能一次性把全球点位加载到内存。低缩放级别使用聚合点，高缩放级别才加载点位详情。
 
@@ -399,7 +399,7 @@ Anitabi 的开放接口、缓存策略、数据映射和许可边界见
 - 完成 Android、Windows 和 HarmonyOS 的地图/定位最小验证。
 - 完成 SQLite 迁移、离线读写和 10 万点位视口查询测试。
 - 完成一个包含 10 个点位的离线排线原型。
-- 完成 Bangumi、AniList、Anitabi 的条款和技术可用性评估。
+- 完成 Bangumi 和 Anitabi 的条款、接口与可用性评估。
 - 明确 iOS AGPL 发布路径。
 
 验收：真机或桌面端可以在地图上添加点位、保存行程、重启恢复、完成一次路线重排并导出文件。
@@ -426,7 +426,7 @@ Anitabi 的开放接口、缓存策略、数据映射和许可边界见
 
 交付：
 
-- 后端数据目录、Bangumi/AniList/Anitabi 适配器和来源追踪。
+- 后端数据目录、Bangumi/Anitabi 适配器和来源追踪。
 - 公交路线、开放时间、时间窗和复杂度约束。
 - 服务端路线优化与结果解释。
 - 可选账号、跨设备同步、媒体备份和冲突恢复。
