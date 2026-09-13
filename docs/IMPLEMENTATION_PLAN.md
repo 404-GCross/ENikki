@@ -314,6 +314,9 @@ API 使用 OpenAPI 生成文档，所有响应带版本和来源信息。需要�
 - 数据同步必须可重放、可追踪、可回滚。
 - 第三方 API 不可用时，服务端继续提供最后已验证的缓存版本，不伪造实时数据。
 
+Anitabi 的开放接口、缓存策略、数据映射和许可边界见
+[`ANITABI_INTEGRATION.md`](ANITABI_INTEGRATION.md)。
+
 ### 7.4 部署
 
 开发环境使用 Docker Compose 启动 FastAPI、PostgreSQL/PostGIS、Redis、MinIO 和反向代理。
