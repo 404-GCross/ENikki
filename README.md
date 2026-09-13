@@ -191,6 +191,8 @@ ENikki 的代码以 AGPL-3.0 开源，但**代码许可证不自动覆盖第三�
 
 技术栈、框架和部署方式尚未定稿。在进入开发前，项目会通过 ADR（Architecture Decision Record）记录关键决策，避免在没有验证的情况下过早绑定方案。
 
+详细的技术选型、模块设计、数据模型、路线算法和分阶段交付方案见 [`docs/IMPLEMENTATION_PLAN.md`](docs/IMPLEMENTATION_PLAN.md)。
+
 已经确定的技术原则包括：
 
 - 跨平台客户端共享尽可能多的领域模型与业务逻辑，同时保留各平台必要的能力差异。
