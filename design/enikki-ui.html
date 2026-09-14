@@ -124,6 +124,9 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
 .settings-grid{height:100%;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(320px,.72fr);gap:13px}.settings-column{min-height:0;display:flex;flex-direction:column;gap:12px}.settings-card{min-height:0;overflow:auto}.settings-list{display:grid;gap:1px;padding:5px 0 8px}.setting-row{display:flex;align-items:center;gap:12px;padding:11px 15px;background:#fff}.setting-row:hover{background:#fafcfb}.setting-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;color:var(--green);background:var(--green-soft);font-size:15px}.setting-copy{min-width:0;flex:1}.setting-copy b{display:block;font-size:10px}.setting-copy small{display:block;margin-top:3px;color:var(--muted);font-size:8px}.setting-value{color:#63766d;font-size:9px}.switch{position:relative;width:34px;height:20px;flex:0 0 34px;border-radius:99px;background:#cbd7d1}.switch:after{content:"";position:absolute;width:16px;height:16px;left:2px;top:2px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.14);transition:.2s}.switch.on{background:var(--green)}.switch.on:after{left:16px}.setting-action{padding:6px 9px;border-radius:8px;color:var(--green);background:var(--green-soft);font-size:8px;font-weight:750}.storage-ring{position:relative;width:130px;height:130px;margin:6px auto 14px;border-radius:50%;background:conic-gradient(var(--green) 0 62%,#e3ebe6 62% 100%)}.storage-ring:before{content:"";position:absolute;inset:22px;border-radius:50%;background:#fff}.storage-copy{position:absolute;inset:0;display:grid;place-content:center;text-align:center}.storage-copy b{font-size:19px}.storage-copy small{color:var(--muted);font-size:8px}.data-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 14px 14px}.data-action{padding:12px 8px;border:1px solid #e3ebe6;border-radius:13px;color:#40564d;background:#fafcfb;font-size:9px;font-weight:750;text-align:left}.data-action span{display:block;margin-top:5px;color:var(--muted);font-size:8px;font-weight:500}
 @media(max-width:760px){.settings-grid{display:block;height:auto}.settings-column{display:block}.settings-card{margin-bottom:10px}.setting-row{padding:10px 12px}.data-actions{grid-template-columns:1fr 1fr}.settings-top-action{min-width:74px}.settings-top-action.settings-active{box-shadow:0 0 0 3px #cce7dc}}
 
+.card-head-actions{display:flex;gap:6px;margin-left:auto}.timeline-insert{position:relative;z-index:3;width:calc(100% - 60px);margin:4px 0 4px 50px;padding:5px 8px;border:1px dashed #cbdad3;border-radius:9px;color:#6f8279;background:rgba(255,255,255,.7);font-size:8px;text-align:left}.timeline-insert:hover{color:var(--green);border-color:#8fc7b1;background:#f2faf6}.event-edit{margin-left:5px;padding:3px 6px;border-radius:6px;color:#61736a;background:#eef3f0;font-size:7px}.event-edit:hover{color:#fff;background:var(--green)}.plan-editor-backdrop{position:fixed;inset:0;z-index:70;display:none;place-items:center;padding:20px;background:rgba(18,37,30,.36);backdrop-filter:blur(5px)}.plan-editor-backdrop.open{display:grid}.plan-editor{width:min(690px,calc(100vw - 40px));max-height:min(760px,calc(100vh - 40px));overflow:auto;border-radius:24px;background:#fff;box-shadow:0 30px 80px rgba(14,35,27,.28)}.plan-editor-head{display:flex;align-items:center;gap:12px;padding:17px 18px;border-bottom:1px solid #e8eeea}.plan-editor-head h3{margin:0;font-size:16px}.plan-editor-head p{margin:3px 0 0;color:var(--muted);font-size:9px}.plan-editor-close{margin-left:auto;width:32px;height:32px;border-radius:10px;color:#62756c;background:#f0f4f2;font-size:17px}.plan-type-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;padding:14px 16px 8px}.plan-type{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 5px;border:1px solid #e4ebe7;border-radius:13px;color:#52675d;background:#fafcfb;font-size:8px}.plan-type i{font-size:17px;font-style:normal}.plan-type.active{border-color:#8fc7b1;color:var(--green);background:#edf8f3;box-shadow:inset 0 0 0 1px #d2e9df}.plan-form{display:grid;grid-template-columns:1fr 1fr;gap:11px;padding:12px 16px 18px}.field{display:grid;gap:5px}.field.full{grid-column:1/-1}.field label{color:#42574d;font-size:9px;font-weight:750}.field input,.field select,.field textarea{width:100%;border:1px solid #dce6e1;border-radius:11px;padding:10px;color:var(--ink);background:#fbfcfb;font-size:10px;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:#80bea4;box-shadow:0 0 0 3px #e4f2ec}.field textarea{min-height:68px;resize:vertical}.money-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}.editor-foot{display:flex;align-items:center;gap:8px;padding:13px 16px;border-top:1px solid #e8eeea;background:#fafcfb}.editor-foot .danger{margin-right:auto;color:#b04e43;background:#fff0ed}.plan-editor-note{padding:0 16px 12px;color:var(--muted);font-size:8px}
+@media(max-width:760px){.plan-editor-backdrop{padding:0;place-items:end center}.plan-editor{width:100%;max-height:88vh;border-radius:24px 24px 0 0}.plan-type-grid{grid-template-columns:repeat(3,1fr)}.plan-form{grid-template-columns:1fr}.field.full{grid-column:auto}.money-fields{grid-template-columns:1fr 1fr}.card-head-actions{display:flex}.card-head-actions .btn:first-child{padding-inline:7px}.timeline-insert{width:calc(100% - 55px);margin-left:45px}.event-edit{display:inline-flex}}
+
 </style>
 </head>
 <body>
@@ -200,7 +203,7 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
         <div class="meta-pill">☁ <b>离线可用</b></div>
       </div>
       <div class="top-actions">
-        <button class="btn" onclick="toast('已打开交通、住宿与餐次规划')"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>添加安排</button>
+        <button class="btn" onclick="openPlanEditor('spot')"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>添加安排</button>
         <button class="btn soft" onclick="toast('Anitabi 点位已同步：38 / 46')"><svg viewBox="0 0 24 24"><path d="m12 3 2.5 5.5L20 11l-5.5 2.5L12 19l-2.5-5.5L4 11z"/></svg>导入点位</button>
         <button class="btn primary settings-top-action" id="settingsTopButton" onclick="activateView('settings')"><svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 100 8 4 4 0 000-8z"/><path d="M4 12h2M18 12h2M12 4v2M12 18v2M6.3 6.3l1.4 1.4M16.3 16.3l1.4 1.4M17.7 6.3l-1.4 1.4M7.7 16.3l-1.4 1.4"/></svg>设置</button>
       </div>
@@ -281,15 +284,16 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
             <div class="card timeline-card">
               <div class="card-head">
                 <div><h3>10 月 12 日 · 时间线</h3><p>拖动调整顺序，锁定项不会被自动重排</p></div>
-                <button class="btn">优化路线</button>
+                <div class="card-head-actions"><button class="btn soft" onclick="openPlanEditor('spot')">＋ 添加安排</button><button class="btn">优化路线</button></div>
               </div>
               <div class="timeline">
-                <div class="event transport"><div class="event-time">08:20</div><div class="event-node">JR</div><div class="event-body"><div class="event-head"><strong>京都站 → 宇治站</strong><span class="tag">交通</span></div><div class="event-meta"><span>JR 奈良线 · 18 分钟</span><span>¥240</span></div></div></div>
-                <div class="event"><div class="event-time">09:10</div><div class="event-node">✓</div><div class="event-body"><div class="event-head"><strong>宇治桥</strong><span class="tag">已完成</span></div><div class="event-meta"><span>EP 1 · 10:42</span><span>停留 25 分钟</span></div><div class="planner-checkin"><div class="camera-mini">✓</div><div><b>打卡照片 · 3 张</b><small>09:35 拍摄 · 已绑定宇治桥</small></div><button onclick="activateView('checkin')">查看</button></div></div></div>
-                <div class="event current"><div class="event-time">10:20</div><div class="event-node">●</div><div class="event-body"><div class="event-head"><strong>平等院凤凰堂</strong><span class="tag">当前目标</span></div><div class="event-meta"><span>EP 5 · 08:16</span><span>预约 10:30</span></div><div class="event-note">门票已加入预算。步行前往下一站约 12 分钟。</div><div class="planner-checkin"><div class="camera-mini">◉</div><div><b>还没有打卡照片</b><small>建议对齐参考图后拍摄 2—3 张</small></div><button onclick="activateView('checkin')">去拍照</button></div></div></div>
-                <div class="event meal"><div class="event-time">12:40</div><div class="event-node">食</div><div class="event-body"><div class="event-head"><strong>中村藤吉本店</strong><span class="tag">已预约</span></div><div class="event-meta"><span>抹茶荞麦面</span><span>2 人 · ¥4,200</span></div></div></div>
-                <div class="event"><div class="event-time">14:00</div><div class="event-node">5</div><div class="event-body"><div class="event-head"><strong>大吉山展望台</strong><span class="tag">待巡礼</span></div><div class="event-meta"><span>EP 8 · 16:03</span><span>步行 28 分钟</span></div></div></div>
-                <div class="event lodging"><div class="event-time">18:30</div><div class="event-node">宿</div><div class="event-body"><div class="event-head"><strong>京都八条口酒店</strong><span class="tag">已确认</span></div><div class="event-meta"><span>入住 18:30</span><span>¥12,800 / 晚</span></div></div></div>
+                <button class="timeline-insert" onclick="openPlanEditor('transport')">＋ 在 08:20 前插入安排</button>
+                <div class="event transport"><div class="event-time">08:20</div><div class="event-node">JR</div><div class="event-body"><div class="event-head"><strong>京都站 → 宇治站</strong><span class="tag">交通</span><button class="event-edit" onclick="openPlanEditor('transport')">编辑</button></div><div class="event-meta"><span>JR 奈良线 · 18 分钟</span><span>¥240</span></div></div></div>
+                <div class="event"><div class="event-time">09:10</div><div class="event-node">✓</div><div class="event-body"><div class="event-head"><strong>宇治桥</strong><span class="tag">已完成</span><button class="event-edit" onclick="openPlanEditor('spot')">编辑</button></div><div class="event-meta"><span>EP 1 · 10:42</span><span>停留 25 分钟</span></div><div class="planner-checkin"><div class="camera-mini">✓</div><div><b>打卡照片 · 3 张</b><small>09:35 拍摄 · 已绑定宇治桥</small></div><button onclick="activateView('checkin')">查看</button></div></div></div>
+                <div class="event current"><div class="event-time">10:20</div><div class="event-node">●</div><div class="event-body"><div class="event-head"><strong>平等院凤凰堂</strong><span class="tag">当前目标</span><button class="event-edit" onclick="openPlanEditor('spot')">编辑</button></div><div class="event-meta"><span>EP 5 · 08:16</span><span>预约 10:30</span></div><div class="event-note">门票已加入预算。步行前往下一站约 12 分钟。</div><div class="planner-checkin"><div class="camera-mini">◉</div><div><b>还没有打卡照片</b><small>建议对齐参考图后拍摄 2—3 张</small></div><button onclick="activateView('checkin')">去拍照</button></div></div></div>
+                <div class="event meal"><div class="event-time">12:40</div><div class="event-node">食</div><div class="event-body"><div class="event-head"><strong>中村藤吉本店</strong><span class="tag">已预约</span><button class="event-edit" onclick="openPlanEditor('meal')">编辑</button></div><div class="event-meta"><span>抹茶荞麦面</span><span>2 人 · ¥4,200</span></div></div></div>
+                <div class="event"><div class="event-time">14:00</div><div class="event-node">5</div><div class="event-body"><div class="event-head"><strong>大吉山展望台</strong><span class="tag">待巡礼</span><button class="event-edit" onclick="openPlanEditor('spot')">编辑</button></div><div class="event-meta"><span>EP 8 · 16:03</span><span>步行 28 分钟</span></div></div></div>
+                <div class="event lodging"><div class="event-time">18:30</div><div class="event-node">宿</div><div class="event-body"><div class="event-head"><strong>京都八条口酒店</strong><span class="tag">已确认</span><button class="event-edit" onclick="openPlanEditor('lodging')">编辑</button></div><div class="event-meta"><span>入住 18:30</span><span>¥12,800 / 晚</span></div></div></div>
               </div>
               <div class="summary-strip">
                 <div class="summary-box"><small>今日交通</small><b>CNY 1,340</b><span>≈ JPY 27,500 · 4 段</span></div>
@@ -650,6 +654,40 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
     </section>
   </main>
 </div>
+<div class="plan-editor-backdrop" id="planEditorBackdrop" onclick="closePlanEditor(event)">
+  <div class="plan-editor" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+    <div class="plan-editor-head">
+      <div><h3 id="planEditorTitle">添加行程安排</h3><p>可以随时修改，保存后立即进入当天时间线</p></div>
+      <button class="plan-editor-close" onclick="closePlanEditor()">×</button>
+    </div>
+    <div class="plan-type-grid" id="planTypeGrid">
+      <button class="plan-type active" data-plan-type="spot"><i>⌖</i><span>巡礼点</span></button>
+      <button class="plan-type" data-plan-type="transport"><i>🚄</i><span>交通</span></button>
+      <button class="plan-type" data-plan-type="lodging"><i>🏨</i><span>住宿</span></button>
+      <button class="plan-type" data-plan-type="meal"><i>🍵</i><span>用餐</span></button>
+      <button class="plan-type" data-plan-type="checkin"><i>📷</i><span>拍照打卡</span></button>
+      <button class="plan-type" data-plan-type="note"><i>✎</i><span>休息/备注</span></button>
+    </div>
+    <div class="plan-form">
+      <div class="field"><label>开始时间</label><input type="time" value="11:10"></div>
+      <div class="field"><label>结束时间</label><input type="time" value="11:45"></div>
+      <div class="field full"><label>标题</label><input id="planEditorName" value="凤凰堂参拜与拍照" placeholder="例如：宇治桥打卡"></div>
+      <div class="field full"><label>地点或区间</label><input value="平等院凤凰堂 · 宇治市宇治莲华 116" placeholder="搜索地点或输入自定义位置"></div>
+      <div class="field"><label>费用 · CNY</label><input value="60.00"></div>
+      <div class="field"><label>费用 · JPY</label><input value="1,230"></div>
+      <div class="field"><label>所属片区</label><select><option>平等院片区</option><option>宇治站片区</option><option>大吉山片区</option></select></div>
+      <div class="field"><label>提醒</label><select><option>提前 15 分钟</option><option>不提醒</option><option>提前 30 分钟</option></select></div>
+      <div class="field full"><label>备注</label><textarea placeholder="交通路线、预约信息、拍摄要求或注意事项"></textarea></div>
+    </div>
+    <div class="editor-foot">
+      <button class="btn danger" onclick="toast('已移除该安排')">删除</button>
+      <button class="btn" onclick="closePlanEditor()">取消</button>
+      <button class="btn soft" onclick="savePlanEditor(false)">保存并继续添加</button>
+      <button class="btn primary" onclick="savePlanEditor(true)">保存安排</button>
+    </div>
+    <div class="plan-editor-note">支持拖动排序、锁定时间和设置预约提醒；费用会自动计入双币种预算。</div>
+  </div>
+</div>
 <div class="mobile-sheet-backdrop" id="mobileSheetBackdrop" onclick="closeMobileSheet(event)">
   <div class="mobile-sheet" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
     <div class="sheet-handle"></div>
@@ -744,8 +782,50 @@ document.getElementById('mobileSheetGrid').addEventListener('click', (event) => 
   }
 });
 
+const planTypeDefaults = {
+  spot: ['凤凰堂参拜与拍照', '平等院凤凰堂 · 宇治市宇治莲华 116'],
+  transport: ['平等院 → 大吉山', '步行路线 · 约 28 分钟'],
+  lodging: ['京都八条口酒店', '京都站八条口 · 2 晚'],
+  meal: ['中村藤吉本店', '宇治本店 · 2 人预约'],
+  checkin: ['凤凰堂拍照打卡', '参考图叠影 · 2—3 张'],
+  note: ['休息与自由活动', '平等院周边 · 弹性 30 分钟']
+};
+let activePlanType = 'spot';
+
+function selectPlanType(type) {
+  activePlanType = type;
+  document.querySelectorAll('[data-plan-type]').forEach((button) => {
+    button.classList.toggle('active', button.dataset.planType === type);
+  });
+  const defaults = planTypeDefaults[type] || planTypeDefaults.spot;
+  const name = document.getElementById('planEditorName');
+  if (name) name.value = defaults[0];
+}
+
+function openPlanEditor(type = 'spot') {
+  selectPlanType(type);
+  document.getElementById('planEditorBackdrop').classList.add('open');
+}
+
+function closePlanEditor(event) {
+  if (event && event.target !== event.currentTarget) return;
+  document.getElementById('planEditorBackdrop').classList.remove('open');
+}
+
+function savePlanEditor(closeAfterSave) {
+  toast('安排已保存，并重新计算路线与双币种预算');
+  if (closeAfterSave) closePlanEditor();
+}
+
+document.querySelectorAll('[data-plan-type]').forEach((button) => {
+  button.addEventListener('click', () => selectPlanType(button.dataset.planType));
+});
+
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') closeMobileSheet();
+  if (event.key === 'Escape') {
+    closeMobileSheet();
+    closePlanEditor();
+  }
 });
 
 document.querySelectorAll('.day-tabs button').forEach((button) => {
@@ -771,6 +851,9 @@ const initialView = initialParams.get('view') || 'planner';
 activateView(initialView, false);
 const initialSheet = initialParams.get('sheet');
 if (initialSheet) openMobileSheet(initialSheet);
+if (initialParams.get('editor') === 'add') {
+  openPlanEditor(initialParams.get('type') || 'spot');
+}
 </script>
 </body>
 </html>
