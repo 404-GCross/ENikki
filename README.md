@@ -79,6 +79,9 @@ ENikki 会覆盖交通和住宿的**规划环节**，但不直接承担交易环
 交通、住宿、用餐和预算的完整数据模型与 P1 验收标准见
 [`docs/TRIP_PLANNING.md`](docs/TRIP_PLANNING.md)。
 
+程序分层、数据库、排线器、预算计算和离线导入实现见
+[`docs/TRIP_PLANNING_ARCHITECTURE.md`](docs/TRIP_PLANNING_ARCHITECTURE.md)。
+
 ### 4. 用餐安排
 
 - 按天安排早餐、午餐、晚餐、咖啡、甜点、夜宵和临时用餐。

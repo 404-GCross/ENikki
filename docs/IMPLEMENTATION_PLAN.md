@@ -268,6 +268,9 @@ Anitabi 网页后再抄录坐标。
 交通、住宿、用餐和预算共同属于 P1 可执行行程闭环，完整设计见
 [`TRIP_PLANNING.md`](TRIP_PLANNING.md)。
 
+程序结构、领域模型、数据库、排线器和预算实现见
+[`TRIP_PLANNING_ARCHITECTURE.md`](TRIP_PLANNING_ARCHITECTURE.md)。
+
 - 基础路径由 OSRM/Valhalla 计算，公交路线由 OpenTripPlanner 在具备合法 GTFS 的地区计算。
 - 实时公交、铁路时刻、价格和房态优先跳转到第三方应用或网站。
 - 预订链接通过 `BookingProvider` 适配层生成，只允许白名单域名。
