@@ -172,12 +172,12 @@ flowchart LR
 ## 界面原型
 
 可交互的高保真 HTML 原型见 [`design/enikki-ui.html`](design/enikki-ui.html)，
-包含计划总览、拍照打卡、交通、住宿、用餐、预算和离线准备七个界面。
+包含计划总览、拍照打卡、交通、住宿、用餐、预算、设置和离线准备八个界面。
 
-桌面七页设计总览见 [`design/preview-overview.png`](design/preview-overview.png)。
+桌面八页设计总览见 [`design/preview-overview.png`](design/preview-overview.png)。
 
-手机端使用“计划 / 安排 / 打卡 / 预算 / 更多”五项底栏，
-七页设计总览见 [`design/preview-mobile-overview.png`](design/preview-mobile-overview.png)。
+手机端顶部提供设置入口，底部使用“计划 / 安排 / 打卡 / 预算 / 更多”五项底栏，
+八页设计总览见 [`design/preview-mobile-overview.png`](design/preview-mobile-overview.png)。
 
 界面说明和单独预览见 [`design/README.md`](design/README.md)。
 

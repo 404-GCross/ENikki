@@ -121,6 +121,9 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
   .nav button[data-view="checkin"].active{background:#bcebd7}.nav .ico{height:19px}.nav b{font-size:8px}
 }
 
+.settings-grid{height:100%;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(320px,.72fr);gap:13px}.settings-column{min-height:0;display:flex;flex-direction:column;gap:12px}.settings-card{min-height:0;overflow:auto}.settings-list{display:grid;gap:1px;padding:5px 0 8px}.setting-row{display:flex;align-items:center;gap:12px;padding:11px 15px;background:#fff}.setting-row:hover{background:#fafcfb}.setting-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;color:var(--green);background:var(--green-soft);font-size:15px}.setting-copy{min-width:0;flex:1}.setting-copy b{display:block;font-size:10px}.setting-copy small{display:block;margin-top:3px;color:var(--muted);font-size:8px}.setting-value{color:#63766d;font-size:9px}.switch{position:relative;width:34px;height:20px;flex:0 0 34px;border-radius:99px;background:#cbd7d1}.switch:after{content:"";position:absolute;width:16px;height:16px;left:2px;top:2px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.14);transition:.2s}.switch.on{background:var(--green)}.switch.on:after{left:16px}.setting-action{padding:6px 9px;border-radius:8px;color:var(--green);background:var(--green-soft);font-size:8px;font-weight:750}.storage-ring{position:relative;width:130px;height:130px;margin:6px auto 14px;border-radius:50%;background:conic-gradient(var(--green) 0 62%,#e3ebe6 62% 100%)}.storage-ring:before{content:"";position:absolute;inset:22px;border-radius:50%;background:#fff}.storage-copy{position:absolute;inset:0;display:grid;place-content:center;text-align:center}.storage-copy b{font-size:19px}.storage-copy small{color:var(--muted);font-size:8px}.data-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 14px 14px}.data-action{padding:12px 8px;border:1px solid #e3ebe6;border-radius:13px;color:#40564d;background:#fafcfb;font-size:9px;font-weight:750;text-align:left}.data-action span{display:block;margin-top:5px;color:var(--muted);font-size:8px;font-weight:500}
+@media(max-width:760px){.settings-grid{display:block;height:auto}.settings-column{display:block}.settings-card{margin-bottom:10px}.setting-row{padding:10px 12px}.data-actions{grid-template-columns:1fr 1fr}.settings-top-action{min-width:74px}}
+
 </style>
 </head>
 <body>
@@ -203,7 +206,7 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
       <div class="top-actions">
         <button class="btn" onclick="toast('已打开交通、住宿与餐次规划')"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>添加安排</button>
         <button class="btn soft" onclick="toast('Anitabi 点位已同步：38 / 46')"><svg viewBox="0 0 24 24"><path d="m12 3 2.5 5.5L20 11l-5.5 2.5L12 19l-2.5-5.5L4 11z"/></svg>导入点位</button>
-        <button class="btn primary" onclick="toast('离线准备检查完成：4 项正常，1 项待补')"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>离线准备</button>
+        <button class="btn primary settings-top-action" onclick="activateView('settings')"><svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 100 8 4 4 0 000-8z"/><path d="M4 12h2M18 12h2M12 4v2M12 18v2M6.3 6.3l1.4 1.4M16.3 16.3l1.4 1.4M17.7 6.3l-1.4 1.4M7.7 16.3l-1.4 1.4"/></svg>设置</button>
       </div>
     </header>
 
@@ -555,6 +558,62 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
         </div>
       </section>
 
+      <section class="view" id="view-settings">
+        <div class="settings-grid">
+          <div class="settings-column">
+            <div class="card settings-card">
+              <div class="card-head"><div><h3>通用设置</h3><p>语言、主题与预算显示偏好</p></div></div>
+              <div class="settings-list">
+                <div class="setting-row"><span class="setting-icon">文</span><div class="setting-copy"><b>界面语言</b><small>简体中文</small></div><span class="setting-value">简体中文 ›</span></div>
+                <div class="setting-row"><span class="setting-icon">◐</span><div class="setting-copy"><b>外观主题</b><small>跟随系统深浅色</small></div><span class="switch on"></span></div>
+                <div class="setting-row"><span class="setting-icon">¥</span><div class="setting-copy"><b>基准币种</b><small>预算统一换算为人民币</small></div><span class="setting-value">CNY ›</span></div>
+                <div class="setting-row"><span class="setting-icon">↗</span><div class="setting-copy"><b>距离单位</b><small>地图和路线显示单位</small></div><span class="setting-value">公制 ›</span></div>
+              </div>
+            </div>
+
+            <div class="card settings-card">
+              <div class="card-head"><div><h3>离线设置</h3><p>出发前自动准备交通、餐次、参考图和地图</p></div><button class="btn soft" onclick="toast('离线检查完成：1 项待补全')">立即检查</button></div>
+              <div class="settings-list">
+                <div class="setting-row"><span class="setting-icon">↓</span><div class="setting-copy"><b>自动缓存行程资料</b><small>交通、住宿、餐次和预算摘要</small></div><span class="switch on"></span></div>
+                <div class="setting-row"><span class="setting-icon">▧</span><div class="setting-copy"><b>缓存完整参考图</b><small>仅缓存已经加入行程的点位</small></div><span class="switch on"></span></div>
+                <div class="setting-row"><span class="setting-icon">⌁</span><div class="setting-copy"><b>仅 Wi-Fi 下载地图</b><small>避免移动网络消耗和超额流量</small></div><span class="switch on"></span></div>
+                <div class="setting-row"><span class="setting-icon">◎</span><div class="setting-copy"><b>离线地图范围</b><small>当前：宇治片区 · 34%</small></div><span class="setting-action">管理</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-column">
+            <div class="card settings-card">
+              <div class="card-head"><div><h3>导入与导出</h3><p>数据始终可以迁移和恢复</p></div></div>
+              <div class="data-actions">
+                <button class="data-action" onclick="toast('选择 .enikki 文件进行导入预览')">导入数据<span>计划、记录、媒体</span></button>
+                <button class="data-action" onclick="toast('已生成 .enikki 导出预览')">导出数据<span>完整或轻量备份</span></button>
+                <button class="data-action" onclick="toast('已打开 Google My Maps CSV 导出')">导出地图 CSV<span>点位与坐标</span></button>
+                <button class="data-action" onclick="toast('已打开记录与照片备份')">照片备份<span>本地媒体管理</span></button>
+              </div>
+            </div>
+
+            <div class="card settings-card">
+              <div class="pad">
+                <div class="section-title"><div><h3>本地存储</h3><p>离线资料占用空间</p></div></div>
+                <div class="storage-ring"><div class="storage-copy"><b>1.8 GB</b><small>共 3 GB</small></div></div>
+                <div class="metric-row"><div class="metric"><small>参考图</small><b>820 MB</b></div><div class="metric"><small>地图</small><b>640 MB</b></div><div class="metric"><small>照片</small><b>340 MB</b></div></div>
+              </div>
+            </div>
+
+            <div class="card settings-card">
+              <div class="card-head"><div><h3>数据源与隐私</h3><p>来源、权限和本地数据处理</p></div></div>
+              <div class="settings-list">
+                <div class="setting-row"><span class="setting-icon">B</span><div class="setting-copy"><b>Bangumi</b><small>作品搜索与元数据</small></div><span class="setting-value">已连接</span></div>
+                <div class="setting-row"><span class="setting-icon">A</span><div class="setting-copy"><b>Anitabi</b><small>巡礼点位与参考图</small></div><span class="setting-value">已启用</span></div>
+                <div class="setting-row"><span class="setting-icon">⌖</span><div class="setting-copy"><b>位置权限</b><small>仅打卡和附近点位时使用</small></div><span class="setting-value">使用中 ›</span></div>
+                <div class="setting-row"><span class="setting-icon">☁</span><div class="setting-copy"><b>云同步</b><small>当前保持本地优先</small></div><span class="switch"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="view" id="view-offline">
         <div class="section-grid">
           <div class="section-main">
@@ -611,6 +670,7 @@ const pageCopy = {
   lodging: ['我的行程 / 住宿规划', '住宿区域与酒店', '2 晚 · 10 月 12 日入住 · 2 人'],
   meals: ['我的行程 / 用餐规划', '每日用餐安排', '9 餐 · 2 个预约 · 1 项饮食提醒'],
   budget: ['我的行程 / 预算管理', '交通、住宿、用餐与总预算', '¥18,640 / ¥22,000 · 预估与实际'],
+  settings: ['设置 / 通用与数据管理', '设置', '导入导出 · 离线准备 · 数据源与隐私'],
   offline: ['准备 / 离线检查', '离线准备与数据导出', '4 项核心资料正常 · 1 项待补全']
 };
 
@@ -618,7 +678,7 @@ const navButtons = document.querySelectorAll('.nav [data-view]');
 const views = document.querySelectorAll('.view');
 const mobileTargetByView = {
   planner: 'planner', checkin: 'checkin', budget: 'budget',
-  transport: 'arrange', lodging: 'arrange', meals: 'arrange', offline: 'more'
+  transport: 'arrange', lodging: 'arrange', meals: 'arrange', settings: 'more', offline: 'more'
 };
 
 function activateView(name, pushState = true) {
@@ -649,9 +709,9 @@ const mobileSheetData = {
     { view: 'meals', icon: '🍵', label: '用餐', note: '餐次与预约' }
   ],
   more: [
-    { view: 'offline', icon: '↓', label: '离线准备', note: '缓存检查' },
-    { action: 'export', icon: '⇧', label: '导出数据', note: '.enikki' },
-    { action: 'settings', icon: '⚙', label: '设置', note: '偏好与隐私' }
+    { view: 'settings', icon: '⚙', label: '设置', note: '导入导出与离线' },
+    { action: 'sources', icon: 'B', label: '数据源', note: 'Bangumi / Anitabi' },
+    { action: 'about', icon: 'i', label: '关于', note: '版本与许可' }
   ]
 };
 
@@ -685,7 +745,8 @@ document.getElementById('mobileSheetGrid').addEventListener('click', (event) => 
   }
   if (actionButton) {
     closeMobileSheet();
-    toast(actionButton.dataset.action === 'export' ? '已生成 .enikki 导出预览' : '设置面板将在正式版本中提供');
+    const actionMessages = { sources: '数据源状态：Bangumi 与 Anitabi 已连接', about: 'ENikki · AGPL-3.0 开源原型' };
+    toast(actionMessages[actionButton.dataset.action] || '操作已完成');
   }
 });
 
