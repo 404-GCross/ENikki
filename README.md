@@ -108,7 +108,7 @@ ENikki 会覆盖交通和住宿的**规划环节**，但不直接承担交易环
 
 ### 6. 拍照打卡与现场记录
 
-- 从当前目标点位直接进入拍照打卡，不需要返回计划列表查找。
+- 拍照打卡是时间线中的安排类型，可通过右上角“添加”或已有事件的“编辑”进入。
 - 支持参考图叠影、上下对比、原图/实景切换、相机拍摄和相册导入。
 - 保存拍摄时间、可选位置、现场备注、参考图和实景照片。
 - 打卡完成后自动绑定作品、点位、行程和当前日期，并更新完成进度。
@@ -175,12 +175,12 @@ flowchart LR
 ## 界面原型
 
 可交互的高保真 HTML 原型见 [`design/enikki-ui.html`](design/enikki-ui.html)，
-包含计划总览、拍照打卡、交通、住宿、用餐、预算、设置和离线准备八个界面。
+包含计划总览、交通、住宿、用餐、预算、设置和离线准备七个界面。
 
-桌面八页设计总览见 [`design/preview-overview.png`](design/preview-overview.png)。
+桌面七页设计总览见 [`design/preview-overview.png`](design/preview-overview.png)。
 
-手机端顶部提供设置入口，底部使用“计划 / 安排 / 打卡 / 预算”四项导航，
-八页设计总览见 [`design/preview-mobile-overview.png`](design/preview-mobile-overview.png)。
+手机端顶部提供“添加”和“设置”，底部使用“计划 / 安排 / 预算”三项导航，
+七页设计总览见 [`design/preview-mobile-overview.png`](design/preview-mobile-overview.png)。
 
 界面说明和单独预览见 [`design/README.md`](design/README.md)。
 

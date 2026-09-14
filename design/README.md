@@ -1,6 +1,6 @@
 # ENikki 界面原型
 
-本目录提供 ENikki 的高保真交互原型，覆盖桌面端和手机端的八个核心页面。
+本目录提供 ENikki 的高保真交互原型，覆盖桌面端和手机端的七个核心页面。
 
 ## 打开方式
 
@@ -36,12 +36,6 @@ enikki-ui.html?view=offline
 
 ![手机端总览添加安排](preview-mobile-plan-add.png)
 
-### 拍照打卡
-
-![拍照打卡](preview-checkin.png)
-
-包含参考图叠影、上下对比、相机拍摄、相册导入、打卡确认、位置记录和照片归档。
-
 ### 交通规划
 
 ![交通规划](preview-transport.png)
@@ -70,23 +64,22 @@ enikki-ui.html?view=offline
 
 ![离线准备](preview-offline.png)
 
-桌面八页总览见 [`preview-overview.png`](preview-overview.png)。
+桌面七页总览见 [`preview-overview.png`](preview-overview.png)。
 
 ### 移动端
 
-![移动端八页总览](preview-mobile-overview.png)
+![移动端七页总览](preview-mobile-overview.png)
 
-移动端采用地图优先、时间线下滑和四项底部导航布局，设置固定在右上角：
+移动端采用地图优先、时间线下滑和三项底部导航布局，顶部固定“添加”和“设置”：
 
 ```text
-计划 | 安排 | 打卡 | 预算
+计划 | 安排 | 预算
 ```
 
 交通、住宿和用餐收进“安排”半屏面板；导入导出、离线设置、数据源和隐私统一放在右上角设置页。
-八个页面分别为：
+七个页面分别为：
 
 - [计划总览](preview-mobile.png)
-- [拍照打卡](preview-mobile-checkin.png)
 - [交通规划](preview-mobile-transport.png)
 - [住宿规划](preview-mobile-lodging.png)
 - [用餐安排](preview-mobile-meals.png)
@@ -107,14 +100,14 @@ enikki-ui.html?view=offline
 | --- | --- | --- |
 | 行程总览 | 侧栏“计划总览” | 底栏“计划” |
 | 交通、住宿、用餐 | 侧栏直接进入 | 底栏“安排”半屏面板 |
-| 拍照打卡 | 侧栏“拍照打卡” | 底栏中央“打卡” |
+| 拍照打卡 | 时间线内编辑或顶部添加 | 时间线内编辑或顶部添加 |
 | 预算 | 侧栏“预算” | 底栏“预算” |
 | 导入导出 | 顶部或设置页 | 设置页 |
 | 离线设置 | 侧栏“离线准备”或设置页 | 设置页 |
 | 数据源与隐私 | 设置页 | 设置页 |
 
 手机版交通、住宿和用餐页面会把摘要与预订状态前置，避免因单列布局而看起来
-缺少功能。计划总览还提供“导入点位 / 添加安排 / 拍照打卡”快捷操作。
+缺少功能。计划总览还提供“导入点位 / 添加安排”快捷操作。拍照打卡作为安排类型，不再占用一级导航。
 
 ## 原型范围
 
