@@ -176,7 +176,7 @@ flowchart LR
 
 桌面八页设计总览见 [`design/preview-overview.png`](design/preview-overview.png)。
 
-手机端顶部提供设置入口，底部使用“计划 / 安排 / 打卡 / 预算 / 更多”五项底栏，
+手机端顶部提供设置入口，底部使用“计划 / 安排 / 打卡 / 预算”四项导航，
 八页设计总览见 [`design/preview-mobile-overview.png`](design/preview-mobile-overview.png)。
 
 界面说明和单独预览见 [`design/README.md`](design/README.md)。
