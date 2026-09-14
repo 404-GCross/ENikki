@@ -127,6 +127,11 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
 .card-head-actions{display:flex;gap:6px;margin-left:auto}.timeline-insert{position:relative;z-index:3;width:calc(100% - 60px);margin:4px 0 4px 50px;padding:5px 8px;border:1px dashed #cbdad3;border-radius:9px;color:#6f8279;background:rgba(255,255,255,.7);font-size:8px;text-align:left}.timeline-insert:hover{color:var(--green);border-color:#8fc7b1;background:#f2faf6}.event-edit{margin-left:5px;padding:3px 6px;border-radius:6px;color:#61736a;background:#eef3f0;font-size:7px}.event-edit:hover{color:#fff;background:var(--green)}.plan-editor-backdrop{position:fixed;inset:0;z-index:70;display:none;place-items:center;padding:20px;background:rgba(18,37,30,.36);backdrop-filter:blur(5px)}.plan-editor-backdrop.open{display:grid}.plan-editor{width:min(690px,calc(100vw - 40px));max-height:min(760px,calc(100vh - 40px));overflow:auto;border-radius:24px;background:#fff;box-shadow:0 30px 80px rgba(14,35,27,.28)}.plan-editor-head{display:flex;align-items:center;gap:12px;padding:17px 18px;border-bottom:1px solid #e8eeea}.plan-editor-head h3{margin:0;font-size:16px}.plan-editor-head p{margin:3px 0 0;color:var(--muted);font-size:9px}.plan-editor-close{margin-left:auto;width:32px;height:32px;border-radius:10px;color:#62756c;background:#f0f4f2;font-size:17px}.plan-type-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;padding:14px 16px 8px}.plan-type{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 5px;border:1px solid #e4ebe7;border-radius:13px;color:#52675d;background:#fafcfb;font-size:8px}.plan-type i{font-size:17px;font-style:normal}.plan-type.active{border-color:#8fc7b1;color:var(--green);background:#edf8f3;box-shadow:inset 0 0 0 1px #d2e9df}.plan-form{display:grid;grid-template-columns:1fr 1fr;gap:11px;padding:12px 16px 18px}.field{display:grid;gap:5px}.field.full{grid-column:1/-1}.field label{color:#42574d;font-size:9px;font-weight:750}.field input,.field select,.field textarea{width:100%;border:1px solid #dce6e1;border-radius:11px;padding:10px;color:var(--ink);background:#fbfcfb;font-size:10px;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:#80bea4;box-shadow:0 0 0 3px #e4f2ec}.field textarea{min-height:68px;resize:vertical}.money-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}.editor-foot{display:flex;align-items:center;gap:8px;padding:13px 16px;border-top:1px solid #e8eeea;background:#fafcfb}.editor-foot .danger{margin-right:auto;color:#b04e43;background:#fff0ed}.plan-editor-note{padding:0 16px 12px;color:var(--muted);font-size:8px}
 @media(max-width:760px){.plan-editor-backdrop{padding:0;place-items:end center}.plan-editor{width:100%;max-height:88vh;border-radius:24px 24px 0 0}.plan-type-grid{grid-template-columns:repeat(3,1fr)}.plan-form{grid-template-columns:1fr}.field.full{grid-column:auto}.money-fields{grid-template-columns:1fr 1fr}.card-head-actions{display:flex}.card-head-actions .btn:first-child{padding-inline:7px}.timeline-insert{width:calc(100% - 55px);margin-left:45px}.event-edit{display:inline-flex}}
 
+.mobile-plan-actions{display:none}
+@media(max-width:760px){
+.section-grid{display:flex;flex-direction:column}.section-side{order:-1;display:block}.section-side>.card{flex:none!important;margin-bottom:10px}.section-main{order:0;display:block}
+.mobile-plan-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:0 0 9px}.mobile-plan-actions button{display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 5px;border:1px solid #dbe6df;border-radius:11px;color:#3d584d;background:#fff;font-size:8px;font-weight:750}.mobile-plan-actions button:first-child{color:var(--green);border-color:#bfdccd;background:#eff8f4}
+}
 </style>
 </head>
 <body>
@@ -221,6 +226,11 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
           <div class="day-summary">
             <span>完成 7 / 11</span><div class="progress-pill"><span></span></div><span>预计 20:10 结束</span>
           </div>
+        </div>
+        <div class="mobile-plan-actions">
+          <button onclick="toast('打开 Anitabi 点位导入')">⇩ 导入点位</button>
+          <button onclick="openPlanEditor('spot')">＋ 添加安排</button>
+          <button onclick="activateView('checkin')">◉ 拍照打卡</button>
         </div>
         <div class="planner-grid">
           <div class="card map-card">
