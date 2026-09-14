@@ -167,6 +167,14 @@ flowchart LR
 9. 巡礼途中按清单导航、用餐、打卡和补记，必要时重排后续安排。
 10. 行程结束后汇总足迹、照片和花费，导出或分享旅行报告。
 
+## 界面原型
+
+可交互的高保真 HTML 原型见 [`design/enikki-ui.html`](design/enikki-ui.html)，
+包含计划总览、交通、住宿、用餐、预算和离线准备六个界面。
+
+六页设计总览见 [`design/preview-overview.png`](design/preview-overview.png)，
+界面说明和单独预览见 [`design/README.md`](design/README.md)。
+
 ## 设计原则
 
 ### 行程优先，而不是信息堆积
