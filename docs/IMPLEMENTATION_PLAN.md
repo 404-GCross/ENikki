@@ -177,6 +177,7 @@ lib/
 | `BudgetItem` | id、类别、金额、币种、预估/实际 | 交通、住宿、餐饮、门票等预算与支出 |
 | `VisitRecord` | id、点位、到达时间、状态、备注 | 打卡与现场反馈 |
 | `CheckInRecord` | id、点位、照片、时间、位置、备注 | 一次拍照打卡记录 |
+| `PhotoComparisonGroup` | 参考图、实拍图、对比模式、顺序 | 一组图片对比记录 |
 | `MediaAsset` | id、文件哈希、类型、位置、关联对象 | 照片、视频和导出文件 |
 | `Revision` | entity_id、revision、device_id、更新时间 | 本地与服务端同步的基础 |
 
