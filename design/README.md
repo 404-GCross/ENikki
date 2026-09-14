@@ -55,7 +55,14 @@ enikki-ui.html?view=offline
 
 ![移动端六页总览](preview-mobile-overview.png)
 
-移动端采用地图优先、时间线下滑和底部导航布局，七个页面分别为：
+移动端采用地图优先、时间线下滑和五项底部导航布局：
+
+```text
+计划 | 安排 | 打卡 | 预算 | 更多
+```
+
+交通、住宿和用餐收进“安排”半屏面板，离线准备和其他设置收进“更多”面板。
+七个页面分别为：
 
 - [计划总览](preview-mobile.png)
 - [拍照打卡](preview-mobile-checkin.png)
@@ -64,6 +71,10 @@ enikki-ui.html?view=offline
 - [用餐安排](preview-mobile-meals.png)
 - [预算管理](preview-mobile-budget.png)
 - [离线准备](preview-mobile-offline.png)
+
+“安排”面板预览：
+
+![移动端安排面板](preview-mobile-arrange.png)
 
 ## 原型范围
 

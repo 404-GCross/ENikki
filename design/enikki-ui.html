@@ -111,6 +111,16 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
   .checkin-grid{display:block;height:auto}.checkin-main,.checkin-side{display:block}.checkin-main>.card,.checkin-side>.card{margin-bottom:10px}.checkin-workspace{display:block;padding:10px}.camera-stage{min-height:360px}.checkin-controls{margin-top:10px}.photo-gallery{grid-template-columns:1fr 1fr;padding:0 10px 10px}.photo-tile{height:102px}.nav{grid-template-columns:repeat(7,minmax(0,1fr))}
 }
 
+.mobile-only{display:none!important}.mobile-sheet-backdrop{position:fixed;inset:0;z-index:45;display:none;background:rgba(18,37,30,.32);backdrop-filter:blur(3px)}.mobile-sheet-backdrop.open{display:block}.mobile-sheet{position:absolute;left:0;right:0;bottom:0;padding:10px 12px calc(16px + env(safe-area-inset-bottom));border-radius:22px 22px 0 0;background:#fff;box-shadow:0 -18px 50px rgba(25,50,40,.2);transform:translateY(105%);transition:transform .22s ease}.mobile-sheet-backdrop.open .mobile-sheet{transform:none}.sheet-handle{width:38px;height:4px;margin:0 auto 12px;border-radius:99px;background:#d5dfda}.mobile-sheet h3{margin:0 0 11px;font-size:13px}.sheet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.sheet-action{display:flex;flex-direction:column;align-items:center;gap:7px;padding:12px 6px;border:1px solid #e5ebe7;border-radius:14px;color:#40564d;background:#fafcfb;font-size:9px;font-weight:750}.sheet-action i{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;color:var(--green);background:var(--green-soft);font-size:15px;font-style:normal}.sheet-action.primary i{color:#fff;background:var(--green)}.sheet-action small{display:block;color:var(--muted);font-size:7px;font-weight:500}
+@media(max-width:760px){
+  .app-shell{grid-template-rows:minmax(0,1fr) calc(61px + env(safe-area-inset-bottom))}
+  .sidebar{padding:5px 6px calc(5px + env(safe-area-inset-bottom))}
+  .nav{grid-template-columns:repeat(5,minmax(0,1fr));gap:1px}
+  .nav button{padding:4px 1px;border-radius:9px}.nav button.desktop-only{display:none}.nav .mobile-only{display:flex!important}
+  .nav button[data-view="planner"]{order:1}.nav .mobile-arrange{order:2}.nav button[data-view="checkin"]{order:3}.nav button[data-view="budget"]{order:4}.nav .mobile-more{order:5}
+  .nav button[data-view="checkin"].active{background:#bcebd7}.nav .ico{height:19px}.nav b{font-size:8px}
+}
+
 </style>
 </head>
 <body>
@@ -135,15 +145,15 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
         <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="4"/></svg></span>
         <b>拍照打卡</b><em>7/11</em>
       </button>
-      <button data-view="transport">
+      <button class="desktop-only" data-view="transport">
         <span class="ico"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="15" rx="3"/><path d="M8 21l2-3M16 21l-2-3M7 11h10M9 7h6"/></svg></span>
         <b>交通</b><em>8 段</em>
       </button>
-      <button data-view="lodging">
+      <button class="desktop-only" data-view="lodging">
         <span class="ico"><svg viewBox="0 0 24 24"><path d="M3 20V8l9-5 9 5v12"/><path d="M7 20v-7h10v7M10 13v7M14 13v7"/></svg></span>
         <b>住宿</b><em>2 晚</em>
       </button>
-      <button data-view="meals">
+      <button class="desktop-only" data-view="meals">
         <span class="ico"><svg viewBox="0 0 24 24"><path d="M7 3v8M4 3v4a3 3 0 006 0V3M7 11v10M16 3v18M16 3c3 2 4 5 4 8h-4"/></svg></span>
         <b>用餐</b><em>9 餐</em>
       </button>
@@ -152,9 +162,17 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
         <b>预算</b><em>78%</em>
       </button>
       <div class="nav-label" style="margin-top:12px">出行准备</div>
-      <button data-view="offline">
+      <button class="desktop-only" data-view="offline">
         <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 20h14"/></svg></span>
         <b>离线准备</b><em>82%</em>
+      </button>
+      <button class="mobile-only mobile-arrange" data-mobile-target="arrange" data-mobile-sheet="arrange">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"/><path d="M8 9h8M8 13h5"/></svg></span>
+        <b>安排</b>
+      </button>
+      <button class="mobile-only mobile-more" data-mobile-target="more" data-mobile-sheet="more">
+        <span class="ico"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></span>
+        <b>更多</b>
       </button>
     </nav>
     <div class="sidebar-foot">
@@ -577,6 +595,13 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
     </section>
   </main>
 </div>
+<div class="mobile-sheet-backdrop" id="mobileSheetBackdrop" onclick="closeMobileSheet(event)">
+  <div class="mobile-sheet" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <h3 id="mobileSheetTitle">安排</h3>
+    <div class="sheet-grid" id="mobileSheetGrid"></div>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 <script>
 const pageCopy = {
@@ -589,13 +614,21 @@ const pageCopy = {
   offline: ['准备 / 离线检查', '离线准备与数据导出', '4 项核心资料正常 · 1 项待补全']
 };
 
-const navButtons = document.querySelectorAll('[data-view]');
+const navButtons = document.querySelectorAll('.nav [data-view]');
 const views = document.querySelectorAll('.view');
+const mobileTargetByView = {
+  planner: 'planner', checkin: 'checkin', budget: 'budget',
+  transport: 'arrange', lodging: 'arrange', meals: 'arrange', offline: 'more'
+};
 
 function activateView(name, pushState = true) {
   if (!document.getElementById(`view-${name}`)) name = 'planner';
   views.forEach((view) => view.classList.toggle('active', view.id === `view-${name}`));
   navButtons.forEach((button) => button.classList.toggle('active', button.dataset.view === name));
+  const mobileTarget = mobileTargetByView[name];
+  document.querySelectorAll('[data-mobile-target]').forEach((button) => {
+    button.classList.toggle('active', button.dataset.mobileTarget === mobileTarget);
+  });
   const copy = pageCopy[name];
   document.getElementById('pageTitle').textContent = copy[1];
   document.getElementById('pageSubtitle').textContent = copy[2];
@@ -607,6 +640,57 @@ function activateView(name, pushState = true) {
 
 navButtons.forEach((button) => {
   button.addEventListener('click', () => activateView(button.dataset.view));
+});
+
+const mobileSheetData = {
+  arrange: [
+    { view: 'transport', icon: '🚄', label: '交通', note: '城际与市内' },
+    { view: 'lodging', icon: '🏨', label: '住宿', note: '酒店与通勤' },
+    { view: 'meals', icon: '🍵', label: '用餐', note: '餐次与预约' }
+  ],
+  more: [
+    { view: 'offline', icon: '↓', label: '离线准备', note: '缓存检查' },
+    { action: 'export', icon: '⇧', label: '导出数据', note: '.enikki' },
+    { action: 'settings', icon: '⚙', label: '设置', note: '偏好与隐私' }
+  ]
+};
+
+function openMobileSheet(type) {
+  const data = mobileSheetData[type] || mobileSheetData.arrange;
+  document.getElementById('mobileSheetTitle').textContent = type === 'more' ? '更多' : '安排';
+  document.getElementById('mobileSheetGrid').innerHTML = data.map((item) => `
+    <button class="sheet-action${item.view === 'checkin' ? ' primary' : ''}"
+      ${item.view ? `data-view="${item.view}"` : `data-action="${item.action}"`}>
+      <i>${item.icon}</i><span>${item.label}</span><small>${item.note}</small>
+    </button>`).join('');
+  document.getElementById('mobileSheetBackdrop').classList.add('open');
+}
+
+function closeMobileSheet(event) {
+  if (event && event.target !== event.currentTarget) return;
+  document.getElementById('mobileSheetBackdrop').classList.remove('open');
+}
+
+document.querySelectorAll('[data-mobile-sheet]').forEach((button) => {
+  button.addEventListener('click', () => openMobileSheet(button.dataset.mobileSheet));
+});
+
+document.getElementById('mobileSheetGrid').addEventListener('click', (event) => {
+  const viewButton = event.target.closest('[data-view]');
+  const actionButton = event.target.closest('[data-action]');
+  if (viewButton) {
+    activateView(viewButton.dataset.view);
+    closeMobileSheet();
+    return;
+  }
+  if (actionButton) {
+    closeMobileSheet();
+    toast(actionButton.dataset.action === 'export' ? '已生成 .enikki 导出预览' : '设置面板将在正式版本中提供');
+  }
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeMobileSheet();
 });
 
 document.querySelectorAll('.day-tabs button').forEach((button) => {
@@ -627,8 +711,11 @@ function toast(message) {
   toastTimer = setTimeout(() => element.classList.remove('show'), 2200);
 }
 
-const initialView = new URLSearchParams(location.search).get('view') || 'planner';
+const initialParams = new URLSearchParams(location.search);
+const initialView = initialParams.get('view') || 'planner';
 activateView(initialView, false);
+const initialSheet = initialParams.get('sheet');
+if (initialSheet) openMobileSheet(initialSheet);
 </script>
 </body>
 </html>
