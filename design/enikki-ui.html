@@ -132,6 +132,9 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
 .section-grid{display:flex;flex-direction:column}.section-side{order:-1;display:block}.section-side>.card{flex:none!important;margin-bottom:10px}.section-main{order:0;display:block}
 .mobile-plan-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin:0 0 9px}.mobile-plan-actions button{display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 5px;border:1px solid #dbe6df;border-radius:11px;color:#3d584d;background:#fff;font-size:8px;font-weight:750}.mobile-plan-actions button:first-child{color:var(--green);border-color:#bfdccd;background:#eff8f4}
 }
+.checkin-editor-fields{display:none;grid-column:1/-1;border:1px solid #dbe9e2;border-radius:15px;padding:11px;background:#f7fbf9}.plan-editor[data-selected-type="checkin"] .checkin-editor-fields{display:block}.plan-editor[data-selected-type="checkin"] .money-field{display:none}.photo-edit-grid{display:grid;grid-template-columns:1fr 58px 1fr;gap:8px;align-items:center}.photo-edit-card{display:block;overflow:hidden;border:1px solid #dfe8e3;border-radius:12px;background:#fff;text-align:left}.photo-edit-art{height:96px;position:relative;background:linear-gradient(145deg,#7aa796,#d4cc9c)}.photo-edit-card.actual .photo-edit-art{background:linear-gradient(145deg,#6f96ab,#d9b98d)}.photo-edit-art:before{content:"";position:absolute;width:112px;height:55px;left:50%;top:50%;transform:translate(-50%,-50%);background:#8b4237;clip-path:polygon(0 34%,16% 34%,22% 0,78% 0,84% 34%,100% 34%,100% 100%,0 100%)}.photo-edit-art:after{content:"";position:absolute;left:0;right:0;bottom:0;height:38px;background:#567a65;clip-path:polygon(0 34%,50% 0,100% 34%,100% 100%,0 100%)}.photo-edit-card b{display:block;padding:8px 9px 2px;color:#294238;font-size:9px}.photo-edit-card small{display:block;padding:0 9px 8px;color:#7a8982;font-size:7px}.compare-divider{display:grid;gap:5px;place-items:center;color:#6f8279;font-size:7px;text-align:center}.compare-divider button{width:40px;height:40px;border:1px solid #bcd9cc;border-radius:50%;color:var(--green);background:#e9f6f1;font-size:16px}.compare-options{display:flex;gap:5px;margin-top:9px}.compare-options button{padding:6px 8px;border-radius:8px;color:#5d7067;background:#eaf1ed;font-size:8px}.compare-options button.active{color:#fff;background:var(--green)}.photo-edit-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.photo-edit-actions button{padding:7px 9px;border:1px solid #dce8e2;border-radius:9px;color:#40594e;background:#fff;font-size:8px}.photo-edit-actions button.primary{color:#fff;border-color:var(--green);background:var(--green)}.photo-check-options{display:flex;gap:12px;margin-top:9px;color:#5e7168;font-size:8px}.photo-check-options label{display:flex;align-items:center;gap:5px}.photo-check-options input{accent-color:var(--green)}
+@media(max-width:760px){.photo-edit-grid{grid-template-columns:1fr 40px 1fr}.photo-edit-art{height:86px}.compare-divider button{width:32px;height:32px}.photo-edit-actions{display:grid;grid-template-columns:1fr 1fr}.photo-check-options{display:grid;gap:6px}}
+
 </style>
 </head>
 <body>
@@ -591,8 +594,18 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
       <div class="field"><label>结束时间</label><input type="time" value="11:45"></div>
       <div class="field full"><label>标题</label><input id="planEditorName" value="凤凰堂参拜与拍照" placeholder="例如：宇治桥打卡"></div>
       <div class="field full"><label>地点或区间</label><input value="平等院凤凰堂 · 宇治市宇治莲华 116" placeholder="搜索地点或输入自定义位置"></div>
-      <div class="field"><label>费用 · CNY</label><input value="60.00"></div>
-      <div class="field"><label>费用 · JPY</label><input value="1,230"></div>
+      <div class="checkin-editor-fields">
+        <div class="photo-edit-grid">
+          <button class="photo-edit-card reference" onclick="toast('从 Anitabi 选择参考图')"><span class="photo-edit-art"></span><b>参考图</b><small>Anitabi · EP 5 · 08:16</small></button>
+          <div class="compare-divider"><button onclick="toast('已切换对比预览')">↔</button><span>对比</span></div>
+          <button class="photo-edit-card actual" onclick="toast('打开相机拍摄实景照片')"><span class="photo-edit-art"></span><b>实拍图</b><small>拍摄或从相册导入</small></button>
+        </div>
+        <div class="compare-options"><button class="active">叠影 35%</button><button>上下对比</button><button>左右对比</button><button>原图</button></div>
+        <div class="photo-edit-actions"><button class="primary" onclick="toast('相机已打开')">◉ 拍摄照片</button><button onclick="toast('打开系统相册')">▧ 从相册导入</button><button onclick="toast('已选择 Anitabi 参考图')">⌖ 选择参考图</button><button onclick="toast('对比图已保存到本地')">⇩ 保存对比图</button></div>
+        <div class="photo-check-options"><label><input type="checkbox" checked>记录拍摄时间</label><label><input type="checkbox" checked>记录位置</label><label><input type="checkbox" checked>保存原图与对比图</label></div>
+      </div>
+      <div class="field money-field"><label>费用 · CNY</label><input value="60.00"></div>
+      <div class="field money-field"><label>费用 · JPY</label><input value="1,230"></div>
       <div class="field"><label>所属片区</label><select><option>平等院片区</option><option>宇治站片区</option><option>大吉山片区</option></select></div>
       <div class="field"><label>提醒</label><select><option>提前 15 分钟</option><option>不提醒</option><option>提前 30 分钟</option></select></div>
       <div class="field full"><label>备注</label><textarea placeholder="交通路线、预约信息、拍摄要求或注意事项"></textarea></div>
@@ -711,6 +724,7 @@ let activePlanType = 'spot';
 
 function selectPlanType(type) {
   activePlanType = type;
+  document.querySelector('.plan-editor').dataset.selectedType = type;
   document.querySelectorAll('[data-plan-type]').forEach((button) => {
     button.classList.toggle('active', button.dataset.planType === type);
   });

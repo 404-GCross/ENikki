@@ -36,6 +36,9 @@ enikki-ui.html?view=offline
 
 ![手机端总览添加安排](preview-mobile-plan-add.png)
 
+选择“拍照打卡”类型后，表单会显示参考图与实拍图预览、叠影/上下/左右对比、
+拍摄、相册导入、选择 Anitabi 参考图、保存对比图，以及拍摄时间和位置选项。
+
 ### 交通规划
 
 ![交通规划](preview-transport.png)
