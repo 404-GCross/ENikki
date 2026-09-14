@@ -36,22 +36,30 @@ enikki-ui.html?view=offline
 
 ![手机端总览添加安排](preview-mobile-plan-add.png)
 
-选择“拍照打卡”类型后，表单默认显示“参考图 + 实拍图”两个空图片框。点击
-任一框会弹出图片来源选择：
+选择“拍照打卡”类型后，表单默认显示“参考图 + 实拍图”两个空图片框。
+
+参考图支持：
 
 - Anitabi 参考图
-- 现场拍照
 - 手机相册
 - 本地文件
+
+![参考图来源选择](preview-photo-source.png)
+
+实拍图支持：
+
+- 拍照
+- 手机相册
+- 本地文件
+
+![实拍图来源选择](preview-photo-source-actual.png)
 
 选择后的图片会填入对应框，并支持继续添加新的“参考图 + 实拍图”对比组。
 填写后可使用叠影、上下、左右和原图模式，并保存对比图。
 
-![图片来源选择](preview-photo-source.png)
+手机端实拍图来源选择：
 
-手机端图片来源选择：
-
-![手机端图片来源选择](preview-mobile-photo-source.png)
+![手机端实拍图来源选择](preview-mobile-photo-source-actual.png)
 
 ### 交通规划
 

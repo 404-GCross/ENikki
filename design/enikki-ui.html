@@ -624,12 +624,7 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
   <div class="photo-source-modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
     <h3>选择图片导入方式</h3>
     <p id="photoSourceHint">为“参考图”选择来源</p>
-    <div class="photo-source-grid">
-      <button class="photo-source-choice" data-photo-source="anitabi"><i>A</i><span>Anitabi 参考图<small>按当前作品和点位选择</small></span></button>
-      <button class="photo-source-choice" data-photo-source="camera"><i>◉</i><span>拍照<small>打开相机现场拍摄</small></span></button>
-      <button class="photo-source-choice" data-photo-source="album"><i>▧</i><span>手机相册<small>选择已有照片</small></span></button>
-      <button class="photo-source-choice" data-photo-source="file"><i>⇧</i><span>本地文件<small>从电脑或文件应用导入</small></span></button>
-    </div>
+    <div class="photo-source-grid" id="photoSourceGrid"></div>
     <button class="photo-source-close" onclick="closePhotoSource()">取消</button>
   </div>
 </div>
@@ -742,17 +737,28 @@ document.getElementById('mobileSheetGrid').addEventListener('click', (event) => 
 });
 
 let photoTarget = null;
-const photoSourceLabels = {
-  anitabi: ['Anitabi 参考图', 'A'],
-  camera: ['现场拍照', '◉'],
-  album: ['手机相册', '▧'],
-  file: ['本地文件', '⇧']
+const photoSourceOptions = {
+  reference: [
+    { source: 'anitabi', label: 'Anitabi 参考图', note: '按当前作品和点位选择', icon: 'A' },
+    { source: 'album', label: '手机相册', note: '选择已有参考图', icon: '▧' },
+    { source: 'file', label: '本地文件', note: '从电脑或文件应用导入', icon: '⇧' }
+  ],
+  actual: [
+    { source: 'camera', label: '拍照', note: '打开相机现场拍摄', icon: '◉' },
+    { source: 'album', label: '手机相册', note: '选择已有实拍照片', icon: '▧' },
+    { source: 'file', label: '本地文件', note: '从电脑或文件应用导入', icon: '⇧' }
+  ]
 };
 
 function openPhotoSource(slot) {
   photoTarget = slot;
-  const side = slot.dataset.photoSide === 'actual' ? '实拍图' : '参考图';
-  document.getElementById('photoSourceHint').textContent = `为“${side}”选择来源`;
+  const side = slot.dataset.photoSide === 'actual' ? 'actual' : 'reference';
+  const sideLabel = side === 'actual' ? '实拍图' : '参考图';
+  document.getElementById('photoSourceHint').textContent = `为“${sideLabel}”选择来源`;
+  document.getElementById('photoSourceGrid').innerHTML = photoSourceOptions[side].map((item) => `
+    <button class="photo-source-choice" data-photo-source="${item.source}">
+      <i>${item.icon}</i><span>${item.label}<small>${item.note}</small></span>
+    </button>`).join('');
   document.getElementById('photoSourceBackdrop').classList.add('open');
 }
 
@@ -763,11 +769,12 @@ function closePhotoSource(event) {
 
 function choosePhotoSource(source) {
   if (!photoTarget) return;
-  const [label, icon] = photoSourceLabels[source] || photoSourceLabels.file;
-  const side = photoTarget.dataset.photoSide || 'reference';
+  const side = photoTarget.dataset.photoSide === 'actual' ? 'actual' : 'reference';
+  const option = photoSourceOptions[side].find((item) => item.source === source);
+  if (!option) return;
   photoTarget.classList.add('filled');
   if (side === 'actual') photoTarget.classList.add('actual');
-  photoTarget.innerHTML = `<span class="empty-photo-icon">${icon}</span><b>${side === 'actual' ? '实拍图' : '参考图'}</b><small>${label} · 点击可替换</small>`;
+  photoTarget.innerHTML = `<span class="empty-photo-icon">${option.icon}</span><b>${side === 'actual' ? '实拍图' : '参考图'}</b><small>${option.label} · 点击可替换</small>`;
   closePhotoSource();
 }
 
@@ -791,8 +798,9 @@ document.getElementById('photoGroups').addEventListener('click', (event) => {
   if (slot) openPhotoSource(slot);
 });
 
-document.querySelectorAll('[data-photo-source]').forEach((button) => {
-  button.addEventListener('click', () => choosePhotoSource(button.dataset.photoSource));
+document.getElementById('photoSourceGrid').addEventListener('click', (event) => {
+  const button = event.target.closest('[data-photo-source]');
+  if (button) choosePhotoSource(button.dataset.photoSource);
 });
 
 const planTypeDefaults = {
@@ -871,7 +879,8 @@ if (initialParams.get('editor') === 'add') {
 }
 if (initialParams.get('photoSource')) {
   setTimeout(() => {
-    const slot = document.querySelector('.photo-slot');
+    const actual = initialParams.get('photoSide') === 'actual';
+    const slot = document.querySelector(actual ? '.photo-slot.actual' : '.photo-slot.reference');
     if (slot) openPhotoSource(slot);
   }, 0);
 }
