@@ -105,6 +105,12 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
   .section-main,.section-side{display:block}.section-main>.card,.section-side>.card{margin-bottom:10px}.option-list,.meal-grid,.expense-list,.offline-grid{flex:none}.meal-grid,.offline-grid{grid-template-columns:1fr}.mini-map{height:210px}.zone.a{left:46px}.option{grid-template-columns:38px minmax(0,1fr) auto}.option-ico{width:38px;height:38px}.budget-hero .subline{flex-wrap:wrap;gap:8px 12px}.donut-wrap{grid-template-columns:105px 1fr}.donut{width:100px;height:100px}.donut:before{inset:19px}
 }
 
+.checkin-grid{height:100%;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(315px,.68fr);gap:13px}.checkin-main,.checkin-side{min-height:0;display:flex;flex-direction:column;gap:12px}.checkin-workspace{display:grid;grid-template-columns:minmax(0,1.5fr) 280px;gap:12px;padding:14px}.camera-shell{border:1px solid #dbe6df;border-radius:19px;overflow:hidden;background:#13231e}.camera-stage{position:relative;min-height:410px;overflow:hidden;background:linear-gradient(160deg,#83a997,#cfd4b4 55%,#9eafa0)}.camera-stage>svg{position:absolute;inset:0;width:100%;height:100%}.camera-guide{position:absolute;inset:7% 8%;border:1px dashed rgba(255,255,255,.75);border-radius:18px}.camera-guide:before,.camera-guide:after{content:"";position:absolute;background:rgba(255,255,255,.65)}.camera-guide:before{width:1px;top:0;bottom:0;left:50%}.camera-guide:after{height:1px;left:0;right:0;top:50%}.camera-overlay{position:absolute;left:12px;right:12px;top:12px;display:flex;gap:7px}.camera-chip{padding:6px 8px;border-radius:8px;color:#fff;background:rgba(17,35,29,.65);font-size:8px;backdrop-filter:blur(8px)}.camera-bottom{position:absolute;left:0;right:0;bottom:0;padding:13px 15px;display:flex;align-items:center;gap:12px;background:linear-gradient(transparent,rgba(10,25,20,.78))}.shutter{width:54px;height:54px;display:grid;place-items:center;border:4px solid rgba(255,255,255,.65);border-radius:50%;background:rgba(255,255,255,.2);box-shadow:0 0 0 3px rgba(0,0,0,.18)}.shutter span{width:38px;height:38px;border-radius:50%;background:#fff}.camera-tools{display:flex;gap:7px}.camera-tools button{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;color:#fff;background:rgba(255,255,255,.16);font-size:14px}.camera-tools .spacer{flex:1}.camera-mode{margin-left:auto;padding:7px 9px;border-radius:9px;color:#fff;background:rgba(255,255,255,.16);font-size:8px}.checkin-controls{display:flex;flex-direction:column;gap:10px}.compare-mode{display:grid;grid-template-columns:1fr 1fr;gap:6px}.compare-mode button{padding:9px 6px;border-radius:10px;color:#4e6259;background:#f3f6f4;font-size:9px}.compare-mode button.active{color:#fff;background:var(--green)}.point-check-card{padding:13px;border-radius:14px;background:#f8faf9;border:1px solid #e5ece7}.point-check-card small{color:var(--muted);font-size:8px}.point-check-card h4{margin:5px 0;font-size:12px}.point-check-card p{margin:0;color:#6d7e75;font-size:9px;line-height:1.55}.check-list{display:grid;gap:7px;margin-top:10px}.check-item{display:flex;align-items:center;gap:7px;color:#5a6c63;font-size:9px}.check-item i{width:16px;height:16px;display:grid;place-items:center;border-radius:50%;color:#fff;background:var(--green);font-size:8px;font-style:normal}.check-item.pending i{background:#c9d5cf}
+.photo-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 14px 14px}.photo-tile{position:relative;height:118px;overflow:hidden;border-radius:14px;background:linear-gradient(140deg,#789c91,#cfc78f)}.photo-tile:nth-child(2){background:linear-gradient(140deg,#6f98ae,#d7b888)}.photo-tile:nth-child(3){background:linear-gradient(140deg,#9a8b75,#d8d5b3)}.photo-tile .check-stamp{position:absolute;right:7px;top:7px;width:27px;height:27px;display:grid;place-items:center;border-radius:50%;color:#fff;background:rgba(28,104,77,.86);font-size:13px}.photo-tile .photo-meta{position:absolute;left:8px;right:8px;bottom:7px;color:#fff;font-size:8px;text-shadow:0 1px 3px rgba(0,0,0,.3)}.planner-checkin{margin-top:8px;padding:9px 10px;border:1px solid #cfe4da;border-radius:11px;background:#f4fbf7;display:flex;align-items:center;gap:8px}.planner-checkin .camera-mini{width:28px;height:28px;display:grid;place-items:center;border-radius:9px;color:#fff;background:var(--green);font-size:13px}.planner-checkin b{display:block;font-size:9px}.planner-checkin small{display:block;margin-top:2px;color:var(--muted);font-size:8px}.planner-checkin button{margin-left:auto;padding:6px 8px;border-radius:8px;color:#fff;background:var(--green);font-size:8px}
+@media(max-width:760px){
+  .checkin-grid{display:block;height:auto}.checkin-main,.checkin-side{display:block}.checkin-main>.card,.checkin-side>.card{margin-bottom:10px}.checkin-workspace{display:block;padding:10px}.camera-stage{min-height:360px}.checkin-controls{margin-top:10px}.photo-gallery{grid-template-columns:1fr 1fr;padding:0 10px 10px}.photo-tile{height:102px}.nav{grid-template-columns:repeat(7,minmax(0,1fr))}
+}
+
 </style>
 </head>
 <body>
@@ -124,6 +130,10 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
       <button class="active" data-view="planner">
         <span class="ico"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
         <b>计划总览</b><em>3 天</em>
+      </button>
+      <button data-view="checkin">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="4"/></svg></span>
+        <b>拍照打卡</b><em>7/11</em>
       </button>
       <button data-view="transport">
         <span class="ico"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="15" rx="3"/><path d="M8 21l2-3M16 21l-2-3M7 11h10M9 7h6"/></svg></span>
@@ -258,8 +268,8 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
               </div>
               <div class="timeline">
                 <div class="event transport"><div class="event-time">08:20</div><div class="event-node">JR</div><div class="event-body"><div class="event-head"><strong>京都站 → 宇治站</strong><span class="tag">交通</span></div><div class="event-meta"><span>JR 奈良线 · 18 分钟</span><span>¥240</span></div></div></div>
-                <div class="event"><div class="event-time">09:10</div><div class="event-node">✓</div><div class="event-body"><div class="event-head"><strong>宇治桥</strong><span class="tag">已完成</span></div><div class="event-meta"><span>EP 1 · 10:42</span><span>停留 25 分钟</span></div><div class="thumb-strip"><div class="mini-photo">▧</div><div class="mini-photo">▧</div><div class="mini-photo">▧</div></div></div></div>
-                <div class="event current"><div class="event-time">10:20</div><div class="event-node">●</div><div class="event-body"><div class="event-head"><strong>平等院凤凰堂</strong><span class="tag">当前目标</span></div><div class="event-meta"><span>EP 5 · 08:16</span><span>预约 10:30</span></div><div class="event-note">门票已加入预算。步行前往下一站约 12 分钟。</div></div></div>
+                <div class="event"><div class="event-time">09:10</div><div class="event-node">✓</div><div class="event-body"><div class="event-head"><strong>宇治桥</strong><span class="tag">已完成</span></div><div class="event-meta"><span>EP 1 · 10:42</span><span>停留 25 分钟</span></div><div class="planner-checkin"><div class="camera-mini">✓</div><div><b>打卡照片 · 3 张</b><small>09:35 拍摄 · 已绑定宇治桥</small></div><button onclick="activateView('checkin')">查看</button></div></div></div>
+                <div class="event current"><div class="event-time">10:20</div><div class="event-node">●</div><div class="event-body"><div class="event-head"><strong>平等院凤凰堂</strong><span class="tag">当前目标</span></div><div class="event-meta"><span>EP 5 · 08:16</span><span>预约 10:30</span></div><div class="event-note">门票已加入预算。步行前往下一站约 12 分钟。</div><div class="planner-checkin"><div class="camera-mini">◉</div><div><b>还没有打卡照片</b><small>建议对齐参考图后拍摄 2—3 张</small></div><button onclick="activateView('checkin')">去拍照</button></div></div></div>
                 <div class="event meal"><div class="event-time">12:40</div><div class="event-node">食</div><div class="event-body"><div class="event-head"><strong>中村藤吉本店</strong><span class="tag">已预约</span></div><div class="event-meta"><span>抹茶荞麦面</span><span>2 人 · ¥4,200</span></div></div></div>
                 <div class="event"><div class="event-time">14:00</div><div class="event-node">5</div><div class="event-body"><div class="event-head"><strong>大吉山展望台</strong><span class="tag">待巡礼</span></div><div class="event-meta"><span>EP 8 · 16:03</span><span>步行 28 分钟</span></div></div></div>
                 <div class="event lodging"><div class="event-time">18:30</div><div class="event-node">宿</div><div class="event-body"><div class="event-head"><strong>京都八条口酒店</strong><span class="tag">已确认</span></div><div class="event-meta"><span>入住 18:30</span><span>¥12,800 / 晚</span></div></div></div>
@@ -273,6 +283,94 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
           </div>
         </div>
       </section>
+      <section class="view" id="view-checkin">
+        <div class="checkin-grid">
+          <div class="checkin-main">
+            <div class="card soft-card">
+              <div class="card-head">
+                <div><h3>拍照打卡 · 平等院凤凰堂</h3><p>参考《吹响吧！上低音号》EP 5 · 08:16 · 当前目标</p></div>
+                <button class="btn soft" onclick="toast('已切换相机：后置广角')">相机设置</button>
+              </div>
+              <div class="checkin-workspace">
+                <div class="camera-shell">
+                  <div class="camera-stage">
+                    <svg viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice">
+                      <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fc1c3"/><stop offset=".58" stop-color="#d5d6ad"/><stop offset="1" stop-color="#758f7d"/></linearGradient></defs>
+                      <rect width="900" height="520" fill="url(#sky)"/>
+                      <path d="M0 340C180 294 320 312 470 280s277-30 430-4v244H0z" fill="#77957e"/>
+                      <path d="M0 410C140 365 286 377 444 346s316-18 456 10v164H0z" fill="#4f7461"/>
+                      <path d="M175 340h550l-65-92H244z" fill="#8b3d32"/>
+                      <path d="M210 248h480l-52-60H264z" fill="#7c342b"/>
+                      <path d="M182 345h536" stroke="#f1dfbe" stroke-width="17"/>
+                      <path d="M230 248h440" stroke="#f1dfbe" stroke-width="16"/>
+                      <path d="M330 185h210" stroke="#f1dfbe" stroke-width="12"/>
+                      <path d="M95 470c190-75 430-80 710-8" fill="none" stroke="#dfece4" stroke-width="18" opacity=".8"/>
+                      <circle cx="735" cy="95" r="38" fill="#f5e9c8" opacity=".8"/>
+                    </svg>
+                    <div class="camera-guide"></div>
+                    <div class="camera-overlay"><span class="camera-chip">叠影参考 35%</span><span class="camera-chip">水平校正 ✓</span><span class="camera-chip">GPS 已开启</span></div>
+                    <div class="camera-bottom">
+                      <button class="shutter" onclick="toast('已拍摄打卡照片')"><span></span></button>
+                      <div class="camera-tools"><button>◱</button><button>↺</button><span class="spacer"></span><button>♧</button></div>
+                      <span class="camera-mode">广角 · 1x</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="checkin-controls">
+                  <div class="compare-mode"><button class="active">叠影</button><button>上下对比</button><button>原图</button><button>实景</button></div>
+                  <div class="point-check-card">
+                    <small>当前点位</small><h4>平等院凤凰堂</h4>
+                    <p>建议站在表参道桥面中段，使用 28mm 焦段，尽量保持建筑檐口与参考图平行。</p>
+                  </div>
+                  <div class="point-check-card">
+                    <small>打卡内容</small>
+                    <div class="check-list">
+                      <span class="check-item"><i>✓</i>到达点位</span>
+                      <span class="check-item"><i>✓</i>打开参考图</span>
+                      <span class="check-item pending"><i>○</i>完成拍摄</span>
+                      <span class="check-item pending"><i>○</i>确认并保存</span>
+                    </div>
+                  </div>
+                  <button class="btn primary" onclick="toast('打卡成功：已保存到巡礼记录')">确认打卡</button>
+                  <button class="btn" onclick="toast('打开相册选择已有照片')">从相册导入</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card soft-card">
+              <div class="card-head"><div><h3>本次打卡照片</h3><p>照片保存在本地，可随 .enikki 数据包导出</p></div><button class="btn">添加备注</button></div>
+              <div class="photo-gallery">
+                <div class="photo-tile"><span class="check-stamp">✓</span><div class="photo-meta">09:35 · 广角 · 原图</div></div>
+                <div class="photo-tile"><span class="check-stamp">✓</span><div class="photo-meta">09:36 · 叠影对比</div></div>
+                <div class="photo-tile"><span class="check-stamp">✓</span><div class="photo-meta">09:37 · 横向构图</div></div>
+              </div>
+            </div>
+          </div>
+
+          <aside class="checkin-side">
+            <div class="card soft-card">
+              <div class="pad">
+                <div class="section-title"><div><h3>打卡进度</h3><p>今天已完成 7 / 11 个点位</p></div></div>
+                <div class="metric-row" style="margin-top:14px">
+                  <div class="metric"><small>今日照片</small><b>14 张</b></div>
+                  <div class="metric"><small>已完成</small><b>7 点</b></div>
+                  <div class="metric"><small>剩余</small><b>4 点</b></div>
+                </div>
+              </div>
+            </div>
+            <div class="card soft-card" style="flex:1">
+              <div class="card-head"><div><h3>记录信息</h3><p>确认后写入本地巡礼记录</p></div></div>
+              <div class="option-list" style="padding:12px 14px">
+                <div class="option"><div class="option-ico">◷</div><div><h4>拍摄时间</h4><p>2026-10-12 09:35:24</p></div><div class="price"><b>自动</b><small>可编辑</small></div></div>
+                <div class="option"><div class="option-ico">⌖</div><div><h4>位置信息</h4><p>34.8894, 135.8077 · ±8m</p></div><div class="price"><b>本机</b><small>不上传</small></div></div>
+                <div class="option"><div class="option-ico">✎</div><div><h4>现场备注</h4><p>光线很好，桥面游客较多。</p></div><div class="price"><b>已填写</b><small>可编辑</small></div></div>
+                <div class="option"><div class="option-ico">◎</div><div><h4>打卡状态</h4><p>照片已绑定当前点位</p></div><div class="price"><b>完成</b><small>09:37</small></div></div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
       <section class="view" id="view-transport">
         <div class="section-grid">
           <div class="section-main">
@@ -483,6 +581,7 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
 <script>
 const pageCopy = {
   planner: ['我的行程 / 京都动画巡礼', '今天的巡礼计划', '10 月 12 日 · 宇治片区 · 当前进度 7 / 11'],
+  checkin: ['我的行程 / 拍照打卡', '拍照打卡与现场记录', '平等院凤凰堂 · 今日已完成 7 / 11'],
   transport: ['我的行程 / 交通规划', '交通与路线衔接', '4 段行程 · 2 人 · 已确认 1 段'],
   lodging: ['我的行程 / 住宿规划', '住宿区域与酒店', '2 晚 · 10 月 12 日入住 · 2 人'],
   meals: ['我的行程 / 用餐规划', '每日用餐安排', '9 餐 · 2 个预约 · 1 项饮食提醒'],

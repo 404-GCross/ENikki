@@ -1,6 +1,6 @@
 # ENikki 界面原型
 
-本目录提供 ENikki 的高保真交互原型。
+本目录提供 ENikki 的高保真交互原型，覆盖桌面端和手机端的七个核心页面。
 
 ## 打开方式
 
@@ -22,6 +22,12 @@ enikki-ui.html?view=offline
 ### 计划总览
 
 ![计划总览](preview-plan.png)
+
+### 拍照打卡
+
+![拍照打卡](preview-checkin.png)
+
+包含参考图叠影、上下对比、相机拍摄、相册导入、打卡确认、位置记录和照片归档。
 
 ### 交通规划
 
@@ -49,9 +55,10 @@ enikki-ui.html?view=offline
 
 ![移动端六页总览](preview-mobile-overview.png)
 
-移动端采用地图优先、时间线下滑和底部导航布局，六个页面分别为：
+移动端采用地图优先、时间线下滑和底部导航布局，七个页面分别为：
 
 - [计划总览](preview-mobile.png)
+- [拍照打卡](preview-mobile-checkin.png)
 - [交通规划](preview-mobile-transport.png)
 - [住宿规划](preview-mobile-lodging.png)
 - [用餐安排](preview-mobile-meals.png)
