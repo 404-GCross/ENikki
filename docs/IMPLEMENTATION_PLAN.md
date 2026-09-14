@@ -331,6 +331,9 @@ checksums.sha256
 
 后端采用模块化单体，不在一开始拆分多个服务。
 
+服务端的 P1/P2 边界、部署和离线降级见
+[`SERVER_ARCHITECTURE.md`](SERVER_ARCHITECTURE.md)。
+
 ### 7.1 模块
 
 - `catalog`：作品、别名、点位、来源和去重。

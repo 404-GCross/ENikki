@@ -172,7 +172,11 @@ flowchart LR
 可交互的高保真 HTML 原型见 [`design/enikki-ui.html`](design/enikki-ui.html)，
 包含计划总览、交通、住宿、用餐、预算和离线准备六个界面。
 
-六页设计总览见 [`design/preview-overview.png`](design/preview-overview.png)，
+桌面六页设计总览见 [`design/preview-overview.png`](design/preview-overview.png)。
+
+手机六页设计总览见
+[`design/preview-mobile-overview.png`](design/preview-mobile-overview.png)。
+
 界面说明和单独预览见 [`design/README.md`](design/README.md)。
 
 ## 设计原则
@@ -225,6 +229,9 @@ ENikki 的代码以 AGPL-3.0 开源，但**代码许可证不自动覆盖第三�
 
 详细的技术选型、模块设计、数据模型、路线算法和分阶段交付方案见 [`docs/IMPLEMENTATION_PLAN.md`](docs/IMPLEMENTATION_PLAN.md)。
 
+服务端的职责、部署、缓存和客户端降级策略见
+[`docs/SERVER_ARCHITECTURE.md`](docs/SERVER_ARCHITECTURE.md)。
+
 已经确定的技术原则包括：
 
 - 跨平台客户端共享尽可能多的领域模型与业务逻辑，同时保留各平台必要的能力差异。
@@ -245,6 +252,7 @@ ENikki 的代码以 AGPL-3.0 开源，但**代码许可证不自动覆盖第三�
 | 目标平台 | 已明确：Windows、Linux、macOS、Android、iOS、HarmonyOS |
 | 预订范围 | 已明确：仅跳转第三方，不直接交易 |
 | 核心规划范围 | 已明确：交通、住宿、用餐和预算均属于 P1 |
+| 服务端范围 | P1 轻量数据服务；P2 可选同步；本地核心不依赖服务端 |
 | 开源协议 | 已明确：AGPL-3.0 |
 | 用户研究与需求验证 | 待进行 |
 | 数据源与合规评估 | 待进行 |

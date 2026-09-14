@@ -47,9 +47,16 @@ enikki-ui.html?view=offline
 
 ### 移动端
 
-![移动端计划总览](preview-mobile.png)
+![移动端六页总览](preview-mobile-overview.png)
 
-移动端采用地图优先、时间线下滑和底部导航布局。
+移动端采用地图优先、时间线下滑和底部导航布局，六个页面分别为：
+
+- [计划总览](preview-mobile.png)
+- [交通规划](preview-mobile-transport.png)
+- [住宿规划](preview-mobile-lodging.png)
+- [用餐安排](preview-mobile-meals.png)
+- [预算管理](preview-mobile-budget.png)
+- [离线准备](preview-mobile-offline.png)
 
 ## 原型范围
 
