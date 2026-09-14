@@ -31,7 +31,7 @@
 | 数据层 | Repository、Drift、远端 Adapter |
 | 本地数据库 | SQLite + Drift |
 | 时间 | UTC 存储 + IANA 时区展示 |
-| 金额 | 最小货币单位整数 + Decimal 汇率 |
+| 金额 | 最小货币单位整数 + Decimal 汇率 + 双币种显示 |
 | 外链 | url_launcher + 域名白名单 |
 | 导出 | ZIP + JSON + 校验和 |
 
@@ -170,6 +170,19 @@ final class ExchangeRate {
   final String source;
 }
 
+final class CurrencyDisplay {
+  final String primaryCurrency;
+  final String secondaryCurrency;
+}
+
+final class MoneyPair {
+  final Money original;
+  final Money primary;
+  final Money secondary;
+  final ExchangeRate primaryRate;
+  final ExchangeRate secondaryRate;
+}
+
 final class TimeWindow {
   final DateTime start;
   final DateTime end;
@@ -187,6 +200,8 @@ final class GeoPoint {
 - `Money` 的加减乘只能在同币种内直接计算。
 - 跨币种先通过 `ExchangeRate` 转换。
 - 汇率使用 Decimal，不使用二进制浮点数。
+- `MoneyPair` 同时保留原值、基准币种值和第二显示币种值。
+- 换算值只用于展示和汇总，不能覆盖费用原值。
 - 时间存 UTC，同时保存 IANA 时区，例如 `Asia/Tokyo`。
 - 跨夜住宿使用“日期 + 当地墙钟时间”，转换后再存 UTC。
 - 日期范围和 TimeWindow 必须验证起止顺序。
@@ -467,13 +482,18 @@ final class BudgetItem {
 派生摘要包括：
 
 ```text
-总额
+原币种总额
+基准币种总额
+第二显示币种总额
 分类小计
 每人小计
 每天预算和剩余金额
 预估与实际差额
 已支付和待支付金额
 ```
+
+预算页面同时显示两种币值，例如 `CNY 18,640 / JPY 382,000`。汇率过期时
+继续使用最后一次成功值，但必须显示来源和更新时间。
 
 计算器应是纯函数：
 
@@ -638,7 +658,7 @@ checksums.sha256
 
 ### 14.1 单元测试
 
-- Money 加减、舍入、跨币种和退款。
+- Money 加减、舍入、双币种换算、汇率时间和退款。
 - 住宿入住退房、跨天和时区。
 - 交通连接、末班车和换乘缓冲。
 - 早餐、午餐、晚餐时间窗和预约约束。
