@@ -3,950 +3,280 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ENikki UI Prototype</title>
+<title>ENikki UI Prototype v2</title>
 <style>
-:root{
-  --ink:#17251f;--muted:#718079;--line:#dfe7e2;--paper:#fff;--canvas:#f2f5f2;
-  --green:#1f6b52;--green2:#2d896a;--green-soft:#e4f2ec;--orange:#e9874e;
-  --orange-soft:#fff0e5;--blue:#4c83c1;--blue-soft:#eaf2fb;--violet:#7564c9;
-  --violet-soft:#efecff;--shadow:0 22px 60px rgba(35,58,48,.12);
-  --shadow-sm:0 8px 24px rgba(35,58,48,.08);
-}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%}
-body{
-  min-width:1120px;min-height:760px;display:grid;place-items:center;padding:18px;color:var(--ink);
-  background:radial-gradient(circle at 8% 4%,rgba(46,145,108,.16),transparent 27%),
-    radial-gradient(circle at 95% 100%,rgba(233,135,78,.13),transparent 25%),#e8eee9;
-  font-family:"Noto Sans SC","Source Han Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
-  -webkit-font-smoothing:antialiased;
-}
-button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
-.app-shell{
-  width:min(1540px,calc(100vw - 36px));height:min(940px,calc(100vh - 36px));min-height:724px;
-  display:grid;grid-template-columns:218px minmax(0,1fr);overflow:hidden;border-radius:30px;
-  border:1px solid rgba(255,255,255,.75);background:var(--canvas);box-shadow:var(--shadow);
-}
-.sidebar{
-  display:flex;flex-direction:column;padding:22px 14px 16px;color:#f4faf7;
-  background:radial-gradient(circle at 30% 0,rgba(96,186,150,.22),transparent 30%),
-    linear-gradient(180deg,#173d31,#123127);
-}
-.brand{display:flex;align-items:center;gap:11px;padding:0 8px 24px}
-.brand-mark{width:38px;height:38px;display:grid;place-items:center;border-radius:13px;color:#173d31;background:#c9f0de;font-weight:900}
-.brand h1{margin:0;font-size:19px;letter-spacing:-.02em}
-.brand span{display:block;margin-top:2px;color:#9fc2b4;font-size:10px;letter-spacing:.09em}
-.trip-mini{margin-bottom:18px;padding:13px;border:1px solid rgba(255,255,255,.08);border-radius:15px;background:rgba(255,255,255,.06)}
-.trip-mini small{color:#9fc2b4;font-size:10px}.trip-mini strong{display:block;margin:6px 0 5px;font-size:13px}
-.trip-mini p{margin:0;color:#c6d9d1;font-size:10px}
-.nav{display:flex;flex-direction:column;gap:5px}
-.nav-label{margin:4px 10px 7px;color:#78a091;font-size:9px;font-weight:800;letter-spacing:.12em}
-.nav button{width:100%;display:flex;align-items:center;gap:11px;padding:10px 11px;border-radius:12px;color:#b9d0c7;background:transparent;text-align:left;transition:.18s}
-.nav button:hover{color:#fff;background:rgba(255,255,255,.07)}
-.nav button.active{color:#153b2f;background:#d9f2e7;box-shadow:0 8px 18px rgba(0,0,0,.12)}
-.nav .ico{width:21px;height:21px;display:grid;place-items:center;flex:0 0 21px}
-.nav .ico svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.nav b{font-size:12px}.nav em{margin-left:auto;font-size:9px;opacity:.75;font-style:normal}
-.sidebar-foot{margin-top:auto}.sync-card{padding:12px;border-radius:15px;background:#0f2a22;border:1px solid rgba(255,255,255,.07)}
-.sync-card .row{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:#9cbcae}.sync-card strong{color:#eaf8f2;font-size:11px}
-.progress{height:5px;margin:9px 0 8px;overflow:hidden;border-radius:99px;background:rgba(255,255,255,.08)}
-.progress span{display:block;width:82%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#62c89e,#b5e9d4)}
-.profile{display:flex;align-items:center;gap:9px;padding:15px 6px 0;color:#b8cec6;font-size:10px}
-.nav-group .nav-chevron{margin-left:auto;color:inherit;font-size:13px;transition:.18s}.nav-group.open .nav-chevron{transform:rotate(180deg)}.nav-submenu{display:none;margin:-2px 0 7px 26px;padding-left:10px;border-left:1px solid rgba(196,224,211,.22)}.nav-submenu.open{display:grid;gap:2px}.nav-submenu button{padding:7px 8px;border-radius:9px}.nav-submenu .sub-dot{width:5px;height:5px;flex:0 0 5px;border-radius:50%;background:currentColor;opacity:.6}.nav-submenu b{font-size:10px}.nav-submenu em{font-size:8px}
-.avatar{width:29px;height:29px;display:grid;place-items:center;border-radius:50%;color:#173d31;background:#f1b989;font-weight:800}
-.main{min-width:0;display:flex;flex-direction:column;overflow:hidden}
-.topbar{min-height:78px;display:flex;align-items:center;gap:18px;padding:13px 20px;border-bottom:1px solid #e4eae6;background:rgba(255,255,255,.78);backdrop-filter:blur(14px)}
-.title-wrap{min-width:220px}.eyebrow{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:10px}
-.eyebrow i{width:6px;height:6px;border-radius:50%;background:#56b78d}.title-wrap h2{margin:4px 0 0;font-size:19px;letter-spacing:-.025em}
-.title-wrap p{margin:2px 0 0;color:var(--muted);font-size:10px}.top-meta{display:flex;gap:7px}
-.meta-pill{display:flex;align-items:center;gap:6px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;color:#4c5f57;background:#fbfcfb;font-size:10px;white-space:nowrap}.meta-pill b{color:var(--ink)}
-.top-actions{margin-left:auto;display:flex;gap:8px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:36px;padding:0 13px;border:1px solid var(--line);border-radius:11px;color:#40524b;background:#fff;font-size:10px;font-weight:750;box-shadow:0 2px 7px rgba(33,56,46,.04)}
-.btn:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}.btn.primary{color:#fff;border-color:var(--green);background:var(--green)}.btn.soft{color:var(--green);border-color:#cce2d8;background:var(--green-soft)}.btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.top-quick-add{display:none}
-.content{position:relative;min-height:0;flex:1;overflow:hidden;padding:15px 18px 18px}.view{display:none;height:100%;min-height:0;animation:fade .22s ease}.view.active{display:block}@keyframes fade{from{opacity:.2;transform:translateY(4px)}to{opacity:1;transform:none}}
-.daybar{height:43px;display:flex;align-items:center;gap:8px;margin-bottom:11px}.day-tabs{display:flex;gap:6px}.day-tabs button{min-width:82px;padding:7px 10px;border:1px solid var(--line);border-radius:10px;color:var(--muted);background:rgba(255,255,255,.7);font-size:10px;text-align:left}.day-tabs button b{display:block;color:#35463f;font-size:11px}.day-tabs button.active{border-color:#98c9b6;color:var(--green);background:#fff;box-shadow:inset 0 0 0 1px #d5ebe2}.day-tabs button.active b{color:var(--green)}.day-summary{margin-left:auto;display:flex;align-items:center;gap:8px;color:var(--muted);font-size:10px}.progress-pill{width:150px;height:7px;overflow:hidden;border-radius:99px;background:#dce6e0}.progress-pill span{display:block;width:64%;height:100%;background:linear-gradient(90deg,var(--green),#75c8a7)}
-.planner-grid{height:calc(100% - 54px);display:grid;grid-template-columns:minmax(0,1.65fr) minmax(355px,.82fr);gap:13px}.card{min-width:0;border:1px solid rgba(217,229,222,.95);border-radius:24px;background:var(--paper);box-shadow:var(--shadow-sm)}
-.map-card{position:relative;overflow:hidden;background:#edf3ed}.map-head{position:absolute;top:14px;left:14px;right:14px;z-index:5;display:flex;align-items:center;gap:8px;pointer-events:none}.map-search{width:265px;height:38px;display:flex;align-items:center;gap:8px;padding:0 12px;border:1px solid rgba(213,225,219,.95);border-radius:12px;color:#7f8d86;background:rgba(255,255,255,.94);box-shadow:0 8px 24px rgba(33,65,52,.12);font-size:10px;pointer-events:auto}.map-search svg{width:15px;height:15px;fill:none;stroke:#62766d;stroke-width:1.8}.map-layers{margin-left:auto;display:flex;align-items:center;gap:12px;pointer-events:auto}.import-chip{color:var(--green);border-color:#bcd9cc;background:#eff8f4}.map-chip{padding:8px 10px;border:1px solid rgba(255,255,255,.78);border-radius:10px;color:#40594e;background:rgba(255,255,255,.91);box-shadow:0 8px 18px rgba(33,65,52,.09);font-size:10px;font-weight:700}
-.map-canvas{position:absolute;inset:0}.map-canvas>svg{width:100%;height:100%}.map-legend{position:absolute;left:14px;bottom:14px;display:flex;align-items:center;gap:11px;padding:9px 11px;border:1px solid rgba(255,255,255,.78);border-radius:12px;color:#55675f;background:rgba(255,255,255,.9);box-shadow:var(--shadow-sm);font-size:9px}.dot{width:8px;height:8px;display:inline-block;margin-right:4px;border-radius:50%}.dot.spot{background:var(--green)}.dot.meal{background:var(--orange)}.dot.stay{background:var(--violet)}.dot.transport{background:var(--blue)}
-.map-controls{position:absolute;right:14px;bottom:14px;display:grid;gap:5px}.map-controls button{width:34px;height:34px;display:grid;place-items:center;border:1px solid #dde6e1;color:#43584e;background:rgba(255,255,255,.94);font-size:18px;box-shadow:var(--shadow-sm)}.map-controls button:first-child{border-radius:11px 11px 4px 4px}.map-controls button:last-child{border-radius:4px 4px 11px 11px}
-.map-status{position:absolute;right:14px;top:66px;width:180px;padding:12px;border:1px solid rgba(255,255,255,.8);border-radius:15px;background:rgba(255,255,255,.92);box-shadow:var(--shadow-sm)}.map-status small{color:var(--muted);font-size:9px}.map-status strong{display:block;margin:5px 0 4px;font-size:12px}.weather{display:flex;align-items:center;justify-content:space-between;color:#789087;font-size:9px}.weather b{color:#365147;font-size:15px}
-.pin{cursor:pointer;filter:drop-shadow(0 5px 5px rgba(38,68,55,.18))}.pin circle{stroke:#fff;stroke-width:3}.pin text{fill:#fff;font-size:11px;font-weight:900;text-anchor:middle;dominant-baseline:central}.pin .halo{fill:rgba(41,139,100,.14);stroke:none}.pin.current .halo{animation:pulse 1.8s infinite}@keyframes pulse{0%{r:18;opacity:.8}70%{r:35;opacity:0}100%{opacity:0}}.pin-label rect{fill:rgba(26,47,39,.92)}.pin-label text{fill:#fff;font-size:9px;font-weight:700;text-anchor:middle}.user-pulse{fill:#4c83c1;stroke:#fff;stroke-width:3}
-.side-stack{display:flex;flex-direction:column;gap:11px;min-height:0}.timeline-card{min-height:0;flex:1;display:flex;flex-direction:column;overflow:hidden}.card-head{display:flex;align-items:center;gap:10px;padding:15px 16px 12px;border-bottom:1px solid #edf1ee}.card-head h3{margin:0;font-size:13px}.card-head p{margin:2px 0 0;color:var(--muted);font-size:9px}.card-head .btn{margin-left:auto;min-height:30px;padding:0 9px;font-size:9px}
-.timeline{position:relative;min-height:0;flex:1;overflow:auto;padding:8px 12px 12px 14px}.timeline:before{content:"";position:absolute;left:35px;top:20px;bottom:18px;width:1px;background:#dce7e1}.event{position:relative;display:grid;grid-template-columns:34px minmax(0,1fr);gap:9px;padding:8px 3px 8px 0}.event-time{padding-top:6px;color:#7f8f87;font-size:9px;text-align:right}.event-node{position:absolute;left:25px;top:13px;width:21px;height:21px;display:grid;place-items:center;border:3px solid #fff;border-radius:50%;color:#fff;background:var(--green);box-shadow:0 0 0 1px #d6e4dd;font-size:8px;z-index:2}.event.transport .event-node{background:var(--blue)}.event.meal .event-node{background:var(--orange)}.event.lodging .event-node{background:var(--violet)}.event.current .event-node{background:var(--green);box-shadow:0 0 0 4px #dff2e9,0 0 0 1px #add6c7}.event-body{margin-left:27px;padding:10px 11px;border:1px solid #e6ece8;border-radius:13px;background:#fbfcfb}.event.current .event-body{border-color:#b8ddcd;background:#f3fbf7;box-shadow:0 7px 18px rgba(35,111,82,.09)}.event-head{display:flex;align-items:center;gap:7px}.event-head strong{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}.event-head .tag{margin-left:auto;padding:3px 6px;border-radius:6px;color:var(--green);background:var(--green-soft);font-size:8px}.event.meal .tag{color:#a4592d;background:var(--orange-soft)}.event.transport .tag{color:#396b9f;background:var(--blue-soft)}.event.lodging .tag{color:#6555ae;background:var(--violet-soft)}.event-meta{display:flex;align-items:center;gap:7px;margin-top:5px;color:#84928b;font-size:8px}.event-note{margin-top:7px;color:#63756c;font-size:9px;line-height:1.5}
-.thumb-strip{display:flex;gap:5px;margin-top:8px}.mini-photo{width:46px;height:32px;display:grid;place-items:center;border-radius:7px;background:linear-gradient(135deg,#8ab8a3,#d2b978);font-size:15px}.mini-photo:nth-child(2){background:linear-gradient(135deg,#78a2c7,#d9a979)}.mini-photo:nth-child(3){background:linear-gradient(135deg,#9e866d,#d2d4af)}
-.summary-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px}.summary-box{padding:10px;border-radius:13px;background:#f7faf8;border:1px solid #e8eeea}.summary-box small{color:var(--muted);font-size:8px}.summary-box b{display:block;margin-top:4px;font-size:13px}.summary-box span{color:#6c7e75;font-size:8px}
-.section-grid{height:100%;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(350px,.8fr);gap:13px}.section-main,.section-side{min-height:0;display:flex;flex-direction:column;gap:12px}.soft-card{min-height:0;overflow:hidden}.soft-card .pad{padding:14px}.section-title{display:flex;align-items:flex-start;gap:12px}.section-title h3{margin:0;font-size:15px}.section-title p{margin:3px 0 0;color:var(--muted);font-size:9px}.section-title .btn{margin-left:auto}
-.route-line{display:flex;align-items:center;gap:9px;padding:5px 0 2px;color:#66776f;font-size:9px}.route-line b{color:#243a31;font-size:11px}.route-arrow{width:36px;height:1px;position:relative;background:#c7d6ce}.route-arrow:after{content:"";position:absolute;right:-1px;top:-2px;border-left:5px solid #c7d6ce;border-top:3px solid transparent;border-bottom:3px solid transparent}
-.option-list{display:grid;gap:8px;padding:0 14px 14px;overflow:auto}.option{position:relative;display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:10px;align-items:center;padding:11px;border:1px solid #e4ebe7;border-radius:14px;background:#fbfcfb}.option.selected{border-color:#8fc7b1;background:#f4fbf7;box-shadow:inset 0 0 0 1px #d4ebdf}.option-ico{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;color:#3e6f9a;background:var(--blue-soft);font-size:18px}.option.meal-option .option-ico{color:#a35e31;background:var(--orange-soft)}.option.lodging-option .option-ico{color:#6757b3;background:var(--violet-soft)}.option h4{margin:0 0 4px;font-size:11px}.option p{margin:0;color:var(--muted);font-size:8px}.option .price{text-align:right}.option .price b{display:block;color:#1d4f3d;font-size:12px}.option .price small{color:var(--muted);font-size:8px}.selected-mark{position:absolute;right:8px;top:8px;width:16px;height:16px;display:grid;place-items:center;border-radius:50%;color:#fff;background:var(--green);font-size:9px}
-.mini-map{position:relative;height:240px;overflow:hidden;border-radius:18px;background:#e9f0e9;border:1px solid #dee7e1}.zone{position:absolute;display:grid;place-items:center;border:1px dashed rgba(47,113,88,.45);border-radius:50%;color:#2d6f56;background:rgba(105,190,153,.14);font-size:9px;font-weight:800}.zone.a{width:104px;height:104px;left:100px;top:68px}.zone.b{width:86px;height:86px;right:70px;top:82px;border-color:rgba(117,100,201,.45);color:#6757b3;background:rgba(117,100,201,.12)}.zone.c{width:74px;height:74px;right:135px;bottom:26px;border-color:rgba(233,135,78,.5);color:#a45d33;background:rgba(233,135,78,.13)}.zone.active{border-style:solid;box-shadow:0 0 0 6px rgba(255,255,255,.6),0 8px 20px rgba(44,94,74,.13);background:rgba(60,158,120,.22)}.mini-map:before,.mini-map:after{content:"";position:absolute;background:#fff;opacity:.9;transform:rotate(-13deg)}.mini-map:before{width:120%;height:9px;left:-10%;top:54%;box-shadow:0 38px 0 #fff,0 -48px 0 #fff}.mini-map:after{width:8px;height:120%;left:42%;top:-10%;box-shadow:72px 0 0 #fff,148px 0 0 #fff}
-.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.metric{padding:11px;border-radius:13px;background:#f8faf9;border:1px solid #e7ede9}.metric small{color:var(--muted);font-size:8px}.metric b{display:block;margin-top:4px;font-size:13px}
-.meal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0 14px 14px;overflow:auto}.meal-card{position:relative;min-height:126px;padding:13px;border:1px solid #e5ebe7;border-radius:16px;background:#fbfcfb;overflow:hidden}.meal-card:after{content:"";position:absolute;width:90px;height:90px;right:-34px;bottom:-38px;border-radius:50%;background:var(--orange-soft)}.meal-card .meal-type{color:var(--orange);font-size:9px;font-weight:800;letter-spacing:.08em}.meal-card h4{margin:7px 0 5px;font-size:12px}.meal-card p{margin:0;color:var(--muted);font-size:8px}.meal-card .meal-foot{display:flex;align-items:center;gap:6px;margin-top:13px}.tiny-tag{padding:4px 6px;border-radius:6px;color:#576a61;background:#edf2ef;font-size:8px}.tiny-tag.warm{color:#a45d33;background:var(--orange-soft)}.tiny-tag.green{color:#2d6f56;background:var(--green-soft)}
-.budget-hero{padding:18px;color:#fff;background:linear-gradient(135deg,#1d6049,#2f8666)}.budget-hero small{color:#bfe0d2;font-size:9px}.budget-hero .money{margin-top:7px;font-size:27px;font-weight:800;letter-spacing:-.05em}.budget-hero .subline{display:flex;gap:14px;margin-top:12px;color:#d0e9df;font-size:9px}.budget-hero .subline b{color:#fff}
-.donut-wrap{position:relative;display:grid;grid-template-columns:132px 1fr;gap:15px;align-items:center;padding:17px}.donut{width:124px;height:124px;border-radius:50%;background:conic-gradient(var(--green) 0 35%,var(--orange) 35% 57%,var(--violet) 57% 77%,var(--blue) 77% 90%,#cdd8d2 90% 100%);position:relative}.donut:before{content:"";position:absolute;inset:23px;border-radius:50%;background:#fff}.donut-center{position:absolute;inset:0;display:grid;place-content:center;text-align:center}.donut-center b{display:block;font-size:16px}.donut-center small{color:var(--muted);font-size:8px}.budget-list{display:grid;gap:10px}.budget-row{display:grid;grid-template-columns:10px 1fr auto;gap:8px;align-items:center;font-size:9px}.budget-dot{width:8px;height:8px;border-radius:50%}.budget-row b{font-size:10px}.budget-bar{grid-column:2/4;height:5px;overflow:hidden;border-radius:99px;background:#ebf0ed}.budget-bar span{display:block;height:100%;border-radius:inherit}
-.expense-list{overflow:auto}.expense{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:9px;align-items:center;padding:11px 14px;border-bottom:1px solid #edf1ee}.expense:last-child{border-bottom:0}.expense-ico{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;background:#f1f5f2;font-size:14px}.expense h4{margin:0;font-size:10px}.expense p{margin:3px 0 0;color:var(--muted);font-size:8px}.expense .amount{text-align:right}.expense .amount b{display:block;font-size:11px}.expense .amount small{color:var(--muted);font-size:8px}
-.offline-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.offline-card{padding:15px;border:1px solid #e5ebe7;border-radius:16px;background:#fbfcfb}.offline-card .row{display:flex;align-items:center;gap:9px}.offline-card .row strong{font-size:11px}.offline-card .status{margin-left:auto;padding:4px 7px;border-radius:7px;color:#2e7258;background:var(--green-soft);font-size:8px}.offline-card p{margin:8px 0 0;color:var(--muted);font-size:9px;line-height:1.5}.offline-card .progress{margin-top:12px;background:#e7ece9}.offline-card .progress span{background:linear-gradient(90deg,var(--green),#74c7a5)}
-.toast{position:fixed;left:50%;bottom:24px;z-index:50;padding:10px 14px;border-radius:11px;color:#fff;background:#173d31;box-shadow:var(--shadow);font-size:10px;transform:translate(-50%,20px);opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:1250px){.app-shell{grid-template-columns:190px minmax(0,1fr)}.sidebar{padding-inline:10px}.trip-mini{display:none}.planner-grid,.section-grid{grid-template-columns:minmax(0,1.45fr) minmax(330px,.85fr)}}
-
+:root{--ink:#16251f;--muted:#718079;--line:#dce5df;--paper:#fff;--canvas:#f1f4f1;--green:#1d6b50;--green2:#2c8a68;--green-soft:#e3f1ea;--orange:#df8250;--orange-soft:#fff0e6;--blue:#4d7fba;--blue-soft:#eaf1fa;--violet:#7163be;--violet-soft:#efecfb;--shadow:0 22px 60px rgba(30,55,45,.13);--shadow-sm:0 8px 24px rgba(30,55,45,.08)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%}button,input,select,textarea{font:inherit}button{border:0;cursor:pointer}svg{display:block}
+body{min-width:1080px;min-height:720px;display:grid;place-items:center;padding:18px;color:var(--ink);background:radial-gradient(circle at 7% 0,rgba(47,145,108,.16),transparent 28%),radial-gradient(circle at 100% 100%,rgba(224,129,78,.12),transparent 25%),#e7ede9;font-family:"Noto Sans SC","Source Han Sans SC","PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+.app{width:min(1530px,calc(100vw - 36px));height:min(930px,calc(100vh - 36px));min-height:684px;display:grid;grid-template-columns:212px minmax(0,1fr);overflow:hidden;border:1px solid rgba(255,255,255,.72);border-radius:28px;background:var(--canvas);box-shadow:var(--shadow)}
+.rail{display:flex;flex-direction:column;padding:20px 13px 14px;color:#f5fbf8;background:radial-gradient(circle at 20% 0,rgba(98,190,154,.22),transparent 28%),linear-gradient(180deg,#173b30,#112c24)}
+.brand{display:flex;align-items:center;gap:10px;padding:0 7px 20px}.mark{width:38px;height:38px;display:grid;place-items:center;border-radius:13px;color:#173d31;background:#c9efdf;font-weight:900}.brand h1{margin:0;font-size:18px}.brand span{display:block;margin-top:2px;color:#9bc0b0;font-size:9px;letter-spacing:.08em}
+.trip-switch{margin-bottom:17px;padding:12px;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:rgba(255,255,255,.06)}.trip-switch small{color:#94b8a9;font-size:8px}.trip-switch strong{display:block;margin:5px 0;font-size:11px}.trip-switch p{margin:0;color:#c2d8cf;font-size:8px;line-height:1.45}
+.nav{display:flex;flex-direction:column;gap:5px}.nav-label{margin:2px 9px 6px;color:#75a08f;font-size:8px;font-weight:800;letter-spacing:.12em}.nav button{width:100%;display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:11px;color:#b6cec4;background:transparent;text-align:left}.nav button:hover{color:#fff;background:rgba(255,255,255,.07)}.nav button.active{color:#153b2f;background:#d9f2e7}.nav svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.nav b{font-size:11px}.nav em{margin-left:auto;color:inherit;font-size:8px;font-style:normal;opacity:.78}.nav-chevron{margin-left:auto;transition:.18s}.nav-group.open .nav-chevron{transform:rotate(180deg)}.subnav{display:none;margin:-2px 0 6px 25px;padding-left:10px;border-left:1px solid rgba(198,223,212,.2)}.subnav.open{display:grid;gap:2px}.subnav button{padding:7px 8px}.subnav b{font-size:9px}.subnav em{font-size:7px}.subnav-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.65}
+.rail-foot{margin-top:auto}.offline-card{padding:11px;border:1px solid rgba(255,255,255,.07);border-radius:14px;background:#0d2820}.offline-card .row{display:flex;justify-content:space-between;color:#9ab9ad;font-size:8px}.offline-card strong{color:#eaf8f2}.bar{height:5px;margin:8px 0;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}.bar span{display:block;width:82%;height:100%;background:linear-gradient(90deg,#62c89e,#b9ead6)}.profile{display:flex;align-items:center;gap:8px;padding:14px 5px 0;color:#b9cec6;font-size:8px}.avatar{width:28px;height:28px;display:grid;place-items:center;border-radius:50%;color:#173d31;background:#f0b888;font-weight:800}
+.main{min-width:0;display:flex;flex-direction:column;overflow:hidden}.topbar{min-height:70px;display:flex;align-items:center;gap:14px;padding:11px 18px;border-bottom:1px solid #e2e9e4;background:rgba(255,255,255,.8);backdrop-filter:blur(14px)}.title{min-width:220px}.title small{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:8px}.title small i{width:6px;height:6px;border-radius:50%;background:#54b78d}.title h2{margin:4px 0 0;font-size:18px}.title p{margin:2px 0 0;color:var(--muted);font-size:8px}.trip-stats{display:flex;gap:7px}.stat{padding:7px 9px;border:1px solid var(--line);border-radius:10px;color:#52645c;background:#fbfcfb;font-size:8px;white-space:nowrap}.stat b{color:var(--ink)}.top-actions{margin-left:auto;display:flex;gap:7px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:34px;padding:0 11px;border:1px solid var(--line);border-radius:10px;color:#42564d;background:#fff;font-size:9px;font-weight:750}.btn:hover{box-shadow:var(--shadow-sm)}.btn.primary{color:#fff;border-color:var(--green);background:var(--green)}.btn.soft{color:var(--green);border-color:#c3ddd1;background:var(--green-soft)}.btn svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.mobile-add,.mobile-settings{display:none}
+.content{position:relative;min-height:0;flex:1;overflow:hidden;padding:13px 16px 16px}.page{display:none;height:100%;min-height:0;animation:in .2s ease}.page.active{display:block}@keyframes in{from{opacity:.25;transform:translateY(3px)}to{opacity:1;transform:none}}
+.trip-strip{height:55px;display:flex;align-items:center;gap:16px;margin-bottom:10px;padding:9px 13px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:var(--shadow-sm)}.trip-strip .item{min-width:88px}.trip-strip small{display:block;color:var(--muted);font-size:7px}.trip-strip b{display:block;margin-top:3px;font-size:11px}.trip-strip .grow{flex:1}.progress{height:6px;border-radius:99px;background:#e4ebe7;overflow:hidden}.progress span{display:block;width:64%;height:100%;background:linear-gradient(90deg,var(--green),#78caaa)}
+.workbench{height:calc(100% - 65px);display:grid;grid-template-columns:154px minmax(480px,1fr) minmax(340px,390px);gap:10px}.panel{border:1px solid var(--line);border-radius:19px;background:#fff;box-shadow:var(--shadow-sm);overflow:hidden}
+.day-panel{padding:10px}.day-panel h3,.timeline-head h3{margin:0;font-size:12px}.day-panel p,.timeline-head p{margin:3px 0 0;color:var(--muted);font-size:7px}.day-list{display:grid;gap:7px;margin-top:12px}.day-card{padding:10px;border:1px solid #e3eae6;border-radius:12px;color:#55675f;background:#fafcfb;text-align:left}.day-card b{display:block;font-size:10px}.day-card span{display:block;margin-top:4px;font-size:7px}.day-card.active{border-color:#8cc5b0;color:#245b47;background:#eef8f3;box-shadow:inset 0 0 0 1px #d5eae1}.add-day{margin-top:8px;width:100%;padding:9px;border:1px dashed #c6d8d0;border-radius:11px;color:#647a70;background:#fbfcfb;font-size:8px}
+.map-panel{position:relative;background:#eaf1eb}.map-toolbar{position:absolute;z-index:4;left:11px;right:11px;top:11px;display:flex;gap:7px}.search{width:250px;height:35px;display:flex;align-items:center;gap:7px;padding:0 10px;border:1px solid #dce6e1;border-radius:10px;color:#788982;background:rgba(255,255,255,.94);box-shadow:var(--shadow-sm);font-size:8px}.search svg{width:14px;height:14px;fill:none;stroke:#65786f;stroke-width:1.8}.map-actions{margin-left:auto;display:flex;gap:7px}.chip{padding:8px 10px;border:1px solid #dbe6e0;border-radius:9px;color:#53675e;background:rgba(255,255,255,.94);box-shadow:var(--shadow-sm);font-size:8px}.chip.green{color:var(--green);border-color:#bedbcf;background:#eff8f4}.map-panel>svg{width:100%;height:100%}.map-note{position:absolute;right:12px;top:57px;width:170px;padding:11px;border:1px solid #e2e9e5;border-radius:13px;background:rgba(255,255,255,.93);box-shadow:var(--shadow-sm)}.map-note small{color:var(--muted);font-size:7px}.map-note b{display:block;margin:5px 0;font-size:10px}.legend{position:absolute;left:11px;bottom:11px;padding:7px 9px;border:1px solid #e0e8e3;border-radius:10px;color:#65776e;background:rgba(255,255,255,.92);font-size:7px}.dot{width:7px;height:7px;display:inline-block;margin:0 3px 0 7px;border-radius:50%;vertical-align:middle}.dot:first-child{margin-left:0}.pin{cursor:pointer}.pin circle{stroke:#fff;stroke-width:3}.pin text{fill:#fff;font-size:10px;font-weight:900;text-anchor:middle;dominant-baseline:central}
+.timeline-panel{display:flex;flex-direction:column}.timeline-head{display:flex;align-items:center;padding:13px 14px 10px;border-bottom:1px solid #edf1ee}.timeline-head .head-actions{margin-left:auto;display:flex;gap:6px}.timeline-scroll{flex:1;min-height:0;overflow:auto;padding:7px 11px}.timeline-add{width:calc(100% - 43px);margin:3px 0 3px 43px;padding:5px 8px;border:1px dashed #cbd9d2;border-radius:8px;color:#72837a;background:#fbfcfb;font-size:7px;text-align:left}.event{display:grid;grid-template-columns:36px minmax(0,1fr);gap:7px;padding:6px 0}.event time{padding-top:6px;color:#7a8a82;font-size:8px;text-align:right}.event-card{position:relative;padding:9px 9px 9px 13px;border:1px solid #e4ebe7;border-radius:12px;background:#fbfcfb}.event-card:before{content:"";position:absolute;left:-16px;top:15px;width:9px;height:9px;border:3px solid #fff;border-radius:50%;background:var(--green);box-shadow:0 0 0 1px #d6e2dc}.event.transport .event-card:before{background:var(--blue)}.event.meal .event-card:before{background:var(--orange)}.event.lodging .event-card:before{background:var(--violet)}.event.current .event-card{border-color:#b6dccb;background:#f2faf6}.event-head{display:flex;align-items:center;gap:6px}.event-head strong{font-size:9px}.event-head span{margin-left:auto;padding:3px 5px;border-radius:5px;color:#4a665a;background:#edf3ef;font-size:6px}.edit-link{padding:3px 5px;border-radius:5px;color:#6b7d74;background:#edf3ef;font-size:6px}.event-meta{margin-top:5px;color:#819087;font-size:7px}.checkin-inline{margin-top:7px;padding:7px;border:1px solid #d2e7dd;border-radius:9px;display:flex;align-items:center;gap:7px;background:#f5fbf8}.checkin-inline i{width:24px;height:24px;display:grid;place-items:center;border-radius:8px;color:#fff;background:var(--green);font-size:11px;font-style:normal}.checkin-inline b{display:block;font-size:7px}.checkin-inline small{display:block;margin-top:2px;color:var(--muted);font-size:6px}.checkin-inline button{margin-left:auto;padding:5px 7px;border-radius:7px;color:#fff;background:var(--green);font-size:7px}
+.arrange-head{height:54px;display:flex;align-items:center;gap:12px;margin-bottom:10px;padding:8px 12px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:var(--shadow-sm)}.tabs{display:flex;gap:5px;padding:3px;border-radius:11px;background:#eef3f0}.tabs button{padding:8px 12px;border-radius:8px;color:#60736a;background:transparent;font-size:8px}.tabs button.active{color:#fff;background:var(--green)}.arrange-head .summary{margin-left:auto;display:flex;gap:12px;color:#718079;font-size:8px}.arrange-head .summary b{color:var(--ink)}.arrange-body{height:calc(100% - 64px);display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:10px}.arrange-content{min-height:0;overflow:auto}.section{padding:13px}.section+.section{margin-top:10px}.section-title{display:flex;align-items:flex-start;gap:10px}.section-title h3{margin:0;font-size:13px}.section-title p{margin:3px 0 0;color:var(--muted);font-size:7px}.section-title .btn{margin-left:auto}.route{display:flex;align-items:center;gap:8px;margin:12px 0 7px;color:#74847c;font-size:8px}.route b{color:#263d34;font-size:9px}.route-line{width:45px;height:1px;position:relative;background:#c6d5cd}.route-line:after{content:"";position:absolute;right:0;top:-2px;border-left:5px solid #c6d5cd;border-top:3px solid transparent;border-bottom:3px solid transparent}
+.option{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:9px;align-items:center;margin-top:7px;padding:10px;border:1px solid #e4ebe7;border-radius:12px;background:#fbfcfb}.option.active{border-color:#9bcbb8;background:#f1faf6}.option-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:10px;color:#3d6d97;background:var(--blue-soft);font-size:15px}.option.meal .option-icon{color:#a45d32;background:var(--orange-soft)}.option.stay .option-icon{color:#6556ad;background:var(--violet-soft)}.option h4{margin:0;font-size:9px}.option p{margin:3px 0 0;color:var(--muted);font-size:7px}.option .price{text-align:right}.option .price b{display:block;font-size:10px}.option .price small{color:var(--muted);font-size:7px}.side-panel{min-height:0;overflow:auto}.side-section{padding:13px}.side-section+.side-section{border-top:1px solid #edf1ee}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:11px}.metric{padding:9px;border-radius:10px;background:#f7faf8;border:1px solid #e7ede9}.metric small{color:var(--muted);font-size:7px}.metric b{display:block;margin-top:3px;font-size:10px}
+.meal-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.meal-card{padding:11px;border:1px solid #e5ebe7;border-radius:13px;background:#fbfcfb}.meal-card .type{color:var(--orange);font-size:7px;font-weight:800}.meal-card h4{margin:6px 0 4px;font-size:10px}.meal-card p{margin:0;color:var(--muted);font-size:7px}.tags{display:flex;gap:5px;margin-top:9px}.tag{padding:4px 6px;border-radius:6px;color:#61736a;background:#eef3f0;font-size:7px}.tag.green{color:#2e7158;background:var(--green-soft)}.tag.warm{color:#a45d32;background:var(--orange-soft)}
+.budget-strip{height:78px;display:flex;align-items:center;gap:18px;margin-bottom:10px;padding:12px 16px;border-radius:18px;color:#fff;background:linear-gradient(135deg,#1c634c,#348d6a);box-shadow:var(--shadow-sm)}.budget-strip small{color:#c0e1d4;font-size:8px}.budget-strip .total{margin-top:5px;font-size:22px;font-weight:800}.budget-strip .pair{color:#d5eee4;font-size:9px}.budget-strip .spacer{flex:1}.budget-strip .stat{color:#e3f4ed;border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.08)}.budget-strip .stat b{color:#fff}.budget-body{height:calc(100% - 88px);display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:10px}.budget-list{min-height:0;overflow:auto}.budget-row{display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:9px;align-items:center;padding:11px 13px;border-bottom:1px solid #edf1ee}.budget-row:last-child{border-bottom:0}.budget-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#f0f4f2;font-size:14px}.budget-row h4{margin:0;font-size:9px}.budget-row p{margin:3px 0 0;color:var(--muted);font-size:7px}.amount{text-align:right}.amount b{display:block;font-size:10px}.amount small{color:var(--muted);font-size:7px}.donut-wrap{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center;padding:15px}.donut{width:112px;height:112px;position:relative;border-radius:50%;background:conic-gradient(var(--green) 0 35%,var(--orange) 35% 57%,var(--violet) 57% 77%,var(--blue) 77% 90%,#ced9d3 90% 100%)}.donut:before{content:"";position:absolute;inset:21px;border-radius:50%;background:#fff}.donut span{position:absolute;inset:0;display:grid;place-content:center;text-align:center;font-size:15px;font-weight:800}.donut small{font-size:7px;font-weight:500;color:var(--muted)}
+.settings-layout{height:100%;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:10px}.settings-scroll{min-height:0;overflow:auto}.settings-section{padding:13px}.settings-section+.settings-section{border-top:1px solid #edf1ee}.setting{display:flex;align-items:center;gap:10px;padding:9px 2px}.setting-icon{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;color:var(--green);background:var(--green-soft);font-size:13px}.setting-copy{flex:1}.setting-copy b{display:block;font-size:9px}.setting-copy small{display:block;margin-top:3px;color:var(--muted);font-size:7px}.setting-value{color:#66786f;font-size:8px}.switch{width:32px;height:19px;position:relative;border-radius:99px;background:var(--green)}.switch:after{content:"";position:absolute;right:2px;top:2px;width:15px;height:15px;border-radius:50%;background:#fff}.switch.off{background:#c7d3cd}.switch.off:after{left:2px;right:auto}.data-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:11px}.data-action{padding:11px;border:1px solid #e1e9e4;border-radius:11px;color:#40564d;background:#fafcfb;font-size:8px;text-align:left}.data-action small{display:block;margin-top:4px;color:var(--muted);font-size:7px}
+.backdrop{position:fixed;inset:0;z-index:80;display:none;place-items:center;padding:18px;background:rgba(14,31,25,.38);backdrop-filter:blur(5px)}.backdrop.open{display:grid}.modal{width:min(680px,calc(100vw - 36px));max-height:min(780px,calc(100vh - 36px));overflow:auto;border-radius:23px;background:#fff;box-shadow:0 30px 80px rgba(12,32,24,.3)}.modal-head{display:flex;align-items:center;gap:10px;padding:16px;border-bottom:1px solid #e8eeea}.modal-head h3{margin:0;font-size:15px}.modal-head p{margin:3px 0 0;color:var(--muted);font-size:8px}.close{margin-left:auto;width:30px;height:30px;border-radius:9px;color:#66786f;background:#eff3f1;font-size:16px}.type-tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;padding:12px 14px}.type-tab{padding:9px 4px;border:1px solid #e2eae5;border-radius:10px;color:#53675e;background:#fafcfb;font-size:8px}.type-tab.active{color:var(--green);border-color:#9bcab7;background:#eef8f3}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:6px 14px 14px}.field{display:grid;gap:5px}.field.full{grid-column:1/-1}.field label{color:#465b51;font-size:8px;font-weight:750}.field input,.field select,.field textarea{width:100%;padding:9px;border:1px solid #dce5e0;border-radius:10px;background:#fbfcfb;font-size:9px;outline:none}.field textarea{min-height:60px;resize:vertical}.modal-foot{display:flex;align-items:center;gap:7px;padding:12px 14px;border-top:1px solid #e8eeea;background:#fafcfb}.modal-foot .danger{margin-right:auto;color:#aa5045;background:#fff0ed}.photo-groups{grid-column:1/-1;display:none;padding:11px;border:1px solid #dce9e2;border-radius:13px;background:#f7fbf9}.checkin-active .photo-groups{display:block}.checkin-active .money-field{display:none}.group-title{display:flex;justify-content:space-between;margin-bottom:7px;font-size:8px;font-weight:800}.pair{display:grid;grid-template-columns:1fr 38px 1fr;gap:7px;align-items:center}.photo-slot{min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:1px dashed #aecbbd;border-radius:11px;color:#71837a;background:#fff;font-size:7px}.photo-slot b{color:#3c554a;font-size:8px}.plus{width:28px;height:28px;display:grid;place-items:center;border-radius:9px;color:var(--green);background:#e4f2ec;font-size:15px}.pair-link{color:#789087;text-align:center;font-size:7px}.photo-tools{display:flex;gap:6px;margin-top:8px}.photo-tools button{padding:6px 8px;border:1px solid #d6e4dd;border-radius:8px;color:#3f584c;background:#fff;font-size:7px}.photo-tools .primary{color:#fff;border-color:var(--green);background:var(--green)}.source-list{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:14px}.source-btn{display:flex;align-items:center;gap:8px;padding:10px;border:1px solid #e0e8e4;border-radius:11px;background:#fafcfb;text-align:left}.source-btn i{width:30px;height:30px;display:grid;place-items:center;border-radius:9px;color:var(--green);background:#e4f2ec;font-style:normal}.source-btn small{display:block;margin-top:2px;color:var(--muted);font-size:6px}.expense-cats{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:12px 14px 2px}.expense-cat{padding:7px;border-radius:8px;color:#5f7168;background:#eff3f1;font-size:7px}.expense-cat.active{color:#fff;background:var(--green)}.conversion{margin-top:4px;padding:8px 9px;border-radius:9px;color:#537066;background:#edf8f3;font-size:8px;display:flex;justify-content:space-between}.conversion b{color:var(--green)}.receipt{display:flex;align-items:center;gap:8px;padding:9px;border:1px dashed #b9d3c6;border-radius:10px;color:#687a71;background:#fafcfb;font-size:7px}.receipt button{margin-left:auto;padding:5px 7px;border-radius:7px;color:var(--green);background:#e4f2ec}.mobile-sheet{position:fixed;inset:0 0 0;z-index:75;display:none;background:rgba(15,32,26,.3);backdrop-filter:blur(3px)}.mobile-sheet.open{display:block}.sheet-panel{position:absolute;left:0;right:0;bottom:0;padding:12px 12px calc(16px + env(safe-area-inset-bottom));border-radius:20px 20px 0 0;background:#fff}.sheet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.sheet-grid button{padding:12px 5px;border:1px solid #e3ebe6;border-radius:12px;color:#40574d;background:#fafcfb;font-size:8px}.mobile-only{display:none!important}
+.toast{position:fixed;left:50%;bottom:20px;z-index:120;padding:9px 12px;border-radius:10px;color:#fff;background:#173d31;box-shadow:var(--shadow);font-size:8px;opacity:0;transform:translate(-50%,12px);transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:760px){
-  body{min-width:0;min-height:100%;padding:0;background:#f2f5f2}
-  .app-shell{width:100vw;height:100vh;min-height:0;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 65px;border:0;border-radius:0;box-shadow:none}
-  .sidebar{grid-row:2;flex-direction:row;padding:7px 8px;background:#173d31}
-  .brand,.trip-mini,.sidebar-foot,.nav-label{display:none}
-  .nav{width:100%;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px}
-  .nav button{min-width:0;flex-direction:column;justify-content:center;gap:3px;padding:5px 2px;border-radius:10px}
-  .nav .ico{width:20px;height:20px}.nav b{font-size:8px;white-space:nowrap}.nav em{display:none}
-  .main{grid-row:1}
-  .topbar{min-height:62px;padding:9px 12px;gap:8px}
-  .title-wrap{min-width:0}.title-wrap h2{font-size:16px}.title-wrap p{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:210px}
-  .top-meta{display:none}.top-actions{margin-left:auto}.top-actions .btn{display:none}.top-actions .btn.primary,.top-actions .btn.top-quick-add{display:inline-flex!important;min-height:33px;padding:0 9px}.top-actions .top-quick-add{color:var(--green);border-color:#c6dfd3;background:#eff8f4}
-  .content{padding:10px;overflow:auto}
-  .view{height:auto;min-height:100%}.daybar{height:auto;margin-bottom:9px;overflow-x:auto;padding-bottom:2px}.day-summary{display:none}.day-tabs button{min-width:105px}
-  .planner-grid,.section-grid{display:block;height:auto}.map-card{height:390px;margin-bottom:10px}.map-status{top:63px;right:10px;width:155px}.map-legend{max-width:220px;flex-wrap:wrap}.map-search{width:215px}.map-layers .import-chip{display:none}.map-head{top:10px;left:10px;right:10px}
-  .side-stack{height:auto}.timeline-card{height:610px}.summary-strip{grid-template-columns:1fr;gap:6px}.summary-box{display:flex;align-items:center;justify-content:space-between}.summary-box b{margin:0}
-  .section-main,.section-side{display:block}.section-main>.card,.section-side>.card{margin-bottom:10px}.option-list,.meal-grid,.expense-list,.offline-grid{flex:none}.meal-grid,.offline-grid{grid-template-columns:1fr}.mini-map{height:210px}.zone.a{left:46px}.option{grid-template-columns:38px minmax(0,1fr) auto}.option-ico{width:38px;height:38px}.budget-hero .subline{flex-wrap:wrap;gap:8px 12px}.donut-wrap{grid-template-columns:105px 1fr}.donut{width:100px;height:100px}.donut:before{inset:19px}
+  body{min-width:0;min-height:100%;padding:0;background:#eff3f0}.app{width:100vw;height:100vh;min-height:0;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) calc(60px + env(safe-area-inset-bottom));border-radius:0;border:0}.rail{grid-row:2;flex-direction:row;padding:5px 5px calc(5px + env(safe-area-inset-bottom))}.brand,.trip-switch,.rail-foot,.nav-label{display:none}.nav{width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:2px}.nav button[data-view="plan"]{order:1}.nav [data-mobile-sheet]{order:2}.nav button[data-view="budget"]{order:3}.nav button{min-width:0;flex-direction:column;justify-content:center;gap:3px;padding:5px 2px;border-radius:9px}.nav svg{width:19px;height:19px}.nav b{font-size:8px;white-space:nowrap}.nav em,.nav-group,.subnav{display:none!important}.mobile-only{display:flex!important}.main{grid-row:1}.topbar{min-height:60px;padding:9px 10px;gap:7px}.title{min-width:0}.title h2{font-size:15px}.title p{max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.trip-stats{display:none}.top-actions{margin-left:auto}.top-actions .btn{display:none}.top-actions .mobile-add,.top-actions .mobile-settings{display:inline-flex!important;min-height:32px;padding:0 9px}.content{padding:9px;overflow:auto}.page{height:auto;min-height:100%}.trip-strip{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:9px}.trip-strip .grow{grid-column:1/-1}.workbench,.arrange-body,.budget-body,.settings-layout{display:block;height:auto}.day-panel{display:none}.map-panel{height:380px;margin-bottom:9px}.map-toolbar{left:9px;right:9px;top:9px}.search{width:210px}.map-actions .chip:last-child{display:none}.timeline-panel{height:560px}.arrange-head{height:auto;display:block}.tabs{margin-bottom:9px;overflow:auto}.arrange-head .summary{display:none}.side-panel{margin-top:9px}.budget-strip{height:auto;flex-wrap:wrap;margin-bottom:9px}.budget-strip .total{font-size:19px}.budget-list{margin-top:9px}.meal-grid,.data-actions{grid-template-columns:1fr}.donut-wrap{grid-template-columns:100px 1fr}.donut{width:95px;height:95px}.donut:before{inset:18px}.settings-layout>div{margin-bottom:9px}.type-tabs{grid-template-columns:repeat(3,1fr)}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.photo-groups{grid-column:auto}.source-list{grid-template-columns:1fr}.expense-cats{grid-template-columns:repeat(2,1fr)}.pair{grid-template-columns:1fr 28px 1fr}.photo-slot{min-height:82px}.modal{width:100%;max-height:90vh;border-radius:22px 22px 0 0;align-self:end}.backdrop{place-items:end center;padding:0}.sheet-grid{grid-template-columns:1fr 1fr}.sheet-panel h3{margin:0 0 10px;font-size:13px}
 }
-
-.checkin-grid{height:100%;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(315px,.68fr);gap:13px}.checkin-main,.checkin-side{min-height:0;display:flex;flex-direction:column;gap:12px}.checkin-workspace{display:grid;grid-template-columns:minmax(0,1.5fr) 280px;gap:12px;padding:14px}.camera-shell{border:1px solid #dbe6df;border-radius:19px;overflow:hidden;background:#13231e}.camera-stage{position:relative;min-height:410px;overflow:hidden;background:linear-gradient(160deg,#83a997,#cfd4b4 55%,#9eafa0)}.camera-stage>svg{position:absolute;inset:0;width:100%;height:100%}.camera-guide{position:absolute;inset:7% 8%;border:1px dashed rgba(255,255,255,.75);border-radius:18px}.camera-guide:before,.camera-guide:after{content:"";position:absolute;background:rgba(255,255,255,.65)}.camera-guide:before{width:1px;top:0;bottom:0;left:50%}.camera-guide:after{height:1px;left:0;right:0;top:50%}.camera-overlay{position:absolute;left:12px;right:12px;top:12px;display:flex;gap:7px}.camera-chip{padding:6px 8px;border-radius:8px;color:#fff;background:rgba(17,35,29,.65);font-size:8px;backdrop-filter:blur(8px)}.camera-bottom{position:absolute;left:0;right:0;bottom:0;padding:13px 15px;display:flex;align-items:center;gap:12px;background:linear-gradient(transparent,rgba(10,25,20,.78))}.shutter{width:54px;height:54px;display:grid;place-items:center;border:4px solid rgba(255,255,255,.65);border-radius:50%;background:rgba(255,255,255,.2);box-shadow:0 0 0 3px rgba(0,0,0,.18)}.shutter span{width:38px;height:38px;border-radius:50%;background:#fff}.camera-tools{display:flex;gap:7px}.camera-tools button{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;color:#fff;background:rgba(255,255,255,.16);font-size:14px}.camera-tools .spacer{flex:1}.camera-mode{margin-left:auto;padding:7px 9px;border-radius:9px;color:#fff;background:rgba(255,255,255,.16);font-size:8px}.checkin-controls{display:flex;flex-direction:column;gap:10px}.compare-mode{display:grid;grid-template-columns:1fr 1fr;gap:6px}.compare-mode button{padding:9px 6px;border-radius:10px;color:#4e6259;background:#f3f6f4;font-size:9px}.compare-mode button.active{color:#fff;background:var(--green)}.point-check-card{padding:13px;border-radius:14px;background:#f8faf9;border:1px solid #e5ece7}.point-check-card small{color:var(--muted);font-size:8px}.point-check-card h4{margin:5px 0;font-size:12px}.point-check-card p{margin:0;color:#6d7e75;font-size:9px;line-height:1.55}.check-list{display:grid;gap:7px;margin-top:10px}.check-item{display:flex;align-items:center;gap:7px;color:#5a6c63;font-size:9px}.check-item i{width:16px;height:16px;display:grid;place-items:center;border-radius:50%;color:#fff;background:var(--green);font-size:8px;font-style:normal}.check-item.pending i{background:#c9d5cf}
-.photo-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 14px 14px}.photo-tile{position:relative;height:118px;overflow:hidden;border-radius:14px;background:linear-gradient(140deg,#789c91,#cfc78f)}.photo-tile:nth-child(2){background:linear-gradient(140deg,#6f98ae,#d7b888)}.photo-tile:nth-child(3){background:linear-gradient(140deg,#9a8b75,#d8d5b3)}.photo-tile .check-stamp{position:absolute;right:7px;top:7px;width:27px;height:27px;display:grid;place-items:center;border-radius:50%;color:#fff;background:rgba(28,104,77,.86);font-size:13px}.photo-tile .photo-meta{position:absolute;left:8px;right:8px;bottom:7px;color:#fff;font-size:8px;text-shadow:0 1px 3px rgba(0,0,0,.3)}.planner-checkin{margin-top:8px;padding:9px 10px;border:1px solid #cfe4da;border-radius:11px;background:#f4fbf7;display:flex;align-items:center;gap:8px}.planner-checkin .camera-mini{width:28px;height:28px;display:grid;place-items:center;border-radius:9px;color:#fff;background:var(--green);font-size:13px}.planner-checkin b{display:block;font-size:9px}.planner-checkin small{display:block;margin-top:2px;color:var(--muted);font-size:8px}.planner-checkin button{margin-left:auto;padding:6px 8px;border-radius:8px;color:#fff;background:var(--green);font-size:8px}
-@media(max-width:760px){
-  .checkin-grid{display:block;height:auto}.checkin-main,.checkin-side{display:block}.checkin-main>.card,.checkin-side>.card{margin-bottom:10px}.checkin-workspace{display:block;padding:10px}.camera-stage{min-height:360px}.checkin-controls{margin-top:10px}.photo-gallery{grid-template-columns:1fr 1fr;padding:0 10px 10px}.photo-tile{height:102px}
-}
-
-.mobile-only{display:none!important}.mobile-sheet-backdrop{position:fixed;inset:0;z-index:45;display:none;background:rgba(18,37,30,.32);backdrop-filter:blur(3px)}.mobile-sheet-backdrop.open{display:block}.mobile-sheet{position:absolute;left:0;right:0;bottom:0;padding:10px 12px calc(16px + env(safe-area-inset-bottom));border-radius:22px 22px 0 0;background:#fff;box-shadow:0 -18px 50px rgba(25,50,40,.2);transform:translateY(105%);transition:transform .22s ease}.mobile-sheet-backdrop.open .mobile-sheet{transform:none}.sheet-handle{width:38px;height:4px;margin:0 auto 12px;border-radius:99px;background:#d5dfda}.mobile-sheet h3{margin:0 0 11px;font-size:13px}.sheet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.sheet-action{display:flex;flex-direction:column;align-items:center;gap:7px;padding:12px 6px;border:1px solid #e5ebe7;border-radius:14px;color:#40564d;background:#fafcfb;font-size:9px;font-weight:750}.sheet-action i{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;color:var(--green);background:var(--green-soft);font-size:15px;font-style:normal}.sheet-action.primary i{color:#fff;background:var(--green)}.sheet-action small{display:block;color:var(--muted);font-size:7px;font-weight:500}
-@media(max-width:760px){
-  .app-shell{grid-template-rows:minmax(0,1fr) calc(61px + env(safe-area-inset-bottom))}
-  .sidebar{padding:5px 6px calc(5px + env(safe-area-inset-bottom))}
-  .nav{grid-template-columns:repeat(3,minmax(0,1fr));gap:2px}
-  .nav button{padding:4px 1px;border-radius:9px}.nav .desktop-only{display:none!important}.nav .mobile-only{display:flex!important}
-  .nav button[data-view="planner"]{order:1}.nav .mobile-arrange{order:2}.nav button[data-view="budget"]{order:3}
-  .nav .ico{height:19px}.nav b{font-size:8px}
-}
-
-.settings-grid{height:100%;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(320px,.72fr);gap:13px}.settings-column{min-height:0;display:flex;flex-direction:column;gap:12px}.settings-card{min-height:0;overflow:auto}.settings-list{display:grid;gap:1px;padding:5px 0 8px}.setting-row{display:flex;align-items:center;gap:12px;padding:11px 15px;background:#fff}.setting-row:hover{background:#fafcfb}.setting-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;color:var(--green);background:var(--green-soft);font-size:15px}.setting-copy{min-width:0;flex:1}.setting-copy b{display:block;font-size:10px}.setting-copy small{display:block;margin-top:3px;color:var(--muted);font-size:8px}.setting-value{color:#63766d;font-size:9px}.switch{position:relative;width:34px;height:20px;flex:0 0 34px;border-radius:99px;background:#cbd7d1}.switch:after{content:"";position:absolute;width:16px;height:16px;left:2px;top:2px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.14);transition:.2s}.switch.on{background:var(--green)}.switch.on:after{left:16px}.setting-action{padding:6px 9px;border-radius:8px;color:var(--green);background:var(--green-soft);font-size:8px;font-weight:750}.storage-ring{position:relative;width:130px;height:130px;margin:6px auto 14px;border-radius:50%;background:conic-gradient(var(--green) 0 62%,#e3ebe6 62% 100%)}.storage-ring:before{content:"";position:absolute;inset:22px;border-radius:50%;background:#fff}.storage-copy{position:absolute;inset:0;display:grid;place-content:center;text-align:center}.storage-copy b{font-size:19px}.storage-copy small{color:var(--muted);font-size:8px}.data-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 14px 14px}.data-action{padding:12px 8px;border:1px solid #e3ebe6;border-radius:13px;color:#40564d;background:#fafcfb;font-size:9px;font-weight:750;text-align:left}.data-action span{display:block;margin-top:5px;color:var(--muted);font-size:8px;font-weight:500}
-@media(max-width:760px){.settings-grid{display:block;height:auto}.settings-column{display:block}.settings-card{margin-bottom:10px}.setting-row{padding:10px 12px}.data-actions{grid-template-columns:1fr 1fr}.settings-top-action{min-width:74px}.settings-top-action.settings-active{box-shadow:0 0 0 3px #cce7dc}}
-
-.card-head-actions{display:flex;gap:6px;margin-left:auto}.timeline-insert{position:relative;z-index:3;width:calc(100% - 60px);margin:4px 0 4px 50px;padding:5px 8px;border:1px dashed #cbdad3;border-radius:9px;color:#6f8279;background:rgba(255,255,255,.7);font-size:8px;text-align:left}.timeline-insert:hover{color:var(--green);border-color:#8fc7b1;background:#f2faf6}.event-edit{margin-left:5px;padding:3px 6px;border-radius:6px;color:#61736a;background:#eef3f0;font-size:7px}.event-edit:hover{color:#fff;background:var(--green)}.plan-editor-backdrop{position:fixed;inset:0;z-index:70;display:none;place-items:center;padding:20px;background:rgba(18,37,30,.36);backdrop-filter:blur(5px)}.plan-editor-backdrop.open{display:grid}.plan-editor{width:min(690px,calc(100vw - 40px));max-height:min(760px,calc(100vh - 40px));overflow:auto;border-radius:24px;background:#fff;box-shadow:0 30px 80px rgba(14,35,27,.28)}.plan-editor-head{display:flex;align-items:center;gap:12px;padding:17px 18px;border-bottom:1px solid #e8eeea}.plan-editor-head h3{margin:0;font-size:16px}.plan-editor-head p{margin:3px 0 0;color:var(--muted);font-size:9px}.plan-editor-close{margin-left:auto;width:32px;height:32px;border-radius:10px;color:#62756c;background:#f0f4f2;font-size:17px}.plan-type-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;padding:14px 16px 8px}.plan-type{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 5px;border:1px solid #e4ebe7;border-radius:13px;color:#52675d;background:#fafcfb;font-size:8px}.plan-type i{font-size:17px;font-style:normal}.plan-type.active{border-color:#8fc7b1;color:var(--green);background:#edf8f3;box-shadow:inset 0 0 0 1px #d2e9df}.plan-form{display:grid;grid-template-columns:1fr 1fr;gap:11px;padding:12px 16px 18px}.field{display:grid;gap:5px}.field.full{grid-column:1/-1}.field label{color:#42574d;font-size:9px;font-weight:750}.field input,.field select,.field textarea{width:100%;border:1px solid #dce6e1;border-radius:11px;padding:10px;color:var(--ink);background:#fbfcfb;font-size:10px;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:#80bea4;box-shadow:0 0 0 3px #e4f2ec}.field textarea{min-height:68px;resize:vertical}.money-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}.editor-foot{display:flex;align-items:center;gap:8px;padding:13px 16px;border-top:1px solid #e8eeea;background:#fafcfb}.editor-foot .danger{margin-right:auto;color:#b04e43;background:#fff0ed}.plan-editor-note{padding:0 16px 12px;color:var(--muted);font-size:8px}
-@media(max-width:760px){.plan-editor-backdrop{padding:0;place-items:end center}.plan-editor{width:100%;max-height:88vh;border-radius:24px 24px 0 0}.plan-type-grid{grid-template-columns:repeat(3,1fr)}.plan-form{grid-template-columns:1fr}.field.full{grid-column:auto}.money-fields{grid-template-columns:1fr 1fr}.card-head-actions{display:flex}.card-head-actions .btn:first-child{padding-inline:7px}.timeline-insert{width:calc(100% - 55px);margin-left:45px}.event-edit{display:inline-flex}}
-
-.mobile-plan-actions{display:none}
-@media(max-width:760px){
-.section-grid{display:flex;flex-direction:column}.section-side{order:-1;display:block}.section-side>.card{flex:none!important;margin-bottom:10px}.section-main{order:0;display:block}
-.mobile-plan-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin:0 0 9px}.mobile-plan-actions button{display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 5px;border:1px solid #dbe6df;border-radius:11px;color:#3d584d;background:#fff;font-size:8px;font-weight:750}.mobile-plan-actions button:first-child{color:var(--green);border-color:#bfdccd;background:#eff8f4}
-}
-.checkin-editor-fields{display:none;grid-column:1/-1;border:1px solid #dbe9e2;border-radius:15px;padding:11px;background:#f7fbf9}.plan-editor[data-selected-type="checkin"] .checkin-editor-fields{display:block}.plan-editor[data-selected-type="checkin"] .money-field{display:none}.photo-edit-grid{display:grid;grid-template-columns:1fr 58px 1fr;gap:8px;align-items:center}.photo-edit-card{display:block;overflow:hidden;border:1px solid #dfe8e3;border-radius:12px;background:#fff;text-align:left}.photo-edit-art{height:96px;position:relative;background:linear-gradient(145deg,#7aa796,#d4cc9c)}.photo-edit-card.actual .photo-edit-art{background:linear-gradient(145deg,#6f96ab,#d9b98d)}.photo-edit-art:before{content:"";position:absolute;width:112px;height:55px;left:50%;top:50%;transform:translate(-50%,-50%);background:#8b4237;clip-path:polygon(0 34%,16% 34%,22% 0,78% 0,84% 34%,100% 34%,100% 100%,0 100%)}.photo-edit-art:after{content:"";position:absolute;left:0;right:0;bottom:0;height:38px;background:#567a65;clip-path:polygon(0 34%,50% 0,100% 34%,100% 100%,0 100%)}.photo-edit-card b{display:block;padding:8px 9px 2px;color:#294238;font-size:9px}.photo-edit-card small{display:block;padding:0 9px 8px;color:#7a8982;font-size:7px}.compare-divider{display:grid;gap:5px;place-items:center;color:#6f8279;font-size:7px;text-align:center}.compare-divider button{width:40px;height:40px;border:1px solid #bcd9cc;border-radius:50%;color:var(--green);background:#e9f6f1;font-size:16px}.compare-options{display:flex;gap:5px;margin-top:9px}.compare-options button{padding:6px 8px;border-radius:8px;color:#5d7067;background:#eaf1ed;font-size:8px}.compare-options button.active{color:#fff;background:var(--green)}.photo-edit-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.photo-edit-actions button{padding:7px 9px;border:1px solid #dce8e2;border-radius:9px;color:#40594e;background:#fff;font-size:8px}.photo-edit-actions button.primary{color:#fff;border-color:var(--green);background:var(--green)}.photo-check-options{display:flex;gap:12px;margin-top:9px;color:#5e7168;font-size:8px}.photo-check-options label{display:flex;align-items:center;gap:5px}.photo-check-options input{accent-color:var(--green)}
-@media(max-width:760px){.photo-edit-grid{grid-template-columns:1fr 40px 1fr}.photo-edit-art{height:86px}.compare-divider button{width:32px;height:32px}.photo-edit-actions{display:grid;grid-template-columns:1fr 1fr}.photo-check-options{display:grid;gap:6px}}
-
-.photo-group-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;color:#30483e;font-size:9px;font-weight:800}.photo-group-head span{margin-left:auto;color:#7b8b83;font-size:7px;font-weight:500}.photo-pair{display:grid;grid-template-columns:1fr 44px 1fr;gap:8px;align-items:center}.photo-slot{min-height:112px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:1px dashed #afc9bd;border-radius:13px;color:#6a7c73;background:#fbfdfc;text-align:center}.photo-slot:hover{border-color:var(--green);background:#f1f9f5}.photo-slot b{color:#395248;font-size:9px}.photo-slot small{max-width:130px;color:#829089;font-size:7px;line-height:1.35}.photo-slot .empty-photo-icon{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;color:var(--green);background:#e5f3ed;font-size:17px}.photo-slot.filled{border-style:solid;border-color:#a7cbb9;background:linear-gradient(145deg,#789c91,#d3c995);color:#fff}.photo-slot.filled.actual{background:linear-gradient(145deg,#6e96aa,#d7b789)}.photo-slot.filled .empty-photo-icon{color:#fff;background:rgba(26,82,61,.7)}.photo-slot.filled b{color:#fff}.photo-slot.filled small{color:rgba(255,255,255,.86)}.pair-link{display:grid;place-items:center;color:#799087}.pair-link span{font-size:18px}.pair-link small{font-size:6px}.photo-group+.photo-group{margin-top:9px;padding-top:9px;border-top:1px dashed #d5e2dc}.photo-group-tools{display:flex;gap:7px;margin-top:9px}.photo-group-tools button{padding:7px 9px;border:1px solid #d7e5de;border-radius:9px;color:#3d594d;background:#fff;font-size:8px}.photo-group-tools .add-group{color:var(--green);border-color:#bbdacb;background:#edf8f3}.photo-group-tools .save-compare{color:#fff;border-color:var(--green);background:var(--green)}.photo-source-backdrop{position:fixed;inset:0;z-index:90;display:none;place-items:center;padding:18px;background:rgba(15,32,26,.38);backdrop-filter:blur(5px)}.photo-source-backdrop.open{display:grid}.photo-source-modal{width:min(430px,calc(100vw - 36px));padding:18px;border-radius:22px;background:#fff;box-shadow:0 28px 70px rgba(14,35,27,.3)}.photo-source-modal h3{margin:0;font-size:14px}.photo-source-modal p{margin:4px 0 14px;color:#7a8982;font-size:8px}.photo-source-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.photo-source-choice{display:flex;align-items:center;gap:9px;padding:11px;border:1px solid #e0e9e4;border-radius:12px;color:#385047;background:#fafcfb;font-size:9px;text-align:left}.photo-source-choice:hover{border-color:#9ecbb6;background:#eff9f4}.photo-source-choice i{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;color:var(--green);background:#e7f3ed;font-size:15px;font-style:normal}.photo-source-choice small{display:block;margin-top:3px;color:#85928c;font-size:7px}.photo-source-close{margin-top:10px;width:100%;padding:9px;border-radius:10px;color:#62756c;background:#eff3f1;font-size:9px}
-@media(max-width:760px){.photo-pair{grid-template-columns:1fr 30px 1fr}.photo-slot{min-height:102px}.photo-source-grid{grid-template-columns:1fr}.photo-group-tools{display:grid;grid-template-columns:1fr 1fr}}
-
-.expense-editor{width:min(650px,calc(100vw - 40px))}.expense-category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:13px 16px 4px}.expense-category{padding:8px 5px;border:1px solid #e2eae5;border-radius:10px;color:#53675e;background:#fafcfb;font-size:8px}.expense-category.active{color:#fff;border-color:var(--green);background:var(--green)}.expense-conversion{display:flex;align-items:center;justify-content:space-between;margin-top:7px;padding:9px 11px;border-radius:11px;color:#496158;background:#eef8f3;font-size:9px}.expense-conversion b{color:var(--green);font-size:11px}.receipt-drop{display:flex;align-items:center;gap:10px;padding:11px;border:1px dashed #b9d2c6;border-radius:11px;color:#667970;background:#f9fcfa;font-size:8px}.receipt-drop i{width:31px;height:31px;display:grid;place-items:center;border-radius:9px;color:var(--green);background:#e4f2ec;font-size:14px;font-style:normal}.receipt-drop button{margin-left:auto;padding:6px 8px;border-radius:8px;color:var(--green);background:#e4f2ec;font-size:8px}
-@media(max-width:760px){.expense-category-grid{grid-template-columns:repeat(2,1fr)}.expense-editor .plan-form{grid-template-columns:1fr}.expense-conversion{align-items:flex-start;gap:5px;flex-direction:column}}
-
 </style>
 </head>
 <body>
-<div class="app-shell">
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-mark">EN</div>
-      <div><h1>ENikki</h1><span>Pilgrimage Planner</span></div>
-    </div>
-    <div class="trip-mini">
-      <small>当前行程</small>
-      <strong>京都动画巡礼 · 3 天</strong>
-      <p>10 月 12 日—14 日 · 2 人 · 京都 / 宇治</p>
-    </div>
-    <nav class="nav" aria-label="主导航">
-      <div class="nav-label">行程规划</div>
-      <button class="active" data-view="planner">
-        <span class="ico"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
-        <b>计划总览</b><em>3 天</em>
-      </button>
-      <button class="nav-group desktop-only" data-nav-group="arrange">
-        <span class="ico"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"/><path d="M8 9h8M8 13h5"/></svg></span>
-        <b>安排</b><span class="nav-chevron">⌄</span>
-      </button>
-      <div class="nav-submenu desktop-only" id="submenu-arrange">
-        <button data-view="transport"><span class="sub-dot"></span><b>交通</b><em>8 段</em></button>
-        <button data-view="lodging"><span class="sub-dot"></span><b>住宿</b><em>2 晚</em></button>
-        <button data-view="meals"><span class="sub-dot"></span><b>用餐</b><em>9 餐</em></button>
+<div class="app">
+  <aside class="rail">
+    <div class="brand"><div class="mark">EN</div><div><h1>ENikki</h1><span>Pilgrimage Planner</span></div></div>
+    <div class="trip-switch"><small>当前行程</small><strong>京都动画巡礼 · 3 天</strong><p>10 月 12 日—14 日 · 2 人 · 京都 / 宇治</p></div>
+    <nav class="nav">
+      <div class="nav-label">行程工作台</div>
+      <button class="active" data-view="plan"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><b>行程</b><em>64%</em></button>
+      <button class="nav-group" data-nav-group="arrange"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"/><path d="M8 9h8M8 13h5"/></svg><b>安排</b><span class="nav-chevron">⌄</span></button>
+      <div class="subnav" id="subnav-arrange">
+        <button data-view="arrange" data-tab="transport"><span class="subnav-dot"></span><b>交通</b><em>8 段</em></button>
+        <button data-view="arrange" data-tab="lodging"><span class="subnav-dot"></span><b>住宿</b><em>2 晚</em></button>
+        <button data-view="arrange" data-tab="meals"><span class="subnav-dot"></span><b>用餐</b><em>9 餐</em></button>
       </div>
-      <button data-view="budget">
-        <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4z"/><path d="M4 10h16M8 15h3"/><path d="M17 4v3"/></svg></span>
-        <b>预算</b><em>78%</em>
-      </button>
-      <button class="mobile-only mobile-arrange" data-mobile-target="arrange" data-mobile-sheet="arrange">
-        <span class="ico"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"/><path d="M8 9h8M8 13h5"/></svg></span>
-        <b>安排</b>
-      </button>
+      <button data-view="budget"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4z"/><path d="M4 10h16M8 15h3"/><path d="M17 4v3"/></svg><b>预算</b><em>78%</em></button>
+      <button class="mobile-only" data-mobile-sheet><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg><b>安排</b></button>
     </nav>
-    <div class="sidebar-foot">
-      <div class="sync-card">
-        <div class="row"><strong>离线数据</strong><span>82%</span></div>
-        <div class="progress"><span></span></div>
-        <div class="row"><span>5 项待补全</span><span>CNY18,640 · JPY382,000</span></div>
-      </div>
-      <div class="profile">
-        <div class="avatar">G</div>
-        <div><strong style="display:block;color:#ecf7f2">GCross</strong><span>本地优先 · 未登录</span></div>
-      </div>
-    </div>
+    <div class="rail-foot"><div class="offline-card"><div class="row"><strong>离线准备</strong><span>82%</span></div><div class="bar"><span></span></div><div class="row"><span>地图待补全</span><span>CNY18,640 / JPY382,000</span></div></div><div class="profile"><div class="avatar">G</div><div><b style="color:#eef8f4">GCross</b><br>本地优先 · 未登录</div></div></div>
   </aside>
 
   <main class="main">
     <header class="topbar">
-      <div class="title-wrap">
-        <div class="eyebrow"><i></i><span id="pageEyebrow">我的行程 / 京都动画巡礼</span></div>
-        <h2 id="pageTitle">今天的巡礼计划</h2>
-        <p id="pageSubtitle">10 月 12 日 · 宇治片区 · 当前进度 7 / 11</p>
-      </div>
-      <div class="top-meta">
-        <div class="meta-pill">◉ <b>2 人</b></div>
-        <div class="meta-pill">CNY / JPY <b>18,640 · 382,000</b></div>
-        <div class="meta-pill">☁ <b>离线可用</b></div>
-      </div>
+      <div class="title"><small><i></i><span id="crumb">我的行程 / 京都动画巡礼</span></small><h2 id="page-title">京都动画巡礼</h2><p id="page-subtitle">10 月 12 日 · 宇治片区 · 当前进度 7 / 11</p></div>
+      <div class="trip-stats"><span class="stat">◉ <b>2 人</b></span><span class="stat">CNY / JPY <b>18,640 · 382,000</b></span><span class="stat">☁ <b>离线可用</b></span></div>
       <div class="top-actions">
-        <button class="btn" onclick="openPlanEditor('spot')"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>添加安排</button>
-        <button class="btn top-quick-add" onclick="openPlanEditor('spot')"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>添加</button>
-        <button class="btn primary settings-top-action" id="settingsTopButton" onclick="activateView('settings')"><svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 100 8 4 4 0 000-8z"/><path d="M4 12h2M18 12h2M12 4v2M12 18v2M6.3 6.3l1.4 1.4M16.3 16.3l1.4 1.4M17.7 6.3l-1.4 1.4M7.7 16.3l-1.4 1.4"/></svg>设置</button>
+        <button class="btn mobile-add" onclick="openPlanEditor('spot')">＋ 添加</button>
+        <button class="btn" onclick="openPlanEditor('spot')">＋ 添加安排</button>
+        <button class="btn primary mobile-settings" onclick="activateView('settings')">设置</button>
+        <button class="btn primary" onclick="activateView('settings')">设置</button>
       </div>
     </header>
 
     <section class="content">
-      <section class="view active" id="view-planner">
-        <div class="daybar">
-          <div class="day-tabs">
-            <button class="active"><b>10 月 12 日</b>宇治 · 第一天</button>
-            <button><b>10 月 13 日</b>京都市内</button>
-            <button><b>10 月 14 日</b>伏见 · 返程</button>
-            <button style="min-width:42px;text-align:center">＋</button>
-          </div>
-          <div class="day-summary">
-            <span>完成 7 / 11</span><div class="progress-pill"><span></span></div><span>预计 20:10 结束</span>
-          </div>
+      <section class="page active" id="page-plan">
+        <div class="trip-strip">
+          <div class="item"><small>行程日期</small><b>10/12 — 10/14</b></div>
+          <div class="item"><small>当前进度</small><b>7 / 11 点位</b></div>
+          <div class="grow"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><small>整体完成度</small><small>64%</small></div><div class="progress"><span></span></div></div>
+          <div class="item"><small>今日预算</small><b>CNY 4,280 / JPY 87,700</b></div>
         </div>
-        <div class="mobile-plan-actions">
-          <button onclick="toast('打开 Anitabi 点位导入')">⇩ 导入点位</button>
-          <button onclick="openPlanEditor('spot')">＋ 添加安排</button>
-        </div>
-        <div class="planner-grid">
-          <div class="card map-card">
-            <div class="map-head">
-              <div class="map-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg><span>搜索作品、点位、餐厅或酒店</span></div>
-              <div class="map-layers"><button class="map-chip import-chip" onclick="toast('从 Anitabi 导入当前 Bangumi 作品点位')">＋ 导入 Anitabi 点位</button><button class="map-chip">点位 38/46 ▾</button></div>
+        <div class="workbench">
+          <aside class="panel day-panel">
+            <h3>行程日期</h3><p>按天切换工作区</p>
+            <div class="day-list">
+              <button class="day-card active"><b>10 月 12 日</b><span>宇治 · 7 / 11</span><span>¥4,280</span></button>
+              <button class="day-card"><b>10 月 13 日</b><span>京都 · 0 / 14</span><span>¥6,800</span></button>
+              <button class="day-card"><b>10 月 14 日</b><span>伏见 · 0 / 8</span><span>¥7,560</span></button>
             </div>
-            <div class="map-canvas">
-              <svg viewBox="0 0 1000 690" preserveAspectRatio="xMidYMid slice">
-                <defs>
-                  <filter id="soft"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity=".08"/></filter>
-                  <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M42 0H0V42" fill="none" stroke="#dbe6df" stroke-width="1"/></pattern>
-                </defs>
-                <rect width="1000" height="690" fill="#edf3ed"/><rect width="1000" height="690" fill="url(#grid)"/>
-                <path d="M-30 475C130 390 230 505 370 438s218-103 350-30 205 95 310 38" fill="none" stroke="#a9d3e9" stroke-width="57"/>
-                <path d="M-30 475C130 390 230 505 370 438s218-103 350-30 205 95 310 38" fill="none" stroke="#d4ecf7" stroke-width="38"/>
-                <g fill="#dfe9df" stroke="#d5e1d8">
-                  <path d="M80 115h180v105H80z"/><path d="M315 95h145v145H315z"/><path d="M515 105h170v100H515z"/>
-                  <path d="M760 85h180v150H760z"/><path d="M95 555h190v95H95z"/><path d="M690 520h220v120H690z"/>
-                </g>
-                <g fill="none" stroke="#fff" stroke-linecap="round">
-                  <path d="M-20 270C190 240 420 300 1030 215" stroke-width="23"/>
-                  <path d="M55 700C150 510 295 365 895 190" stroke-width="18"/>
-                  <path d="M220 0C270 190 390 300 465 690" stroke-width="14"/>
-                  <path d="M660 0C650 160 690 260 1040 360" stroke-width="14"/>
-                </g>
-                <g fill="none" stroke="#f2c98c" stroke-width="6" stroke-linecap="round">
-                  <path d="M110 352C280 342 350 374 485 342s192-49 378-40"/>
-                  <path d="M240 182C320 260 394 342 614 462"/>
-                  <path d="M130 594C280 512 410 486 644 432"/>
-                </g>
-                <g fill="#91aa9b" font-size="14" font-weight="700" opacity=".85">
-                  <text x="120" y="90">宇治市中心</text><text x="348" y="70">宇治站</text><text x="635" y="88">平等院片区</text>
-                  <text x="120" y="650">京阪宇治</text><text x="708" y="500">大吉山</text>
-                </g>
-                <text x="75" y="430" fill="#7fa9c1" font-size="17" font-weight="800" transform="rotate(-11 75 430)">宇治川</text>
-                <polyline points="265,346 390,276 525,310 633,238 760,375 842,470" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
-                <polyline points="265,346 390,276 525,310 633,238 760,375 842,470" fill="none" stroke="#26785b" stroke-width="6" stroke-dasharray="4 12" stroke-linecap="round" stroke-linejoin="round"/>
-                <g class="pin" transform="translate(265 346)" onclick="toast('宇治站 · JR 奈良线')"><circle class="halo" r="24"/><circle r="16" fill="#4c83c1"/><text y="1">1</text></g>
-                <g class="pin" transform="translate(390 276)" onclick="toast('宇治桥 · 作品《吹响吧！上低音号》')"><circle class="halo" r="22"/><circle r="16" fill="#1f6b52"/><text y="1">2</text></g>
-                <g class="pin current" transform="translate(525 310)" onclick="toast('平等院 · 当前目标')"><circle class="halo" r="30"/><circle r="18" fill="#1f6b52"/><text y="1">3</text></g>
-                <g class="pin" transform="translate(633 238)" onclick="toast('中村藤吉本店 · 12:40 午餐')"><circle class="halo" r="22"/><circle r="16" fill="#e9874e"/><text y="1">4</text></g>
-                <g class="pin" transform="translate(760 375)" onclick="toast('大吉山展望台 · 14:00')"><circle class="halo" r="22"/><circle r="16" fill="#1f6b52"/><text y="1">5</text></g>
-                <g class="pin lodging" transform="translate(842 470)" onclick="toast('京都八条口酒店 · 18:30 入住')"><circle class="halo" r="22"/><circle r="16" fill="#7564c9"/><text y="1">6</text></g>
-                <g class="pin-label" transform="translate(523 337)"><rect x="-42" y="0" width="84" height="24" rx="8"/><text x="0" y="16">平等院 · 当前</text></g>
-                <circle class="user-pulse" cx="493" cy="333" r="8"/><circle cx="493" cy="333" r="3" fill="#fff"/>
-              </svg>
-            </div>
-            <div class="map-status">
-              <small>当前目标 · 步行 8 分钟</small><strong>平等院凤凰堂</strong>
-              <div class="weather"><span>15:20 前完成</span><span><b>21°</b> 晴</span></div>
-            </div>
-            <div class="map-legend">
-              <span><i class="dot spot"></i>巡礼点</span><span><i class="dot meal"></i>用餐</span><span><i class="dot stay"></i>住宿</span><span><i class="dot transport"></i>交通</span>
-              <span style="margin-left:8px;color:#98a59f">© OpenStreetMap · OpenFreeMap</span>
-            </div>
-            <div class="map-controls"><button>＋</button><button>−</button><button>◎</button></div>
-          </div>
-
-          <div class="side-stack">
-            <div class="card timeline-card">
-              <div class="card-head">
-                <div><h3>10 月 12 日 · 时间线</h3><p>拖动调整顺序，锁定项不会被自动重排</p></div>
-                <div class="card-head-actions"><button class="btn soft" onclick="openPlanEditor('spot')">＋ 添加安排</button><button class="btn">优化路线</button></div>
-              </div>
-              <div class="timeline">
-                <button class="timeline-insert" onclick="openPlanEditor('transport')">＋ 在 08:20 前插入安排</button>
-                <div class="event transport"><div class="event-time">08:20</div><div class="event-node">JR</div><div class="event-body"><div class="event-head"><strong>京都站 → 宇治站</strong><span class="tag">交通</span><button class="event-edit" onclick="openPlanEditor('transport')">编辑</button></div><div class="event-meta"><span>JR 奈良线 · 18 分钟</span><span>¥240</span></div></div></div>
-                <div class="event"><div class="event-time">09:10</div><div class="event-node">✓</div><div class="event-body"><div class="event-head"><strong>宇治桥</strong><span class="tag">已完成</span><button class="event-edit" onclick="openPlanEditor('spot')">编辑</button></div><div class="event-meta"><span>EP 1 · 10:42</span><span>停留 25 分钟</span></div><div class="planner-checkin"><div class="camera-mini">✓</div><div><b>打卡照片 · 3 张</b><small>09:35 拍摄 · 已绑定宇治桥</small></div><button onclick="openPlanEditor('checkin')">编辑</button></div></div></div>
-                <div class="event current"><div class="event-time">10:20</div><div class="event-node">●</div><div class="event-body"><div class="event-head"><strong>平等院凤凰堂</strong><span class="tag">当前目标</span><button class="event-edit" onclick="openPlanEditor('spot')">编辑</button></div><div class="event-meta"><span>EP 5 · 08:16</span><span>预约 10:30</span></div><div class="event-note">门票已加入预算。步行前往下一站约 12 分钟。</div><div class="planner-checkin"><div class="camera-mini">◉</div><div><b>还没有打卡照片</b><small>建议对齐参考图后拍摄 2—3 张</small></div><button onclick="openPlanEditor('checkin')">添加打卡</button></div></div></div>
-                <div class="event meal"><div class="event-time">12:40</div><div class="event-node">食</div><div class="event-body"><div class="event-head"><strong>中村藤吉本店</strong><span class="tag">已预约</span><button class="event-edit" onclick="openPlanEditor('meal')">编辑</button></div><div class="event-meta"><span>抹茶荞麦面</span><span>2 人 · ¥4,200</span></div></div></div>
-                <div class="event"><div class="event-time">14:00</div><div class="event-node">5</div><div class="event-body"><div class="event-head"><strong>大吉山展望台</strong><span class="tag">待巡礼</span><button class="event-edit" onclick="openPlanEditor('spot')">编辑</button></div><div class="event-meta"><span>EP 8 · 16:03</span><span>步行 28 分钟</span></div></div></div>
-                <div class="event lodging"><div class="event-time">18:30</div><div class="event-node">宿</div><div class="event-body"><div class="event-head"><strong>京都八条口酒店</strong><span class="tag">已确认</span><button class="event-edit" onclick="openPlanEditor('lodging')">编辑</button></div><div class="event-meta"><span>入住 18:30</span><span>¥12,800 / 晚</span></div></div></div>
-              </div>
-              <div class="summary-strip">
-                <div class="summary-box"><small>今日交通</small><b>CNY 1,340</b><span>≈ JPY 27,500 · 4 段</span></div>
-                <div class="summary-box"><small>今日用餐</small><b>CNY 3,760</b><span>≈ JPY 77,100 · 3 餐</span></div>
-                <div class="summary-box"><small>行程总计</small><b>CNY 18,640</b><span>≈ JPY 382,000 · 78%</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="view" id="view-transport">
-        <div class="section-grid">
-          <div class="section-main">
-            <div class="card soft-card">
-              <div class="pad">
-                <div class="section-title">
-                  <div><h3>城际交通</h3><p>上海 → 大阪 → 京都 → 上海 · 2 人</p></div>
-                  <button class="btn soft" onclick="toast('已重新比较交通方案')">重新比较</button>
-                </div>
-                <div class="route-line"><b>上海 PVG</b><span>10/12 08:10</span><span class="route-arrow"></span><b>大阪 KIX</b><span>11:35</span><span class="route-arrow"></span><b>京都站</b><span>14:10</span></div>
-              </div>
-              <div class="option-list">
-                <div class="option selected"><span class="selected-mark">✓</span><div class="option-ico">✈</div><div><h4>春秋航空 + HARUKA</h4><p>PVG → KIX · 关西机场特急 · 含 1 次换乘</p></div><div class="price"><b>CNY 2,960</b><small>JPY 60,700 · 2 人</small></div></div>
-                <div class="option"><div class="option-ico">🚄</div><div><h4>新干线方案</h4><p>关西机场 → 新大阪 → 京都 · 少步行</p></div><div class="price"><b>JPY 7,600</b><small>≈ CNY 371 · 2 人</small></div></div>
-                <div class="option"><div class="option-ico">🚌</div><div><h4>夜间巴士</h4><p>大阪难波 → 京都站 · 适合控制预算</p></div><div class="price"><b>JPY 3,400</b><small>≈ CNY 166 · 2 人</small></div></div>
-              </div>
-            </div>
-            <div class="card soft-card" style="flex:1">
-              <div class="card-head"><div><h3>市内交通与点位衔接</h3><p>10 月 12 日 · 4 段行程</p></div><button class="btn">添加交通段</button></div>
-              <div class="option-list" style="padding-top:12px">
-                <div class="option"><div class="option-ico">JR</div><div><h4>京都站 → JR 宇治站</h4><p>08:20 - 08:38 · JR 奈良线 · 1 次乘车</p></div><div class="price"><b>JPY 480</b><small>≈ CNY 23 · 2 人</small></div></div>
-                <div class="option"><div class="option-ico">🚶</div><div><h4>宇治站 → 宇治桥</h4><p>步行 8 分钟 · 约 650 米</p></div><div class="price"><b>免费</b><small>已锁定</small></div></div>
-                <div class="option"><div class="option-ico">🚌</div><div><h4>平等院 → 中村藤吉本店</h4><p>京阪宇治巴士 · 11:40 出发</p></div><div class="price"><b>JPY 460</b><small>≈ CNY 22 · 2 人</small></div></div>
-              </div>
-            </div>
-          </div>
-          <aside class="section-side">
-            <div class="card soft-card">
-              <div class="pad">
-                <div class="section-title"><div><h3>交通摘要</h3><p>已确认 / 预估费用</p></div></div>
-                <div class="metric-row" style="margin-top:14px"><div class="metric"><small>总交通</small><b>CNY 7,840</b></div><div class="metric"><small>总耗时</small><b>6h 24m</b></div><div class="metric"><small>换乘</small><b>4 次</b></div></div>
-              </div>
-            </div>
-            <div class="card soft-card" style="flex:1">
-              <div class="card-head"><div><h3>预订状态</h3><p>仅跳转第三方平台</p></div></div>
-              <div class="option-list" style="padding:12px 14px">
-                <div class="option selected"><span class="selected-mark">✓</span><div class="option-ico">✈</div><div><h4>国际航班</h4><p>已保存订单摘要</p></div><div class="price"><b>已订</b><small>CNY2,960</small></div></div>
-                <div class="option"><div class="option-ico">🚄</div><div><h4>HARUKA 指定席</h4><p>需在运营方平台核对</p></div><div class="price"><b>去预订</b><small>第三方</small></div></div>
-                <div class="option"><div class="option-ico">🚌</div><div><h4>宇治市内交通</h4><p>现场购票 · 无需预约</p></div><div class="price"><b>无需</b><small>估算</small></div></div>
-              </div>
+            <button class="add-day">＋ 添加一天</button>
+          </aside>
+          <section class="panel map-panel">
+            <div class="map-toolbar"><div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg><span>搜索点位、餐厅或酒店</span></div><div class="map-actions"><button class="chip green" onclick="toast('按当前 Bangumi 作品从 Anitabi 导入点位')">＋ 导入 Anitabi 点位</button><button class="chip">点位 38/46 ▾</button></div></div>
+            <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid slice">
+              <defs><pattern id="grid2" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M42 0H0V42" fill="none" stroke="#d8e4dc"/></pattern></defs><rect width="900" height="620" fill="#eaf1eb"/><rect width="900" height="620" fill="url(#grid2)"/>
+              <path d="M-20 470C170 390 250 500 410 430s250-110 500-22" fill="none" stroke="#abd4e7" stroke-width="58"/><path d="M-20 470C170 390 250 500 410 430s250-110 500-22" fill="none" stroke="#d8eef7" stroke-width="38"/>
+              <g fill="none" stroke="#fff" stroke-linecap="round"><path d="M-20 245C230 210 470 280 930 205" stroke-width="22"/><path d="M100 660C220 480 370 350 810 200" stroke-width="17"/><path d="M250 0C290 190 390 300 455 650" stroke-width="13"/><path d="M650 0C620 170 690 285 960 350" stroke-width="13"/></g><g fill="none" stroke="#efc187" stroke-width="6"><path d="M110 350C300 330 410 365 560 325s200-45 330-32"/><path d="M210 180C320 270 390 340 590 460"/></g>
+              <polyline points="240,330 360,260 490,295 610,225 735,360 820,445" fill="none" stroke="#fff" stroke-width="14"/><polyline points="240,330 360,260 490,295 610,225 735,360 820,445" fill="none" stroke="#28785b" stroke-width="5" stroke-dasharray="4 11"/>
+              <g class="pin" transform="translate(240 330)" onclick="toast('宇治站')"><circle r="15" fill="#4d7fba"/><text y="1">1</text></g><g class="pin" transform="translate(360 260)" onclick="toast('宇治桥')"><circle r="15" fill="#1d6b50"/><text y="1">2</text></g><g class="pin" transform="translate(490 295)" onclick="toast('平等院 · 当前目标')"><circle r="18" fill="#1d6b50"/><text y="1">3</text></g><g class="pin" transform="translate(610 225)" onclick="toast('中村藤吉本店')"><circle r="15" fill="#df8250"/><text y="1">4</text></g><g class="pin" transform="translate(735 360)" onclick="toast('大吉山展望台')"><circle r="15" fill="#1d6b50"/><text y="1">5</text></g><g class="pin" transform="translate(820 445)" onclick="toast('京都八条口酒店')"><circle r="15" fill="#7163be"/><text y="1">6</text></g>
+            </svg>
+            <div class="map-note"><small>当前目标 · 步行 8 分钟</small><b>平等院凤凰堂</b><small>建议 15:20 前完成 · 21° 晴</small></div>
+            <div class="legend"><span class="dot" style="background:#1d6b50"></span>巡礼点<span class="dot" style="background:#df8250"></span>用餐<span class="dot" style="background:#7163be"></span>住宿<span class="dot" style="background:#4d7fba"></span>交通</div>
+          </section>
+          <aside class="panel timeline-panel">
+            <div class="timeline-head"><div><h3>10 月 12 日 · 时间线</h3><p>拖动排序，点击编辑</p></div><div class="head-actions"><button class="btn soft" onclick="openPlanEditor('spot')">＋ 添加</button></div></div>
+            <div class="timeline-scroll">
+              <button class="timeline-add" onclick="openPlanEditor('transport')">＋ 在 08:20 前插入安排</button>
+              <div class="event transport"><time>08:20</time><div class="event-card"><div class="event-head"><strong>京都站 → 宇治站</strong><span>交通</span><button class="edit-link" onclick="openPlanEditor('transport')">编辑</button></div><div class="event-meta">JR 奈良线 · 18 分钟 · JPY 480 / CNY 23</div></div></div>
+              <div class="event"><time>09:10</time><div class="event-card"><div class="event-head"><strong>宇治桥</strong><span>已完成</span><button class="edit-link" onclick="openPlanEditor('spot')">编辑</button></div><div class="event-meta">EP 1 · 10:42 · 停留 25 分钟</div><div class="checkin-inline"><i>✓</i><div><b>打卡照片 · 3 张</b><small>含参考图与实拍图对比组</small></div><button onclick="openPlanEditor('checkin')">编辑</button></div></div></div>
+              <div class="event current"><time>10:20</time><div class="event-card"><div class="event-head"><strong>平等院凤凰堂</strong><span>当前目标</span><button class="edit-link" onclick="openPlanEditor('spot')">编辑</button></div><div class="event-meta">EP 5 · 08:16 · 预约 10:30</div><div class="checkin-inline"><i>＋</i><div><b>添加拍照打卡</b><small>参考图 + 实拍图</small></div><button onclick="openPlanEditor('checkin')">添加</button></div></div></div>
+              <div class="event meal"><time>12:40</time><div class="event-card"><div class="event-head"><strong>中村藤吉本店</strong><span>已预约</span><button class="edit-link" onclick="openPlanEditor('meal')">编辑</button></div><div class="event-meta">抹茶荞麦面 · 2 人 · JPY 4,200</div></div></div>
+              <div class="event"><time>14:00</time><div class="event-card"><div class="event-head"><strong>大吉山展望台</strong><span>待巡礼</span><button class="edit-link" onclick="openPlanEditor('spot')">编辑</button></div><div class="event-meta">EP 8 · 16:03 · 步行 28 分钟</div></div></div>
+              <div class="event lodging"><time>18:30</time><div class="event-card"><div class="event-head"><strong>京都八条口酒店</strong><span>已确认</span><button class="edit-link" onclick="openPlanEditor('lodging')">编辑</button></div><div class="event-meta">入住 18:30 · CNY 5,120 / JPY 105,000</div></div></div>
             </div>
           </aside>
         </div>
       </section>
-      <section class="view" id="view-lodging">
-        <div class="section-grid">
-          <div class="section-main">
-            <div class="card soft-card">
-              <div class="pad">
-                <div class="section-title"><div><h3>住宿区域推荐</h3><p>根据巡礼点通勤、末班车和预算计算</p></div><button class="btn soft">调整权重</button></div>
-                <div class="mini-map" style="margin-top:14px">
-                  <div class="zone a">宇治站</div><div class="zone b">京都站</div><div class="zone c active">四条河原町</div>
-                  <div style="position:absolute;left:24px;bottom:18px;padding:6px 8px;border-radius:8px;background:#fff;color:#718079;font-size:8px">通勤时间越短，颜色越深</div>
-                </div>
-              </div>
-            </div>
-            <div class="card soft-card" style="flex:1">
-              <div class="card-head"><div><h3>候选住宿</h3><p>2 晚 · 10 月 12 日入住 / 10 月 14 日退房</p></div><button class="btn">添加住宿</button></div>
-              <div class="option-list" style="padding-top:12px">
-                <div class="option lodging-option selected"><span class="selected-mark">✓</span><div class="option-ico">🏨</div><div><h4>京都八条口酒店</h4><p>京都站步行 4 分钟 · 可寄存行李 · 免费取消</p></div><div class="price"><b>CNY 5,120</b><small>JPY 105,000 · 2 晚</small></div></div>
-                <div class="option lodging-option"><div class="option-ico">🏨</div><div><h4>四条河原町酒店</h4><p>餐饮便利 · 到宇治平均多 18 分钟</p></div><div class="price"><b>CNY 4,240</b><small>JPY 86,900 · 2 晚</small></div></div>
-                <div class="option lodging-option"><div class="option-ico">♨</div><div><h4>宇治温泉旅馆</h4><p>靠近巡礼点 · 返程交通不方便</p></div><div class="price"><b>CNY 7,560</b><small>JPY 155,000 · 含早餐</small></div></div>
-              </div>
-            </div>
-          </div>
-          <aside class="section-side">
-            <div class="card soft-card">
-              <div class="pad">
-                <div class="section-title"><div><h3>已选住宿</h3><p>10/12 - 10/14 · 2 晚</p></div></div>
-                <div class="route-line" style="margin-top:12px"><b>京都八条口酒店</b><span class="route-arrow"></span><span>京都站</span></div>
-                <div class="metric-row" style="margin-top:14px"><div class="metric"><small>到主要点位</small><b>28 min</b></div><div class="metric"><small>末班车</small><b>23:48</b></div><div class="metric"><small>预算</small><b>CNY 5,120</b></div></div>
-              </div>
-            </div>
-            <div class="card soft-card" style="flex:1">
-              <div class="card-head"><div><h3>每日通勤</h3><p>从住宿到片区中心</p></div></div>
-              <div class="option-list" style="padding:12px 14px">
-                <div class="option"><div class="option-ico">10/12</div><div><h4>京都站 → 宇治站</h4><p>JR 奈良线 · 18 分钟</p></div><div class="price"><b>JPY 240</b><small>≈ CNY 12 · 单人</small></div></div>
-                <div class="option"><div class="option-ico">10/13</div><div><h4>京都站 → 出町柳</h4><p>地铁 + 京阪 · 31 分钟</p></div><div class="price"><b>JPY 430</b><small>≈ CNY 21 · 单人</small></div></div>
-                <div class="option"><div class="option-ico">10/14</div><div><h4>京都站 → 伏见稻荷</h4><p>JR 奈良线 · 5 分钟</p></div><div class="price"><b>JPY 150</b><small>≈ CNY 7 · 单人</small></div></div>
-              </div>
-            </div>
-          </aside>
+      <section class="page" id="page-arrange">
+        <div class="arrange-head">
+          <div class="tabs"><button class="active" data-arrange-tab="transport">交通</button><button data-arrange-tab="lodging">住宿</button><button data-arrange-tab="meals">用餐</button></div>
+          <div class="summary"><span>已确认 <b>1</b></span><span>待预订 <b>2</b></span><span>总费用 <b>CNY 16,720</b></span></div>
         </div>
-      </section>
-      <section class="view" id="view-meals">
-        <div class="daybar">
-          <div class="day-tabs">
-            <button class="active"><b>10 月 12 日</b>宇治 · 3 餐</button>
-            <button><b>10 月 13 日</b>京都 · 3 餐</button>
-            <button><b>10 月 14 日</b>伏见 · 2 餐</button>
+        <div class="arrange-body">
+          <div class="arrange-content">
+            <section class="panel section" data-arrange-panel="transport">
+              <div class="section-title"><div><h3>城际交通</h3><p>上海 → 大阪 → 京都 → 上海 · 2 人</p></div><button class="btn soft" onclick="toast('重新比较交通方案')">重新比较</button></div>
+              <div class="route"><b>上海 PVG</b><span>10/12 08:10</span><div class="route-line"></div><b>大阪 KIX</b><span>11:35</span><div class="route-line"></div><b>京都站</b><span>14:10</span></div>
+              <div class="option active"><div class="option-icon">✈</div><div><h4>春秋航空 + HARUKA</h4><p>PVG → KIX · 关西机场特急 · 含 1 次换乘</p></div><div class="price"><b>CNY 2,960</b><small>JPY 60,700 · 已选择</small></div></div>
+              <div class="option"><div class="option-icon">🚄</div><div><h4>新干线方案</h4><p>关西机场 → 新大阪 → 京都 · 少步行</p></div><div class="price"><b>JPY 7,600</b><small>≈ CNY 371 · 2 人</small></div></div>
+              <div class="option"><div class="option-icon">🚌</div><div><h4>夜间巴士</h4><p>大阪难波 → 京都站 · 适合控制预算</p></div><div class="price"><b>JPY 3,400</b><small>≈ CNY 166 · 2 人</small></div></div>
+            </section>
+            <section class="panel section" data-arrange-panel="transport" style="display:none;margin-top:10px">
+              <div class="section-title"><div><h3>市内交通与点位衔接</h3><p>10 月 12 日 · 4 段行程</p></div><button class="btn" onclick="toast('添加交通段')">添加交通段</button></div>
+              <div class="option"><div class="option-icon">JR</div><div><h4>京都站 → JR 宇治站</h4><p>08:20—08:38 · JR 奈良线 · 1 次乘车</p></div><div class="price"><b>JPY 480</b><small>≈ CNY 23 · 2 人</small></div></div>
+              <div class="option"><div class="option-icon">🚶</div><div><h4>宇治站 → 宇治桥</h4><p>步行 8 分钟 · 约 650 米</p></div><div class="price"><b>免费</b><small>已锁定</small></div></div>
+            </section>
+            <section class="panel section" data-arrange-panel="lodging" style="display:none">
+              <div class="section-title"><div><h3>住宿区域</h3><p>根据通勤、交通和预算推荐</p></div><button class="btn soft" onclick="toast('调整住宿权重')">调整权重</button></div>
+              <div class="option active"><div class="option-icon">🏨</div><div><h4>京都八条口酒店</h4><p>京都站步行 4 分钟 · 可寄存行李 · 免费取消</p></div><div class="price"><b>CNY 5,120</b><small>JPY 105,000 · 2 晚</small></div></div>
+              <div class="option"><div class="option-icon">🏨</div><div><h4>四条河原町酒店</h4><p>餐饮便利 · 到宇治平均多 18 分钟</p></div><div class="price"><b>CNY 4,240</b><small>JPY 86,900 · 2 晚</small></div></div>
+              <div class="option"><div class="option-icon">♨</div><div><h4>宇治温泉旅馆</h4><p>靠近巡礼点 · 返程交通不方便</p></div><div class="price"><b>CNY 7,560</b><small>JPY 155,000 · 含早餐</small></div></div>
+            </section>
+            <section class="panel section" data-arrange-panel="meals" style="display:none">
+              <div class="section-title"><div><h3>10 月 12 日 · 用餐</h3><p>固定预约与弹性餐次进入同一条路线</p></div><button class="btn soft" onclick="openPlanEditor('meal')">＋ 添加餐次</button></div>
+              <div class="meal-grid">
+                <div class="meal-card"><div class="type">BREAKFAST · 08:00</div><h4>酒店早餐</h4><p>京都八条口酒店 · 已含</p><div class="tags"><span class="tag green">已确认</span><span class="tag">30 分钟</span></div></div>
+                <div class="meal-card"><div class="type">LUNCH · 12:40</div><h4>中村藤吉本店</h4><p>抹茶荞麦面 · 步行 10 分钟</p><div class="tags"><span class="tag warm">已预约</span><span class="tag">JPY 4,200</span></div></div>
+                <div class="meal-card"><div class="type">CAFE · 15:30</div><h4>宇治茶屋</h4><p>按区域用餐 · 6 家候选</p><div class="tags"><span class="tag">弹性 30 分钟</span><span class="tag">JPY 1,600</span></div></div>
+                <div class="meal-card"><div class="type">DINNER · 19:00</div><h4>京都站周边</h4><p>返回住宿后用餐</p><div class="tags"><span class="tag">待选餐厅</span><span class="tag">约 JPY 5,000</span></div></div>
+              </div>
+            </section>
           </div>
-          <div class="day-summary"><span>餐饮预算 CNY 820 / JPY 16,800</span><div class="progress-pill"><span style="width:45%"></span></div><span>已安排 CNY 371 / JPY 7,600</span></div>
-        </div>
-        <div class="section-grid" style="height:calc(100% - 54px)">
-          <div class="section-main">
-            <div class="card soft-card" style="flex:1">
-              <div class="card-head"><div><h3>今天的用餐安排</h3><p>固定预约与弹性餐次会一起进入路线</p></div><button class="btn soft">＋ 添加餐次</button></div>
-              <div class="meal-grid" style="padding-top:14px">
-                <div class="meal-card"><div class="meal-type">BREAKFAST · 08:00</div><h4>酒店早餐</h4><p>京都八条口酒店 · 已包含在住宿费用</p><div class="meal-foot"><span class="tiny-tag green">已确认</span><span class="tiny-tag">30 分钟</span><span class="tiny-tag">2 人</span></div></div>
-                <div class="meal-card"><div class="meal-type">LUNCH · 12:40</div><h4>中村藤吉本店</h4><p>抹茶荞麦面 · 10 分钟步行距离</p><div class="meal-foot"><span class="tiny-tag warm">已预约</span><span class="tiny-tag">JPY 4,200</span><span class="tiny-tag">无过敏冲突</span></div></div>
-                <div class="meal-card"><div class="meal-type">CAFE · 15:30</div><h4>宇治茶屋</h4><p>按区域用餐 · 平等院附近候选 6 家</p><div class="meal-foot"><span class="tiny-tag">弹性 30 分钟</span><span class="tiny-tag">JPY 1,600</span></div></div>
-                <div class="meal-card"><div class="meal-type">DINNER · 19:00</div><h4>京都站周边</h4><p>回到住宿后用餐 · 22:00 前营业</p><div class="meal-foot"><span class="tiny-tag">待选餐厅</span><span class="tiny-tag">约 JPY 5,000</span><span class="tiny-tag">可预约</span></div></div>
-              </div>
-            </div>
-          </div>
-          <aside class="section-side">
-            <div class="card soft-card">
-              <div class="pad">
-                <div class="section-title"><div><h3>饮食要求</h3><p>同行者 1 有甲壳类过敏</p></div><button class="btn">编辑</button></div>
-                <div class="metric-row" style="margin-top:14px"><div class="metric"><small>过敏项</small><b>甲壳类</b></div><div class="metric"><small>偏好</small><b>少辣</b></div><div class="metric"><small>提醒</small><b>2 餐</b></div></div>
-              </div>
-            </div>
-            <div class="card soft-card" style="flex:1">
-              <div class="card-head"><div><h3>附近餐厅候选</h3><p>按路线绕行与营业时间排序</p></div></div>
-              <div class="option-list" style="padding:12px 14px">
-                <div class="option meal-option selected"><span class="selected-mark">✓</span><div class="option-ico">抹</div><div><h4>中村藤吉本店</h4><p>宇治站 8 分钟 · 含过敏原标注</p></div><div class="price"><b>JPY 2,100</b><small>≈ CNY 102</small></div></div>
-                <div class="option meal-option"><div class="option-ico">茶</div><div><h4>伊藤久右卫门</h4><p>平等院前 · 少绕行 6 分钟</p></div><div class="price"><b>JPY 1,800</b><small>≈ CNY 88</small></div></div>
-                <div class="option meal-option"><div class="option-ico">店</div><div><h4>京都站拉面小路</h4><p>晚间营业 · 无需预约</p></div><div class="price"><b>JPY 1,300</b><small>≈ CNY 63</small></div></div>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </section>
-      <section class="view" id="view-budget">
-        <div class="section-grid">
-          <div class="section-main">
-            <div class="card soft-card budget-hero">
-              <small>整趟行程预算 · 2 人 · 双币种显示</small>
-              <div class="money">CNY 18,640 <span style="font-size:12px;color:#bfe0d2">/ JPY 382,000</span></div>
-              <div class="subline"><span>上限 <b>CNY22,000 / JPY451,000</b></span><span>已支付 <b>CNY9,260 / JPY189,900</b></span><span>剩余 <b>CNY3,360 / JPY68,900</b></span><span>汇率 <b>1 CNY ≈ 20.5 JPY</b></span></div>
-            </div>
-            <div class="card soft-card" style="flex:1">
-              <div class="card-head"><div><h3>分类预算</h3><p>交通、住宿和餐饮为主要支出</p></div><button class="btn soft" onclick="openExpenseEditor()">＋ 添加支出</button></div>
-              <div class="option-list" style="padding-top:12px">
-                <div class="option"><div class="option-ico">✈</div><div><h4>城际与市内交通</h4><p>8 段 · 预估 ¥7,840，实际 ¥6,900</p></div><div class="price"><b>CNY 7,840</b><small>JPY 160,700 · 35.6%</small></div></div>
-                <div class="option"><div class="option-ico">🏨</div><div><h4>住宿</h4><p>2 晚 · 京都八条口酒店</p></div><div class="price"><b>CNY 5,120</b><small>JPY 105,000 · 23.2%</small></div></div>
-                <div class="option"><div class="option-ico">🍵</div><div><h4>餐饮</h4><p>9 餐 · 已安排 4 餐</p></div><div class="price"><b>CNY 3,760</b><small>JPY 77,100 · 17.1%</small></div></div>
-                <div class="option"><div class="option-ico">🎫</div><div><h4>门票与预约</h4><p>平等院、博物馆、咖啡厅</p></div><div class="price"><b>CNY 1,260</b><small>JPY 25,800 · 5.7%</small></div></div>
-              </div>
-            </div>
-          </div>
-          <aside class="section-side">
-            <div class="card soft-card">
-              <div class="donut-wrap">
-                <div class="donut"><div class="donut-center"><b>84.7%</b><small>预算使用</small></div></div>
-                <div class="budget-list">
-                  <div class="budget-row"><span class="budget-dot" style="background:var(--green)"></span><span>交通</span><b>35.6%</b><div class="budget-bar"><span style="width:36%;background:var(--green)"></span></div></div>
-                  <div class="budget-row"><span class="budget-dot" style="background:var(--orange)"></span><span>住宿</span><b>23.2%</b><div class="budget-bar"><span style="width:23%;background:var(--orange)"></span></div></div>
-                  <div class="budget-row"><span class="budget-dot" style="background:var(--violet)"></span><span>餐饮</span><b>17.1%</b><div class="budget-bar"><span style="width:17%;background:var(--violet)"></span></div></div>
-                  <div class="budget-row"><span class="budget-dot" style="background:var(--blue)"></span><span>其他</span><b>8.8%</b><div class="budget-bar"><span style="width:9%;background:var(--blue)"></span></div></div>
-                </div>
-              </div>
-            </div>
-            <div class="card soft-card" style="flex:1">
-              <div class="card-head"><div><h3>最近支出</h3><p>预估与实际自动对齐</p></div></div>
-              <div class="expense-list">
-                <div class="expense" onclick="openExpenseEditor('国际航班')"><div class="expense-ico">✈</div><div><h4>国际航班</h4><p>已支付 · 2 人</p></div><div class="amount"><b>CNY2,960</b><small>JPY60,700 · 实际</small></div></div>
-                <div class="expense" onclick="openExpenseEditor('酒店定金')"><div class="expense-ico">🏨</div><div><h4>酒店定金</h4><p>10/12 · 信用卡</p></div><div class="amount"><b>CNY5,120</b><small>JPY105,000 · 已支付</small></div></div>
-                <div class="expense" onclick="openExpenseEditor('中村藤吉本店')"><div class="expense-ico">🍵</div><div><h4>中村藤吉本店</h4><p>午餐预约 · 2 人</p></div><div class="amount"><b>JPY4,200</b><small>≈CNY205 · 预估</small></div></div>
-                <div class="expense" onclick="openExpenseEditor('平等院门票')"><div class="expense-ico">🎫</div><div><h4>平等院门票</h4><p>凤凰堂参观</p></div><div class="amount"><b>JPY3,200</b><small>≈CNY156 · 预估</small></div></div>
-              </div>
-            </div>
+          <aside class="panel side-panel">
+            <div class="side-section" data-arrange-side="transport"><b style="font-size:11px">交通摘要</b><div class="metrics"><div class="metric"><small>总交通</small><b>CNY7,840</b></div><div class="metric"><small>总耗时</small><b>6h24m</b></div><div class="metric"><small>换乘</small><b>4 次</b></div></div></div>
+            <div class="side-section" data-arrange-side="transport"><b style="font-size:11px">预订状态</b><div class="option active" style="margin-top:10px"><div class="option-icon">✈</div><div><h4>国际航班</h4><p>已保存订单摘要</p></div><div class="price"><b>已订</b><small>CNY2,960</small></div></div><div class="option"><div class="option-icon">🚄</div><div><h4>HARUKA 指定席</h4><p>前往运营方平台核对</p></div><div class="price"><b>去预订</b><small>第三方</small></div></div></div>
+            <div class="side-section" data-arrange-side="lodging" style="display:none"><b style="font-size:11px">已选住宿</b><div class="option active" style="margin-top:10px"><div class="option-icon">🏨</div><div><h4>京都八条口酒店</h4><p>2 晚 · 免费取消</p></div><div class="price"><b>CNY5,120</b><small>JPY105,000</small></div></div><div class="metrics"><div class="metric"><small>通勤</small><b>28m</b></div><div class="metric"><small>末班车</small><b>23:48</b></div><div class="metric"><small>预算</small><b>23.2%</b></div></div></div>
+            <div class="side-section" data-arrange-side="meals" style="display:none"><b style="font-size:11px">饮食要求</b><div class="metrics"><div class="metric"><small>过敏</small><b>甲壳类</b></div><div class="metric"><small>偏好</small><b>少辣</b></div><div class="metric"><small>提醒</small><b>2 餐</b></div></div><div class="option active" style="margin-top:10px"><div class="option-icon">🍵</div><div><h4>中村藤吉本店</h4><p>已预约 · 含过敏原标注</p></div><div class="price"><b>JPY2,100</b><small>人均</small></div></div></div>
           </aside>
         </div>
       </section>
 
-      <section class="view" id="view-settings">
-        <div class="settings-grid">
-          <div class="settings-column">
-            <div class="card settings-card">
-              <div class="card-head"><div><h3>通用设置</h3><p>语言、主题与预算显示偏好</p></div></div>
-              <div class="settings-list">
-                <div class="setting-row"><span class="setting-icon">文</span><div class="setting-copy"><b>界面语言</b><small>简体中文</small></div><span class="setting-value">简体中文 ›</span></div>
-                <div class="setting-row"><span class="setting-icon">◐</span><div class="setting-copy"><b>外观主题</b><small>跟随系统深浅色</small></div><span class="switch on"></span></div>
-                <div class="setting-row"><span class="setting-icon">¥</span><div class="setting-copy"><b>双币种显示</b><small>原始币种保留，同时显示 CNY 与 JPY</small></div><span class="setting-value">CNY + JPY ›</span></div>
-                <div class="setting-row"><span class="setting-icon">↗</span><div class="setting-copy"><b>距离单位</b><small>地图和路线显示单位</small></div><span class="setting-value">公制 ›</span></div>
-              </div>
-            </div>
-
-            <div class="card settings-card">
-              <div class="card-head"><div><h3>离线设置</h3><p>出发前自动准备交通、餐次、参考图和地图</p></div><button class="btn soft" onclick="toast('离线检查完成：1 项待补全')">立即检查</button></div>
-              <div class="settings-list">
-                <div class="setting-row"><span class="setting-icon">↓</span><div class="setting-copy"><b>自动缓存行程资料</b><small>交通、住宿、餐次和预算摘要</small></div><span class="switch on"></span></div>
-                <div class="setting-row"><span class="setting-icon">▧</span><div class="setting-copy"><b>缓存完整参考图</b><small>仅缓存已经加入行程的点位</small></div><span class="switch on"></span></div>
-                <div class="setting-row"><span class="setting-icon">⌁</span><div class="setting-copy"><b>仅 Wi-Fi 下载地图</b><small>避免移动网络消耗和超额流量</small></div><span class="switch on"></span></div>
-                <div class="setting-row"><span class="setting-icon">◎</span><div class="setting-copy"><b>离线地图范围</b><small>当前：宇治片区 · 34%</small></div><span class="setting-action">管理</span></div>
-              </div>
-            </div>
+      <section class="page" id="page-budget">
+        <div class="budget-strip"><div><small>整趟行程预算 · 双币种显示</small><div class="total">CNY 18,640 <span class="pair">/ JPY 382,000</span></div></div><div class="spacer"></div><span class="stat">预算上限 <b>CNY22,000</b></span><span class="stat">已支付 <b>CNY9,260</b></span><span class="stat">剩余 <b>CNY3,360</b></span><span class="stat">汇率 <b>1 CNY ≈ 20.5 JPY</b></span></div>
+        <div class="budget-body">
+          <div class="panel budget-list">
+            <div class="timeline-head"><div><h3>分类预算</h3><p>交通、住宿和餐饮为主要支出</p></div><button class="btn soft" style="margin-left:auto" onclick="openExpenseEditor()">＋ 添加支出</button></div>
+            <div class="budget-row"><div class="budget-icon">✈</div><div><h4>城际与市内交通</h4><p>8 段 · 预估 CNY7,840 / 实际 CNY6,900</p></div><div class="amount"><b>CNY7,840</b><small>JPY160,700 · 35.6%</small></div></div>
+            <div class="budget-row"><div class="budget-icon">🏨</div><div><h4>住宿</h4><p>2 晚 · 京都八条口酒店</p></div><div class="amount"><b>CNY5,120</b><small>JPY105,000 · 23.2%</small></div></div>
+            <div class="budget-row"><div class="budget-icon">🍵</div><div><h4>餐饮</h4><p>9 餐 · 已安排 4 餐</p></div><div class="amount"><b>CNY3,760</b><small>JPY77,100 · 17.1%</small></div></div>
+            <div class="budget-row"><div class="budget-icon">🎫</div><div><h4>门票与预约</h4><p>平等院、博物馆、咖啡厅</p></div><div class="amount"><b>CNY1,260</b><small>JPY25,800 · 5.7%</small></div></div>
+            <div class="budget-row"><div class="budget-icon">🛍</div><div><h4>购物与其他</h4><p>纪念品、交通杂费</p></div><div class="amount"><b>CNY660</b><small>JPY13,500 · 3.5%</small></div></div>
           </div>
-
-          <div class="settings-column">
-            <div class="card settings-card">
-              <div class="card-head"><div><h3>导入与导出</h3><p>数据始终可以迁移和恢复</p></div></div>
-              <div class="data-actions">
-                <button class="data-action" onclick="toast('选择 .enikki 文件进行导入预览')">导入数据<span>计划、记录、媒体</span></button>
-                <button class="data-action" onclick="toast('已生成 .enikki 导出预览')">导出数据<span>完整或轻量备份</span></button>
-                <button class="data-action" onclick="toast('已打开 Google My Maps CSV 导出')">导出地图 CSV<span>点位与坐标</span></button>
-                <button class="data-action" onclick="toast('已打开记录与照片备份')">照片备份<span>本地媒体管理</span></button>
-              </div>
-            </div>
-
-            <div class="card settings-card">
-              <div class="pad">
-                <div class="section-title"><div><h3>本地存储</h3><p>离线资料占用空间</p></div></div>
-                <div class="storage-ring"><div class="storage-copy"><b>1.8 GB</b><small>共 3 GB</small></div></div>
-                <div class="metric-row"><div class="metric"><small>参考图</small><b>820 MB</b></div><div class="metric"><small>地图</small><b>640 MB</b></div><div class="metric"><small>照片</small><b>340 MB</b></div></div>
-              </div>
-            </div>
-
-            <div class="card settings-card">
-              <div class="card-head"><div><h3>数据源与隐私</h3><p>来源、权限和本地数据处理</p></div></div>
-              <div class="settings-list">
-                <div class="setting-row"><span class="setting-icon">B</span><div class="setting-copy"><b>Bangumi</b><small>作品搜索与元数据</small></div><span class="setting-value">已连接</span></div>
-                <div class="setting-row"><span class="setting-icon">A</span><div class="setting-copy"><b>Anitabi</b><small>巡礼点位与参考图</small></div><span class="setting-value">已启用</span></div>
-                <div class="setting-row"><span class="setting-icon">⌖</span><div class="setting-copy"><b>位置权限</b><small>仅打卡和附近点位时使用</small></div><span class="setting-value">使用中 ›</span></div>
-                <div class="setting-row"><span class="setting-icon">☁</span><div class="setting-copy"><b>云同步</b><small>当前保持本地优先</small></div><span class="switch"></span></div>
-              </div>
-            </div>
-          </div>
+          <aside class="panel" style="overflow:auto">
+            <div class="donut-wrap"><div class="donut"><span>84.7%<small>预算使用</small></span></div><div><div class="metric"><small>交通</small><b>35.6%</b></div><div class="metric" style="margin-top:6px"><small>住宿</small><b>23.2%</b></div><div class="metric" style="margin-top:6px"><small>餐饮</small><b>17.1%</b></div></div></div>
+            <div class="section"><div class="section-title"><div><h3>最近支出</h3><p>点击记录可编辑</p></div></div><div class="budget-row" onclick="openExpenseEditor('国际航班')"><div class="budget-icon">✈</div><div><h4>国际航班</h4><p>已支付 · 2 人</p></div><div class="amount"><b>CNY2,960</b><small>JPY60,700</small></div></div><div class="budget-row" onclick="openExpenseEditor('酒店定金')"><div class="budget-icon">🏨</div><div><h4>酒店定金</h4><p>10/12 · 信用卡</p></div><div class="amount"><b>CNY5,120</b><small>JPY105,000</small></div></div></div>
+          </aside>
         </div>
       </section>
 
-      <section class="view" id="view-offline">
-        <div class="section-grid">
-          <div class="section-main">
-            <div class="card soft-card">
-              <div class="pad">
-                <div class="section-title"><div><h3>离线准备检查</h3><p>出发前确保交通、住宿、餐次、点位和预算都能离线查看</p></div><button class="btn primary" onclick="toast('已开始重新缓存 5 项资源')">开始缓存</button></div>
-              </div>
-              <div class="offline-grid" style="padding:0 14px 14px">
-                <div class="offline-card"><div class="row"><strong>交通与住宿</strong><span class="status">已就绪</span></div><p>3 段交通、2 晚住宿和订单摘要已保存。</p><div class="progress"><span style="width:100%"></span></div></div>
-                <div class="offline-card"><div class="row"><strong>每日餐次</strong><span class="status">已就绪</span></div><p>9 个餐次、2 个预约和餐厅地址已缓存。</p><div class="progress"><span style="width:100%"></span></div></div>
-                <div class="offline-card"><div class="row"><strong>巡礼点与参考图</strong><span class="status" style="color:#a45d33;background:#fff0e5">82%</span></div><p>缺少 8 张完整参考图，不影响缩略图查看。</p><div class="progress"><span style="width:82%"></span></div></div>
-                <div class="offline-card"><div class="row"><strong>地图数据</strong><span class="status" style="color:#a45d33;background:#fff0e5">待补全</span></div><p>宇治片区离线地图尚未缓存，需使用允许离线保存的数据源。</p><div class="progress"><span style="width:34%"></span></div></div>
-              </div>
-            </div>
-            <div class="card soft-card" style="flex:1">
-              <div class="card-head"><div><h3>数据可迁移性</h3><p>行程、预算、记录与媒体打包为 .enikki</p></div><button class="btn soft" onclick="toast('已生成 .enikki 导出预览')">导出数据包</button></div>
-              <div class="option-list" style="padding-top:12px">
-                <div class="option selected"><span class="selected-mark">✓</span><div class="option-ico">📦</div><div><h4>完整备份</h4><p>计划、交通、住宿、餐次、预算、记录和参考图</p></div><div class="price"><b>128 MB</b><small>推荐</small></div></div>
-                <div class="option"><div class="option-ico">📄</div><div><h4>仅结构化数据</h4><p>JSON 与预算明细，不包含媒体</p></div><div class="price"><b>420 KB</b><small>轻量</small></div></div>
-              </div>
-            </div>
+      <section class="page" id="page-settings">
+        <div class="settings-layout">
+          <div class="panel settings-scroll">
+            <div class="settings-section"><div class="section-title"><div><h3>通用设置</h3><p>显示、币种和数据格式</p></div></div><div class="setting"><span class="setting-icon">文</span><div class="setting-copy"><b>界面语言</b><small>简体中文</small></div><span class="setting-value">简体中文 ›</span></div><div class="setting"><span class="setting-icon">¥</span><div class="setting-copy"><b>双币种显示</b><small>原始金额保留，同时显示 CNY 与 JPY</small></div><span class="setting-value">CNY + JPY ›</span></div><div class="setting"><span class="setting-icon">◐</span><div class="setting-copy"><b>主题</b><small>跟随系统</small></div><span class="switch"></span></div></div>
+            <div class="settings-section"><div class="section-title"><div><h3>离线设置</h3><p>出发前自动准备关键资料</p></div><button class="btn soft" onclick="toast('离线检查完成：1 项待补全')">立即检查</button></div><div class="setting"><span class="setting-icon">↓</span><div class="setting-copy"><b>自动缓存行程</b><small>交通、住宿、餐次和预算摘要</small></div><span class="switch"></span></div><div class="setting"><span class="setting-icon">▧</span><div class="setting-copy"><b>完整参考图</b><small>只缓存已加入行程的点位</small></div><span class="switch"></span></div><div class="setting"><span class="setting-icon">⌁</span><div class="setting-copy"><b>仅 Wi-Fi 下载地图</b><small>避免移动流量消耗</small></div><span class="switch"></span></div><div class="setting"><span class="setting-icon">◎</span><div class="setting-copy"><b>离线地图范围</b><small>宇治片区 · 34%</small></div><button class="btn" onclick="toast('管理离线地图')">管理</button></div></div>
           </div>
-          <aside class="section-side">
-            <div class="card soft-card budget-hero" style="background:linear-gradient(135deg,#223b47,#3d6675)">
-              <small>离线状态</small><div class="money" style="font-size:24px">核心资料可用</div><div class="subline"><span>交通 <b>✓</b></span><span>住宿 <b>✓</b></span><span>餐次 <b>✓</b></span><span>地图 <b>34%</b></span></div>
-            </div>
-            <div class="card soft-card" style="flex:1">
-              <div class="card-head"><div><h3>数据来源</h3><p>所有来源与更新时间均保留</p></div></div>
-              <div class="option-list" style="padding:12px 14px">
-                <div class="option"><div class="option-ico">B</div><div><h4>Bangumi</h4><p>作品资料 · 3 个作品</p></div><div class="price"><b>已同步</b><small>10:12</small></div></div>
-                <div class="option"><div class="option-ico">A</div><div><h4>Anitabi</h4><p>点位与参考图 · 38 个点位</p></div><div class="price"><b>已同步</b><small>10:14</small></div></div>
-                <div class="option"><div class="option-ico">M</div><div><h4>OpenFreeMap</h4><p>地图底图 · 遵守署名要求</p></div><div class="price"><b>在线</b><small>按需加载</small></div></div>
-              </div>
-            </div>
-          </aside>
+          <div class="panel settings-scroll"><div class="settings-section"><div class="section-title"><div><h3>导入与导出</h3><p>数据可迁移和恢复</p></div></div><div class="data-actions"><button class="data-action" onclick="toast('选择 .enikki 文件')">导入数据<small>计划、记录、媒体</small></button><button class="data-action" onclick="toast('生成 .enikki 导出预览')">导出数据<small>完整或轻量备份</small></button><button class="data-action" onclick="toast('导出 Google My Maps CSV')">地图 CSV<small>点位与坐标</small></button><button class="data-action" onclick="toast('打开照片备份')">照片备份<small>本地媒体管理</small></button></div></div><div class="settings-section"><div class="section-title"><div><h3>数据源与隐私</h3><p>来源、权限与同步</p></div></div><div class="setting"><span class="setting-icon">B</span><div class="setting-copy"><b>Bangumi</b><small>作品搜索与元数据</small></div><span class="setting-value">已连接</span></div><div class="setting"><span class="setting-icon">A</span><div class="setting-copy"><b>Anitabi</b><small>巡礼点位与参考图</small></div><span class="setting-value">已启用</span></div><div class="setting"><span class="setting-icon">⌖</span><div class="setting-copy"><b>位置权限</b><small>仅打卡和附近点位使用</small></div><span class="setting-value">使用中 ›</span></div><div class="setting"><span class="setting-icon">☁</span><div class="setting-copy"><b>云同步</b><small>当前保持本地优先</small></div><span class="switch off"></span></div></div></div>
         </div>
       </section>
     </section>
   </main>
 </div>
-<div class="plan-editor-backdrop" id="planEditorBackdrop" onclick="closePlanEditor(event)">
-  <div class="plan-editor" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
-    <div class="plan-editor-head">
-      <div><h3 id="planEditorTitle">添加行程安排</h3><p>可以随时修改，保存后立即进入当天时间线</p></div>
-      <button class="plan-editor-close" onclick="closePlanEditor()">×</button>
-    </div>
-    <div class="plan-type-grid" id="planTypeGrid">
-      <button class="plan-type active" data-plan-type="spot"><i>⌖</i><span>巡礼点</span></button>
-      <button class="plan-type" data-plan-type="transport"><i>🚄</i><span>交通</span></button>
-      <button class="plan-type" data-plan-type="lodging"><i>🏨</i><span>住宿</span></button>
-      <button class="plan-type" data-plan-type="meal"><i>🍵</i><span>用餐</span></button>
-      <button class="plan-type" data-plan-type="checkin"><i>📷</i><span>拍照打卡</span></button>
-      <button class="plan-type" data-plan-type="note"><i>✎</i><span>休息/备注</span></button>
-    </div>
-    <div class="plan-form">
-      <div class="field"><label>开始时间</label><input type="time" value="11:10"></div>
-      <div class="field"><label>结束时间</label><input type="time" value="11:45"></div>
-      <div class="field full"><label>标题</label><input id="planEditorName" value="凤凰堂参拜与拍照" placeholder="例如：宇治桥打卡"></div>
-      <div class="field full"><label>地点或区间</label><input value="平等院凤凰堂 · 宇治市宇治莲华 116" placeholder="搜索地点或输入自定义位置"></div>
-      <div class="checkin-editor-fields">
-        <div class="photo-group-head"><b>图片对比组</b><span>参考图 + 实拍图</span></div>
-        <div id="photoGroups">
-          <div class="photo-group" data-photo-group="1">
-            <div class="photo-group-head"><b>对比组 1</b><span>点击图片框选择来源</span></div>
-            <div class="photo-pair">
-              <button class="photo-slot reference" data-photo-side="reference"><span class="empty-photo-icon">＋</span><b>参考图</b><small>点击选择 Anitabi 或本地图片</small></button>
-              <div class="pair-link"><span>↔</span><small>对比</small></div>
-              <button class="photo-slot actual" data-photo-side="actual"><span class="empty-photo-icon">＋</span><b>实拍图</b><small>点击选择拍照或手机相册</small></button>
-            </div>
-          </div>
-        </div>
-        <div class="photo-group-tools"><button class="add-group" onclick="addPhotoGroup()">＋ 添加对比组</button><button class="save-compare" onclick="toast('图片填写后将保存对比图')">导出对比图</button></div>
-        <div class="photo-check-options" style="margin-top:10px"><label><input type="checkbox" checked>记录拍摄时间</label><label><input type="checkbox" checked>记录位置</label></div>
-      </div>
-      <div class="field money-field"><label>费用 · CNY</label><input value="60.00"></div>
-      <div class="field money-field"><label>费用 · JPY</label><input value="1,230"></div>
-      <div class="field"><label>所属片区</label><select><option>平等院片区</option><option>宇治站片区</option><option>大吉山片区</option></select></div>
-      <div class="field"><label>提醒</label><select><option>提前 15 分钟</option><option>不提醒</option><option>提前 30 分钟</option></select></div>
+<div class="backdrop" id="planEditorBackdrop" onclick="closePlanEditor(event)">
+  <div class="modal" id="planEditorModal" onclick="event.stopPropagation()">
+    <div class="modal-head"><div><h3 id="planEditorTitle">添加行程安排</h3><p>保存后立即进入当天时间线并重新计算预算</p></div><button class="close" onclick="closePlanEditor()">×</button></div>
+    <div class="type-tabs"><button class="type-tab active" data-plan-type="spot">⌖ 巡礼点</button><button class="type-tab" data-plan-type="transport">🚄 交通</button><button class="type-tab" data-plan-type="lodging">🏨 住宿</button><button class="type-tab" data-plan-type="meal">🍵 用餐</button><button class="type-tab" data-plan-type="checkin">📷 拍照打卡</button><button class="type-tab" data-plan-type="note">✎ 休息/备注</button></div>
+    <div class="form-grid" id="planForm">
+      <div class="field"><label>开始时间</label><input type="time" value="11:10"></div><div class="field"><label>结束时间</label><input type="time" value="11:45"></div>
+      <div class="field full"><label>标题</label><input id="planEditorName" value="平等院凤凰堂"></div>
+      <div class="field full"><label>地点或区间</label><input value="平等院凤凰堂 · 宇治市宇治莲华 116"></div>
+      <div class="photo-groups"><div class="group-title"><b>图片对比组</b><span>点击图片框选择来源</span></div><div id="photoGroups"><div class="photo-group"><div class="group-title"><b>对比组 1</b><span>参考图 + 实拍图</span></div><div class="pair"><button class="photo-slot" data-photo-side="reference"><span class="plus">＋</span><b>参考图</b><small>点击选择来源</small></button><div class="pair-link">↔<br>对比</div><button class="photo-slot" data-photo-side="actual"><span class="plus">＋</span><b>实拍图</b><small>点击选择来源</small></button></div></div></div><div class="photo-tools"><button onclick="addPhotoGroup()">＋ 添加对比组</button><button class="primary" onclick="toast('图片填写后导出对比图')">导出对比图</button></div></div>
+      <div class="field money-field"><label>费用 · CNY</label><input value="60"></div><div class="field money-field"><label>费用 · JPY</label><input value="1,230"></div>
+      <div class="field"><label>所属片区</label><select><option>平等院片区</option><option>宇治站片区</option><option>大吉山片区</option></select></div><div class="field"><label>提醒</label><select><option>提前 15 分钟</option><option>不提醒</option><option>提前 30 分钟</option></select></div>
       <div class="field full"><label>备注</label><textarea placeholder="交通路线、预约信息、拍摄要求或注意事项"></textarea></div>
     </div>
-    <div class="editor-foot">
-      <button class="btn danger" onclick="toast('已移除该安排')">删除</button>
-      <button class="btn" onclick="closePlanEditor()">取消</button>
-      <button class="btn soft" onclick="savePlanEditor(false)">保存并继续添加</button>
-      <button class="btn primary" onclick="savePlanEditor(true)">保存安排</button>
-    </div>
-    <div class="plan-editor-note">支持拖动排序、锁定时间和设置预约提醒；费用会自动计入双币种预算。</div>
+    <div class="modal-foot"><button class="btn danger" onclick="toast('已移除该安排')">删除</button><button class="btn" onclick="closePlanEditor()">取消</button><button class="btn soft" onclick="savePlanEditor(false)">保存并继续</button><button class="btn primary" onclick="savePlanEditor(true)">保存安排</button></div>
   </div>
 </div>
-<div class="plan-editor-backdrop" id="expenseEditorBackdrop" onclick="closeExpenseEditor(event)">
-  <div class="plan-editor expense-editor" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
-    <div class="plan-editor-head"><div><h3 id="expenseEditorTitle">添加支出</h3><p>费用会进入双币种预算，并可关联具体行程安排</p></div><button class="plan-editor-close" onclick="closeExpenseEditor()">×</button></div>
-    <div class="expense-category-grid">
-      <button class="expense-category active">交通</button><button class="expense-category">住宿</button><button class="expense-category">餐饮</button><button class="expense-category">门票</button><button class="expense-category">活动</button><button class="expense-category">购物</button><button class="expense-category">保险</button><button class="expense-category">其他</button>
-    </div>
-    <div class="plan-form">
-      <div class="field full"><label>支出名称</label><input id="expenseEditorName" value="平等院门票" placeholder="例如：宇治市内交通"></div>
-      <div class="field"><label>日期</label><input type="date" value="2026-10-12"></div>
-      <div class="field"><label>时间</label><input type="time" value="10:20"></div>
-      <div class="field"><label>原始币种</label><select id="expenseCurrency" onchange="updateExpenseConversion()"><option value="JPY">JPY · 日元</option><option value="CNY">CNY · 人民币</option></select></div>
-      <div class="field"><label>原始金额</label><input id="expenseAmount" type="number" value="3200" step="1" oninput="updateExpenseConversion()"></div>
-      <div class="field full"><div class="expense-conversion"><span>换算预览 <small>1 CNY ≈ 20.5 JPY</small></span><b id="expenseConversion">JPY 3,200 / CNY 156</b></div></div>
-      <div class="field"><label>费用类型</label><select><option>实际支出</option><option>预估金额</option><option>订金</option><option>退款</option></select></div>
-      <div class="field"><label>支付状态</label><select><option>已支付</option><option>待支付</option><option>无需支付</option></select></div>
-      <div class="field"><label>付款人</label><select><option>GCross</option><option>同行者 A</option><option>共同支付</option></select></div>
-      <div class="field"><label>分摊方式</label><select><option>2 人平均分摊</option><option>不分摊</option><option>自定义比例</option></select></div>
-      <div class="field full"><label>关联行程安排</label><select><option>10/12 10:20 · 平等院凤凰堂</option><option>10/12 12:40 · 中村藤吉本店</option><option>不关联</option></select></div>
-      <div class="field full"><label>备注</label><textarea placeholder="订单号摘要、游客、汇率或报销信息"></textarea></div>
-      <div class="field full"><div class="receipt-drop"><i>▧</i><span><b>添加收据或订单截图</b><br>仅保存在本地，可随 .enikki 导出</span><button onclick="toast('选择收据图片')">选择图片</button></div></div>
-    </div>
-    <div class="editor-foot"><button class="btn danger" onclick="toast('已删除这笔支出')">删除</button><button class="btn" onclick="closeExpenseEditor()">取消</button><button class="btn primary" onclick="saveExpenseEditor()">保存支出</button></div>
+
+<div class="backdrop" id="expenseBackdrop" onclick="closeExpenseEditor(event)">
+  <div class="modal" onclick="event.stopPropagation()"><div class="modal-head"><div><h3>添加支出</h3><p>费用进入双币种预算，并可关联行程安排</p></div><button class="close" onclick="closeExpenseEditor()">×</button></div>
+    <div class="expense-cats"><button class="expense-cat active">交通</button><button class="expense-cat">住宿</button><button class="expense-cat">餐饮</button><button class="expense-cat">门票</button><button class="expense-cat">活动</button><button class="expense-cat">购物</button><button class="expense-cat">保险</button><button class="expense-cat">其他</button></div>
+    <div class="form-grid"><div class="field full"><label>支出名称</label><input id="expenseName" value="平等院门票"></div><div class="field"><label>日期</label><input type="date" value="2026-10-12"></div><div class="field"><label>时间</label><input type="time" value="10:20"></div><div class="field"><label>原始币种</label><select id="expenseCurrency" onchange="updateExpenseConversion()"><option>JPY</option><option>CNY</option></select></div><div class="field"><label>原始金额</label><input id="expenseAmount" type="number" value="3200" oninput="updateExpenseConversion()"></div><div class="field full"><div class="conversion"><span>换算预览 · 1 CNY ≈ 20.5 JPY</span><b id="expenseConversion">JPY 3,200 / CNY 156</b></div></div><div class="field"><label>费用类型</label><select><option>实际支出</option><option>预估金额</option><option>订金</option><option>退款</option></select></div><div class="field"><label>支付状态</label><select><option>已支付</option><option>待支付</option><option>无需支付</option></select></div><div class="field"><label>付款人</label><select><option>GCross</option><option>同行者 A</option><option>共同支付</option></select></div><div class="field"><label>分摊方式</label><select><option>2 人平均分摊</option><option>不分摊</option><option>自定义比例</option></select></div><div class="field full"><label>关联行程</label><select><option>10/12 10:20 · 平等院凤凰堂</option><option>不关联</option></select></div><div class="field full"><label>备注</label><textarea></textarea></div><div class="field full"><div class="receipt"><span>▧</span><span>添加收据或订单截图<br><small>保存在本地，可随 .enikki 导出</small></span><button onclick="toast('选择收据图片')">选择图片</button></div></div></div>
+    <div class="modal-foot"><button class="btn danger" onclick="toast('已删除支出')">删除</button><button class="btn" onclick="closeExpenseEditor()">取消</button><button class="btn primary" onclick="saveExpenseEditor()">保存支出</button></div>
   </div>
 </div>
-<div class="photo-source-backdrop" id="photoSourceBackdrop" onclick="closePhotoSource(event)">
-  <div class="photo-source-modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
-    <h3>选择图片导入方式</h3>
-    <p id="photoSourceHint">为“参考图”选择来源</p>
-    <div class="photo-source-grid" id="photoSourceGrid"></div>
-    <button class="photo-source-close" onclick="closePhotoSource()">取消</button>
-  </div>
+
+<div class="backdrop" id="photoSourceBackdrop" onclick="closePhotoSource(event)">
+  <div class="modal" style="width:min(440px,calc(100vw - 36px))" onclick="event.stopPropagation()"><div class="modal-head"><div><h3>选择图片导入方式</h3><p id="photoSourceHint">为“参考图”选择来源</p></div><button class="close" onclick="closePhotoSource()">×</button></div><div class="source-list" id="photoSourceList"></div></div>
 </div>
-<div class="mobile-sheet-backdrop" id="mobileSheetBackdrop" onclick="closeMobileSheet(event)">
-  <div class="mobile-sheet" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
-    <div class="sheet-handle"></div>
-    <h3 id="mobileSheetTitle">安排</h3>
-    <div class="sheet-grid" id="mobileSheetGrid"></div>
-  </div>
-</div>
+<div class="mobile-sheet" id="mobileSheet" onclick="closeMobileSheet(event)"><div class="sheet-panel" onclick="event.stopPropagation()"><h3>安排</h3><div class="sheet-grid"><button onclick="openArrangeTab('transport')">🚄 交通</button><button onclick="openArrangeTab('lodging')">🏨 住宿</button><button onclick="openArrangeTab('meals')">🍵 用餐</button></div></div></div>
 <div class="toast" id="toast"></div>
 <script>
-const pageCopy = {
-  planner: ['我的行程 / 京都动画巡礼', '今天的巡礼计划', '10 月 12 日 · 宇治片区 · 当前进度 7 / 11'],
-  transport: ['我的行程 / 交通规划', '交通与路线衔接', '4 段行程 · 2 人 · 已确认 1 段'],
-  lodging: ['我的行程 / 住宿规划', '住宿区域与酒店', '2 晚 · 10 月 12 日入住 · 2 人'],
-  meals: ['我的行程 / 用餐规划', '每日用餐安排', '9 餐 · 2 个预约 · 1 项饮食提醒'],
-  budget: ['我的行程 / 预算管理', '交通、住宿、用餐与总预算', 'CNY 18,640 / JPY 382,000 · 双币种'],
-  settings: ['设置 / 通用与数据管理', '设置', '导入导出 · 离线准备 · 数据源与隐私'],
-  offline: ['准备 / 离线检查', '离线准备与数据导出', '4 项核心资料正常 · 1 项待补全']
+const copy={
+  plan:['我的行程 / 京都动画巡礼','京都动画巡礼','10 月 12 日 · 宇治片区 · 当前进度 7 / 11'],
+  arrange:['我的行程 / 安排','交通、住宿与用餐','4 段交通 · 2 晚住宿 · 9 个餐次'],
+  budget:['我的行程 / 预算','交通、住宿、用餐与总预算','CNY 18,640 / JPY 382,000 · 双币种'],
+  settings:['设置 / 通用与数据管理','设置','导入导出 · 离线准备 · 数据源与隐私']
 };
-
-const navButtons = document.querySelectorAll('.nav [data-view]');
-const views = document.querySelectorAll('.view');
-const mobileTargetByView = {
-  planner: 'planner', budget: 'budget',
-  transport: 'arrange', lodging: 'arrange', meals: 'arrange'
-};
-
-function activateView(name, pushState = true) {
-  if (!document.getElementById(`view-${name}`)) name = 'planner';
-  views.forEach((view) => view.classList.toggle('active', view.id === `view-${name}`));
-  navButtons.forEach((button) => button.classList.toggle('active', button.dataset.view === name));
-  const mobileTarget = mobileTargetByView[name];
-  document.querySelectorAll('[data-mobile-target]').forEach((button) => {
-    button.classList.toggle('active', button.dataset.mobileTarget === mobileTarget);
-  });
-  document.getElementById('settingsTopButton')?.classList.toggle(
-    'settings-active', name === 'settings' || name === 'offline'
-  );
-  const arrangeViews = new Set(['transport', 'lodging', 'meals']);
-  const arrangeGroup = document.querySelector('[data-nav-group="arrange"]');
-  const arrangeSubmenu = document.getElementById('submenu-arrange');
-  const inArrange = arrangeViews.has(name);
-  arrangeGroup?.classList.toggle('active', inArrange);
-  if (inArrange) arrangeSubmenu?.classList.add('open');
-  const copy = pageCopy[name];
-  document.getElementById('pageTitle').textContent = copy[1];
-  document.getElementById('pageSubtitle').textContent = copy[2];
-  document.getElementById('pageEyebrow').textContent = copy[0];
-  if (pushState && history.replaceState) {
-    history.replaceState(null, '', `?view=${name}`);
-  }
+const navButtons=document.querySelectorAll('[data-view]');
+const pages=document.querySelectorAll('.page');
+let activeArrangeTab='transport';
+function activateView(name,push=true){
+  if(!document.getElementById(`page-${name}`)) name='plan';
+  pages.forEach(p=>p.classList.toggle('active',p.id===`page-${name}`));
+  navButtons.forEach(b=>b.classList.toggle('active',b.dataset.view===name));
+  const info=copy[name];
+  document.getElementById('crumb').textContent=info[0];
+  document.getElementById('page-title').textContent=info[1];
+  document.getElementById('page-subtitle').textContent=info[2];
+  const arrangeGroup=document.querySelector('[data-nav-group="arrange"]');
+  const subnav=document.getElementById('subnav-arrange');
+  const inArrange=name==='arrange';
+  arrangeGroup?.classList.toggle('active',inArrange);
+  if(inArrange) subnav?.classList.add('open');
+  if(name==='arrange') renderArrangeTab(activeArrangeTab);
+  if(push&&history.replaceState)history.replaceState(null,'',`?view=${name}${name==='arrange'?`&tab=${activeArrangeTab}`:''}`);
 }
-
-navButtons.forEach((button) => {
-  button.addEventListener('click', () => activateView(button.dataset.view));
-});
-
-document.querySelectorAll('[data-nav-group]').forEach((button) => {
-  button.addEventListener('click', () => {
-    const submenu = document.getElementById(`submenu-${button.dataset.navGroup}`);
-    const open = submenu?.classList.toggle('open');
-    button.classList.toggle('open', Boolean(open));
-    button.setAttribute('aria-expanded', String(Boolean(open)));
-  });
-});
-
-const mobileSheetData = {
-  arrange: [
-    { view: 'transport', icon: '🚄', label: '交通', note: '城际与市内' },
-    { view: 'lodging', icon: '🏨', label: '住宿', note: '酒店与通勤' },
-    { view: 'meals', icon: '🍵', label: '用餐', note: '餐次与预约' }
-  ],
-};
-
-function openMobileSheet(type) {
-  const data = mobileSheetData[type] || mobileSheetData.arrange;
-  document.getElementById('mobileSheetTitle').textContent = '安排';
-  document.getElementById('mobileSheetGrid').innerHTML = data.map((item) => `
-    <button class="sheet-action"
-      ${item.view ? `data-view="${item.view}"` : `data-action="${item.action}"`}>
-      <i>${item.icon}</i><span>${item.label}</span><small>${item.note}</small>
-    </button>`).join('');
-  document.getElementById('mobileSheetBackdrop').classList.add('open');
+function openArrangeTab(tab){
+  activeArrangeTab=tab;
+  closeMobileSheet();
+  activateView('arrange');
 }
-
-function closeMobileSheet(event) {
-  if (event && event.target !== event.currentTarget) return;
-  document.getElementById('mobileSheetBackdrop').classList.remove('open');
+function renderArrangeTab(tab){
+  document.querySelectorAll('[data-arrange-tab]').forEach(b=>b.classList.toggle('active',b.dataset.arrangeTab===tab));
+  document.querySelectorAll('[data-arrange-panel]').forEach(p=>p.style.display=p.dataset.arrangePanel===tab?'block':'none');
+  document.querySelectorAll('[data-arrange-side]').forEach(p=>p.style.display=p.dataset.arrangeSide===tab?'block':'none');
 }
-
-document.querySelectorAll('[data-mobile-sheet]').forEach((button) => {
-  button.addEventListener('click', () => openMobileSheet(button.dataset.mobileSheet));
-});
-
-document.getElementById('mobileSheetGrid').addEventListener('click', (event) => {
-  const viewButton = event.target.closest('[data-view]');
-  const actionButton = event.target.closest('[data-action]');
-  if (viewButton) {
-    activateView(viewButton.dataset.view);
-    closeMobileSheet();
-    return;
-  }
-  if (actionButton) {
-    closeMobileSheet();
-    const actionMessages = { sources: '数据源状态：Bangumi 与 Anitabi 已连接', about: 'ENikki · AGPL-3.0 开源原型' };
-    toast(actionMessages[actionButton.dataset.action] || '操作已完成');
-  }
-});
-
-let photoTarget = null;
-const photoSourceOptions = {
-  reference: [
-    { source: 'anitabi', label: 'Anitabi 参考图', note: '按当前作品和点位选择', icon: 'A' },
-    { source: 'album', label: '手机相册', note: '选择已有参考图', icon: '▧' },
-    { source: 'file', label: '本地文件', note: '从电脑或文件应用导入', icon: '⇧' }
-  ],
-  actual: [
-    { source: 'camera', label: '拍照', note: '打开相机现场拍摄', icon: '◉' },
-    { source: 'album', label: '手机相册', note: '选择已有实拍照片', icon: '▧' },
-    { source: 'file', label: '本地文件', note: '从电脑或文件应用导入', icon: '⇧' }
-  ]
-};
-
-function openPhotoSource(slot) {
-  photoTarget = slot;
-  const side = slot.dataset.photoSide === 'actual' ? 'actual' : 'reference';
-  const sideLabel = side === 'actual' ? '实拍图' : '参考图';
-  document.getElementById('photoSourceHint').textContent = `为“${sideLabel}”选择来源`;
-  document.getElementById('photoSourceGrid').innerHTML = photoSourceOptions[side].map((item) => `
-    <button class="photo-source-choice" data-photo-source="${item.source}">
-      <i>${item.icon}</i><span>${item.label}<small>${item.note}</small></span>
-    </button>`).join('');
-  document.getElementById('photoSourceBackdrop').classList.add('open');
-}
-
-function closePhotoSource(event) {
-  if (event && event.target !== event.currentTarget) return;
-  document.getElementById('photoSourceBackdrop').classList.remove('open');
-}
-
-function choosePhotoSource(source) {
-  if (!photoTarget) return;
-  const side = photoTarget.dataset.photoSide === 'actual' ? 'actual' : 'reference';
-  const option = photoSourceOptions[side].find((item) => item.source === source);
-  if (!option) return;
-  photoTarget.classList.add('filled');
-  if (side === 'actual') photoTarget.classList.add('actual');
-  photoTarget.innerHTML = `<span class="empty-photo-icon">${option.icon}</span><b>${side === 'actual' ? '实拍图' : '参考图'}</b><small>${option.label} · 点击可替换</small>`;
-  closePhotoSource();
-}
-
-function addPhotoGroup() {
-  const groups = document.getElementById('photoGroups');
-  const number = groups.querySelectorAll('.photo-group').length + 1;
-  groups.insertAdjacentHTML('beforeend', `
-    <div class="photo-group" data-photo-group="${number}">
-      <div class="photo-group-head"><b>对比组 ${number}</b><span>点击图片框选择来源</span></div>
-      <div class="photo-pair">
-        <button class="photo-slot reference" data-photo-side="reference"><span class="empty-photo-icon">＋</span><b>参考图</b><small>点击选择 Anitabi 或本地图片</small></button>
-        <div class="pair-link"><span>↔</span><small>对比</small></div>
-        <button class="photo-slot actual" data-photo-side="actual"><span class="empty-photo-icon">＋</span><b>实拍图</b><small>点击选择拍照或手机相册</small></button>
-      </div>
-    </div>`);
-  toast(`已添加对比组 ${number}`);
-}
-
-document.getElementById('photoGroups').addEventListener('click', (event) => {
-  const slot = event.target.closest('.photo-slot');
-  if (slot) openPhotoSource(slot);
-});
-
-document.getElementById('photoSourceGrid').addEventListener('click', (event) => {
-  const button = event.target.closest('[data-photo-source]');
-  if (button) choosePhotoSource(button.dataset.photoSource);
-});
-
-const planTypeDefaults = {
-  spot: ['凤凰堂参拜与拍照', '平等院凤凰堂 · 宇治市宇治莲华 116'],
-  transport: ['平等院 → 大吉山', '步行路线 · 约 28 分钟'],
-  lodging: ['京都八条口酒店', '京都站八条口 · 2 晚'],
-  meal: ['中村藤吉本店', '宇治本店 · 2 人预约'],
-  checkin: ['凤凰堂拍照打卡', '参考图叠影 · 2—3 张'],
-  note: ['休息与自由活动', '平等院周边 · 弹性 30 分钟']
-};
-let activePlanType = 'spot';
-
-function selectPlanType(type) {
-  activePlanType = type;
-  document.querySelector('.plan-editor').dataset.selectedType = type;
-  document.querySelectorAll('[data-plan-type]').forEach((button) => {
-    button.classList.toggle('active', button.dataset.planType === type);
-  });
-  const defaults = planTypeDefaults[type] || planTypeDefaults.spot;
-  const name = document.getElementById('planEditorName');
-  if (name) name.value = defaults[0];
-}
-
-function openPlanEditor(type = 'spot') {
-  selectPlanType(type);
-  document.getElementById('planEditorBackdrop').classList.add('open');
-}
-
-function closePlanEditor(event) {
-  if (event && event.target !== event.currentTarget) return;
-  document.getElementById('planEditorBackdrop').classList.remove('open');
-}
-
-function savePlanEditor(closeAfterSave) {
-  toast('安排已保存，并重新计算路线与双币种预算');
-  if (closeAfterSave) closePlanEditor();
-}
-
-function openExpenseEditor(name = '') {
-  document.getElementById('expenseEditorTitle').textContent = name ? `编辑支出 · ${name}` : '添加支出';
-  if (name) document.getElementById('expenseEditorName').value = name;
-  updateExpenseConversion();
-  document.getElementById('expenseEditorBackdrop').classList.add('open');
-}
-
-function closeExpenseEditor(event) {
-  if (event && event.target !== event.currentTarget) return;
-  document.getElementById('expenseEditorBackdrop').classList.remove('open');
-}
-
-function updateExpenseConversion() {
-  const amount = Number(document.getElementById('expenseAmount').value) || 0;
-  const currency = document.getElementById('expenseCurrency').value;
-  const rate = 20.5;
-  const formatted = (value) => value.toLocaleString('en-US', { maximumFractionDigits: 0 });
-  const text = currency === 'JPY'
-    ? `JPY ${formatted(amount)} / CNY ${formatted(amount / rate)}`
-    : `CNY ${formatted(amount)} / JPY ${formatted(amount * rate)}`;
-  document.getElementById('expenseConversion').textContent = text;
-}
-
-function saveExpenseEditor() {
-  toast('支出已保存，并重新计算分类预算与双币种汇总');
-  closeExpenseEditor();
-}
-
-document.querySelectorAll('.expense-category').forEach((button) => {
-  button.addEventListener('click', () => {
-    document.querySelectorAll('.expense-category').forEach((item) => item.classList.remove('active'));
-    button.classList.add('active');
-  });
-});
-
-document.querySelectorAll('[data-plan-type]').forEach((button) => {
-  button.addEventListener('click', () => selectPlanType(button.dataset.planType));
-});
-
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    closeMobileSheet();
-    closePlanEditor();
-    closePhotoSource();
-    closeExpenseEditor();
-  }
-});
-
-document.querySelectorAll('.day-tabs button').forEach((button) => {
-  if (button.textContent.trim() === '＋') return;
-  button.addEventListener('click', () => {
-    button.parentElement.querySelectorAll('button').forEach((item) => item.classList.remove('active'));
-    button.classList.add('active');
-    toast(`已切换到 ${button.querySelector('b')?.textContent || '当天'} 的计划`);
-  });
-});
-
-let toastTimer;
-function toast(message) {
-  const element = document.getElementById('toast');
-  element.textContent = message;
-  element.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => element.classList.remove('show'), 2200);
-}
-
-const initialParams = new URLSearchParams(location.search);
-const initialView = initialParams.get('view') || 'planner';
-activateView(initialView, false);
-const initialSheet = initialParams.get('sheet');
-if (initialSheet) openMobileSheet(initialSheet);
-if (initialParams.get('editor') === 'add') {
-  openPlanEditor(initialParams.get('type') || 'spot');
-}
-if (initialParams.get('photoSource')) {
-  setTimeout(() => {
-    const actual = initialParams.get('photoSide') === 'actual';
-    const slot = document.querySelector(actual ? '.photo-slot.actual' : '.photo-slot.reference');
-    if (slot) openPhotoSource(slot);
-  }, 0);
-}
-if (initialParams.get('expense') === 'add') openExpenseEditor();
+document.querySelectorAll('[data-view]').forEach(button=>button.addEventListener('click',()=>activateView(button.dataset.view)));
+document.querySelectorAll('[data-arrange-tab]').forEach(button=>button.addEventListener('click',()=>openArrangeTab(button.dataset.arrangeTab)));
+document.querySelectorAll('[data-nav-group]').forEach(button=>button.addEventListener('click',()=>{
+  const target=document.getElementById(`subnav-${button.dataset.navGroup}`);
+  const open=target.classList.toggle('open');button.classList.toggle('open',open);
+}));
+document.querySelector('[data-mobile-sheet]').addEventListener('click',()=>document.getElementById('mobileSheet').classList.add('open'));
+function closeMobileSheet(event){if(event&&event.target!==event.currentTarget)return;document.getElementById('mobileSheet').classList.remove('open');}
+const planDefaults={spot:['平等院凤凰堂','平等院凤凰堂 · 宇治市宇治莲华 116'],transport:['平等院 → 大吉山','步行路线 · 约 28 分钟'],lodging:['京都八条口酒店','京都站八条口 · 2 晚'],meal:['中村藤吉本店','宇治本店 · 2 人预约'],checkin:['凤凰堂拍照打卡','参考图 + 实拍图'],note:['休息与自由活动','弹性 30 分钟']};
+function openPlanEditor(type='spot',title='添加行程安排'){selectPlanType(type);document.getElementById('planEditorTitle').textContent=title;document.getElementById('planEditorBackdrop').classList.add('open');}
+function closePlanEditor(event){if(event&&event.target!==event.currentTarget)return;document.getElementById('planEditorBackdrop').classList.remove('open');}
+function selectPlanType(type){document.querySelectorAll('[data-plan-type]').forEach(b=>b.classList.toggle('active',b.dataset.planType===type));document.getElementById('planEditorModal').classList.toggle('checkin-active',type==='checkin');document.getElementById('planEditorName').value=planDefaults[type][0];}
+document.querySelectorAll('[data-plan-type]').forEach(b=>b.addEventListener('click',()=>selectPlanType(b.dataset.planType)));
+function savePlanEditor(close){toast('安排已保存，路线和预算已重新计算');if(close)closePlanEditor();}
+const photoOptions={reference:[['anitabi','A','Anitabi 参考图','按当前作品和点位选择'],['album','▧','手机相册','选择已有参考图'],['file','⇧','本地文件','从电脑或文件应用导入']],actual:[['camera','◉','拍照','打开相机现场拍摄'],['album','▧','手机相册','选择已有实拍照片'],['file','⇧','本地文件','从电脑或文件应用导入']]};
+let photoTarget=null;
+document.getElementById('photoGroups').addEventListener('click',e=>{const slot=e.target.closest('.photo-slot');if(!slot)return;photoTarget=slot;const side=slot.dataset.photoSide==='actual'?'actual':'reference';const label=side==='actual'?'实拍图':'参考图';document.getElementById('photoSourceHint').textContent=`为“${label}”选择来源`;document.getElementById('photoSourceList').innerHTML=photoOptions[side].map(o=>`<button class="source-btn" data-source="${o[0]}"><i>${o[1]}</i><span>${o[2]}<small>${o[3]}</small></span></button>`).join('');document.getElementById('photoSourceBackdrop').classList.add('open');});
+document.getElementById('photoSourceList').addEventListener('click',e=>{const b=e.target.closest('[data-source]');if(!b||!photoTarget)return;const side=photoTarget.dataset.photoSide==='actual'?'actual':'reference';const option=photoOptions[side].find(o=>o[0]===b.dataset.source);if(!option)return;photoTarget.innerHTML=`<span class="plus">${option[1]}</span><b>${side==='actual'?'实拍图':'参考图'}</b><small>${option[2]} · 点击替换</small>`;closePhotoSource();});
+function closePhotoSource(event){if(event&&event.target!==event.currentTarget)return;document.getElementById('photoSourceBackdrop').classList.remove('open');}
+function addPhotoGroup(){const n=document.querySelectorAll('.photo-group').length+1;document.getElementById('photoGroups').insertAdjacentHTML('beforeend',`<div class="photo-group" style="margin-top:8px;padding-top:8px;border-top:1px dashed #d5e2dc"><div class="group-title"><b>对比组 ${n}</b><span>参考图 + 实拍图</span></div><div class="pair"><button class="photo-slot" data-photo-side="reference"><span class="plus">＋</span><b>参考图</b><small>点击选择来源</small></button><div class="pair-link">↔<br>对比</div><button class="photo-slot" data-photo-side="actual"><span class="plus">＋</span><b>实拍图</b><small>点击选择来源</small></button></div></div>`);}
+function openExpenseEditor(name=''){if(name)document.getElementById('expenseName').value=name;updateExpenseConversion();document.getElementById('expenseBackdrop').classList.add('open');}
+function closeExpenseEditor(event){if(event&&event.target!==event.currentTarget)return;document.getElementById('expenseBackdrop').classList.remove('open');}
+function updateExpenseConversion(){const a=Number(document.getElementById('expenseAmount').value)||0,c=document.getElementById('expenseCurrency').value,f=v=>v.toLocaleString('en-US',{maximumFractionDigits:0});document.getElementById('expenseConversion').textContent=c==='JPY'?`JPY ${f(a)} / CNY ${f(a/20.5)}`:`CNY ${f(a)} / JPY ${f(a*20.5)}`;}
+function saveExpenseEditor(){toast('支出已保存，预算汇总已更新');closeExpenseEditor();}
+document.querySelectorAll('.expense-cat').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.expense-cat').forEach(x=>x.classList.remove('active'));b.classList.add('active');}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePlanEditor();closeExpenseEditor();closePhotoSource();closeMobileSheet();}});
+let timer;function toast(text){const t=document.getElementById('toast');t.textContent=text;t.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>t.classList.remove('show'),2200);}
+const params=new URLSearchParams(location.search);const initialView=params.get('view')||'plan';if(params.get('tab'))activeArrangeTab=params.get('tab');activateView(initialView,false);if(params.get('editor')==='add')openPlanEditor(params.get('type')||'spot');if(params.get('photoSource'))setTimeout(()=>{const side=params.get('photoSide')==='actual'?'actual':'reference';document.querySelector(`.photo-slot[data-photo-side="${side}"]`)?.click();},0);if(params.get('expense')==='add')openExpenseEditor();if(params.get('sheet')==='arrange')document.getElementById('mobileSheet').classList.add('open');
 </script>
 </body>
 </html>
