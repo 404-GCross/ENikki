@@ -139,6 +139,9 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
 .photo-group-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;color:#30483e;font-size:9px;font-weight:800}.photo-group-head span{margin-left:auto;color:#7b8b83;font-size:7px;font-weight:500}.photo-pair{display:grid;grid-template-columns:1fr 44px 1fr;gap:8px;align-items:center}.photo-slot{min-height:112px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:1px dashed #afc9bd;border-radius:13px;color:#6a7c73;background:#fbfdfc;text-align:center}.photo-slot:hover{border-color:var(--green);background:#f1f9f5}.photo-slot b{color:#395248;font-size:9px}.photo-slot small{max-width:130px;color:#829089;font-size:7px;line-height:1.35}.photo-slot .empty-photo-icon{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;color:var(--green);background:#e5f3ed;font-size:17px}.photo-slot.filled{border-style:solid;border-color:#a7cbb9;background:linear-gradient(145deg,#789c91,#d3c995);color:#fff}.photo-slot.filled.actual{background:linear-gradient(145deg,#6e96aa,#d7b789)}.photo-slot.filled .empty-photo-icon{color:#fff;background:rgba(26,82,61,.7)}.photo-slot.filled b{color:#fff}.photo-slot.filled small{color:rgba(255,255,255,.86)}.pair-link{display:grid;place-items:center;color:#799087}.pair-link span{font-size:18px}.pair-link small{font-size:6px}.photo-group+.photo-group{margin-top:9px;padding-top:9px;border-top:1px dashed #d5e2dc}.photo-group-tools{display:flex;gap:7px;margin-top:9px}.photo-group-tools button{padding:7px 9px;border:1px solid #d7e5de;border-radius:9px;color:#3d594d;background:#fff;font-size:8px}.photo-group-tools .add-group{color:var(--green);border-color:#bbdacb;background:#edf8f3}.photo-group-tools .save-compare{color:#fff;border-color:var(--green);background:var(--green)}.photo-source-backdrop{position:fixed;inset:0;z-index:90;display:none;place-items:center;padding:18px;background:rgba(15,32,26,.38);backdrop-filter:blur(5px)}.photo-source-backdrop.open{display:grid}.photo-source-modal{width:min(430px,calc(100vw - 36px));padding:18px;border-radius:22px;background:#fff;box-shadow:0 28px 70px rgba(14,35,27,.3)}.photo-source-modal h3{margin:0;font-size:14px}.photo-source-modal p{margin:4px 0 14px;color:#7a8982;font-size:8px}.photo-source-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.photo-source-choice{display:flex;align-items:center;gap:9px;padding:11px;border:1px solid #e0e9e4;border-radius:12px;color:#385047;background:#fafcfb;font-size:9px;text-align:left}.photo-source-choice:hover{border-color:#9ecbb6;background:#eff9f4}.photo-source-choice i{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;color:var(--green);background:#e7f3ed;font-size:15px;font-style:normal}.photo-source-choice small{display:block;margin-top:3px;color:#85928c;font-size:7px}.photo-source-close{margin-top:10px;width:100%;padding:9px;border-radius:10px;color:#62756c;background:#eff3f1;font-size:9px}
 @media(max-width:760px){.photo-pair{grid-template-columns:1fr 30px 1fr}.photo-slot{min-height:102px}.photo-source-grid{grid-template-columns:1fr}.photo-group-tools{display:grid;grid-template-columns:1fr 1fr}}
 
+.expense-editor{width:min(650px,calc(100vw - 40px))}.expense-category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:13px 16px 4px}.expense-category{padding:8px 5px;border:1px solid #e2eae5;border-radius:10px;color:#53675e;background:#fafcfb;font-size:8px}.expense-category.active{color:#fff;border-color:var(--green);background:var(--green)}.expense-conversion{display:flex;align-items:center;justify-content:space-between;margin-top:7px;padding:9px 11px;border-radius:11px;color:#496158;background:#eef8f3;font-size:9px}.expense-conversion b{color:var(--green);font-size:11px}.receipt-drop{display:flex;align-items:center;gap:10px;padding:11px;border:1px dashed #b9d2c6;border-radius:11px;color:#667970;background:#f9fcfa;font-size:8px}.receipt-drop i{width:31px;height:31px;display:grid;place-items:center;border-radius:9px;color:var(--green);background:#e4f2ec;font-size:14px;font-style:normal}.receipt-drop button{margin-left:auto;padding:6px 8px;border-radius:8px;color:var(--green);background:#e4f2ec;font-size:8px}
+@media(max-width:760px){.expense-category-grid{grid-template-columns:repeat(2,1fr)}.expense-editor .plan-form{grid-template-columns:1fr}.expense-conversion{align-items:flex-start;gap:5px;flex-direction:column}}
+
 </style>
 </head>
 <body>
@@ -440,7 +443,7 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
               <div class="subline"><span>上限 <b>CNY22,000 / JPY451,000</b></span><span>已支付 <b>CNY9,260 / JPY189,900</b></span><span>剩余 <b>CNY3,360 / JPY68,900</b></span><span>汇率 <b>1 CNY ≈ 20.5 JPY</b></span></div>
             </div>
             <div class="card soft-card" style="flex:1">
-              <div class="card-head"><div><h3>分类预算</h3><p>交通、住宿和餐饮为主要支出</p></div><button class="btn">添加支出</button></div>
+              <div class="card-head"><div><h3>分类预算</h3><p>交通、住宿和餐饮为主要支出</p></div><button class="btn soft" onclick="openExpenseEditor()">＋ 添加支出</button></div>
               <div class="option-list" style="padding-top:12px">
                 <div class="option"><div class="option-ico">✈</div><div><h4>城际与市内交通</h4><p>8 段 · 预估 ¥7,840，实际 ¥6,900</p></div><div class="price"><b>CNY 7,840</b><small>JPY 160,700 · 35.6%</small></div></div>
                 <div class="option"><div class="option-ico">🏨</div><div><h4>住宿</h4><p>2 晚 · 京都八条口酒店</p></div><div class="price"><b>CNY 5,120</b><small>JPY 105,000 · 23.2%</small></div></div>
@@ -464,10 +467,10 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
             <div class="card soft-card" style="flex:1">
               <div class="card-head"><div><h3>最近支出</h3><p>预估与实际自动对齐</p></div></div>
               <div class="expense-list">
-                <div class="expense"><div class="expense-ico">✈</div><div><h4>国际航班</h4><p>已支付 · 2 人</p></div><div class="amount"><b>CNY2,960</b><small>JPY60,700 · 实际</small></div></div>
-                <div class="expense"><div class="expense-ico">🏨</div><div><h4>酒店定金</h4><p>10/12 · 信用卡</p></div><div class="amount"><b>CNY5,120</b><small>JPY105,000 · 已支付</small></div></div>
-                <div class="expense"><div class="expense-ico">🍵</div><div><h4>中村藤吉本店</h4><p>午餐预约 · 2 人</p></div><div class="amount"><b>JPY4,200</b><small>≈CNY205 · 预估</small></div></div>
-                <div class="expense"><div class="expense-ico">🎫</div><div><h4>平等院门票</h4><p>凤凰堂参观</p></div><div class="amount"><b>JPY3,200</b><small>≈CNY156 · 预估</small></div></div>
+                <div class="expense" onclick="openExpenseEditor('国际航班')"><div class="expense-ico">✈</div><div><h4>国际航班</h4><p>已支付 · 2 人</p></div><div class="amount"><b>CNY2,960</b><small>JPY60,700 · 实际</small></div></div>
+                <div class="expense" onclick="openExpenseEditor('酒店定金')"><div class="expense-ico">🏨</div><div><h4>酒店定金</h4><p>10/12 · 信用卡</p></div><div class="amount"><b>CNY5,120</b><small>JPY105,000 · 已支付</small></div></div>
+                <div class="expense" onclick="openExpenseEditor('中村藤吉本店')"><div class="expense-ico">🍵</div><div><h4>中村藤吉本店</h4><p>午餐预约 · 2 人</p></div><div class="amount"><b>JPY4,200</b><small>≈CNY205 · 预估</small></div></div>
+                <div class="expense" onclick="openExpenseEditor('平等院门票')"><div class="expense-ico">🎫</div><div><h4>平等院门票</h4><p>凤凰堂参观</p></div><div class="amount"><b>JPY3,200</b><small>≈CNY156 · 预估</small></div></div>
               </div>
             </div>
           </aside>
@@ -617,6 +620,30 @@ button,input{font:inherit}button{border:0;cursor:pointer}svg{display:block}
       <button class="btn primary" onclick="savePlanEditor(true)">保存安排</button>
     </div>
     <div class="plan-editor-note">支持拖动排序、锁定时间和设置预约提醒；费用会自动计入双币种预算。</div>
+  </div>
+</div>
+<div class="plan-editor-backdrop" id="expenseEditorBackdrop" onclick="closeExpenseEditor(event)">
+  <div class="plan-editor expense-editor" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+    <div class="plan-editor-head"><div><h3 id="expenseEditorTitle">添加支出</h3><p>费用会进入双币种预算，并可关联具体行程安排</p></div><button class="plan-editor-close" onclick="closeExpenseEditor()">×</button></div>
+    <div class="expense-category-grid">
+      <button class="expense-category active">交通</button><button class="expense-category">住宿</button><button class="expense-category">餐饮</button><button class="expense-category">门票</button><button class="expense-category">活动</button><button class="expense-category">购物</button><button class="expense-category">保险</button><button class="expense-category">其他</button>
+    </div>
+    <div class="plan-form">
+      <div class="field full"><label>支出名称</label><input id="expenseEditorName" value="平等院门票" placeholder="例如：宇治市内交通"></div>
+      <div class="field"><label>日期</label><input type="date" value="2026-10-12"></div>
+      <div class="field"><label>时间</label><input type="time" value="10:20"></div>
+      <div class="field"><label>原始币种</label><select id="expenseCurrency" onchange="updateExpenseConversion()"><option value="JPY">JPY · 日元</option><option value="CNY">CNY · 人民币</option></select></div>
+      <div class="field"><label>原始金额</label><input id="expenseAmount" type="number" value="3200" step="1" oninput="updateExpenseConversion()"></div>
+      <div class="field full"><div class="expense-conversion"><span>换算预览 <small>1 CNY ≈ 20.5 JPY</small></span><b id="expenseConversion">JPY 3,200 / CNY 156</b></div></div>
+      <div class="field"><label>费用类型</label><select><option>实际支出</option><option>预估金额</option><option>订金</option><option>退款</option></select></div>
+      <div class="field"><label>支付状态</label><select><option>已支付</option><option>待支付</option><option>无需支付</option></select></div>
+      <div class="field"><label>付款人</label><select><option>GCross</option><option>同行者 A</option><option>共同支付</option></select></div>
+      <div class="field"><label>分摊方式</label><select><option>2 人平均分摊</option><option>不分摊</option><option>自定义比例</option></select></div>
+      <div class="field full"><label>关联行程安排</label><select><option>10/12 10:20 · 平等院凤凰堂</option><option>10/12 12:40 · 中村藤吉本店</option><option>不关联</option></select></div>
+      <div class="field full"><label>备注</label><textarea placeholder="订单号摘要、游客、汇率或报销信息"></textarea></div>
+      <div class="field full"><div class="receipt-drop"><i>▧</i><span><b>添加收据或订单截图</b><br>仅保存在本地，可随 .enikki 导出</span><button onclick="toast('选择收据图片')">选择图片</button></div></div>
+    </div>
+    <div class="editor-foot"><button class="btn danger" onclick="toast('已删除这笔支出')">删除</button><button class="btn" onclick="closeExpenseEditor()">取消</button><button class="btn primary" onclick="saveExpenseEditor()">保存支出</button></div>
   </div>
 </div>
 <div class="photo-source-backdrop" id="photoSourceBackdrop" onclick="closePhotoSource(event)">
@@ -838,6 +865,41 @@ function savePlanEditor(closeAfterSave) {
   if (closeAfterSave) closePlanEditor();
 }
 
+function openExpenseEditor(name = '') {
+  document.getElementById('expenseEditorTitle').textContent = name ? `编辑支出 · ${name}` : '添加支出';
+  if (name) document.getElementById('expenseEditorName').value = name;
+  updateExpenseConversion();
+  document.getElementById('expenseEditorBackdrop').classList.add('open');
+}
+
+function closeExpenseEditor(event) {
+  if (event && event.target !== event.currentTarget) return;
+  document.getElementById('expenseEditorBackdrop').classList.remove('open');
+}
+
+function updateExpenseConversion() {
+  const amount = Number(document.getElementById('expenseAmount').value) || 0;
+  const currency = document.getElementById('expenseCurrency').value;
+  const rate = 20.5;
+  const formatted = (value) => value.toLocaleString('en-US', { maximumFractionDigits: 0 });
+  const text = currency === 'JPY'
+    ? `JPY ${formatted(amount)} / CNY ${formatted(amount / rate)}`
+    : `CNY ${formatted(amount)} / JPY ${formatted(amount * rate)}`;
+  document.getElementById('expenseConversion').textContent = text;
+}
+
+function saveExpenseEditor() {
+  toast('支出已保存，并重新计算分类预算与双币种汇总');
+  closeExpenseEditor();
+}
+
+document.querySelectorAll('.expense-category').forEach((button) => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('.expense-category').forEach((item) => item.classList.remove('active'));
+    button.classList.add('active');
+  });
+});
+
 document.querySelectorAll('[data-plan-type]').forEach((button) => {
   button.addEventListener('click', () => selectPlanType(button.dataset.planType));
 });
@@ -847,6 +909,7 @@ document.addEventListener('keydown', (event) => {
     closeMobileSheet();
     closePlanEditor();
     closePhotoSource();
+    closeExpenseEditor();
   }
 });
 
@@ -883,6 +946,7 @@ if (initialParams.get('photoSource')) {
     if (slot) openPhotoSource(slot);
   }, 0);
 }
+if (initialParams.get('expense') === 'add') openExpenseEditor();
 </script>
 </body>
 </html>

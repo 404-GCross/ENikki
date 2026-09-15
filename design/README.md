@@ -78,6 +78,13 @@ enikki-ui.html?view=offline
 ![预算管理](preview-budget.png)
 
 支持同时显示 CNY 和 JPY，分类、汇总、支出明细与汇率更新时间保持一致。
+“添加支出”和已有支出记录都可以打开编辑窗口。
+
+![添加支出](preview-budget-expense.png)
+
+手机端使用底部编辑面板：
+
+![手机端添加支出](preview-mobile-budget-expense.png)
 
 ### 设置
 
