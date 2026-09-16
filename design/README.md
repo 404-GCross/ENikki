@@ -70,6 +70,9 @@ enikki-ui.html?view=budget&expense=add
 
 ### 预算
 
+支出明细位于主区域并完整列出全部支出，支持点击编辑和拖动排序；分类预算与
+占比图表位于右侧。
+
 ![桌面预算](preview-budget.png)
 
 ### 设置

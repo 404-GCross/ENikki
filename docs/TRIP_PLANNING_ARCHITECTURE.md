@@ -515,6 +515,7 @@ final class BudgetItem {
   final String? linkedItemId;
   final Set<String> travelerIds;
   final PaymentStatus paymentStatus;
+  final int sortOrder;
   final String? note;
 }
 ```
@@ -544,6 +545,9 @@ BudgetSummary calculateBudget(
   RateTable rates,
 );
 ```
+
+支出明细使用显式 `sortOrder` 保存顺序。应用层提供 `ReorderBudgetItems`
+命令，支持手动排序，也可以派生按日期、金额或分类排序的只读视图。
 
 导出时不只保存总额，还保存形成总额的汇率、分摊方式和预算项快照。
 
